@@ -195,7 +195,6 @@ a, button, input[type="button"]
     &:hover
       transform: scale(1.05)
       background-color: cornflowerblue
-      color: #ececec
 
 .footer
   background-color: #e6e6e6
@@ -211,6 +210,50 @@ a, button, input[type="button"]
 
   &__link
     color: #7a7a7a
+
+.login
+  display: flex
+  flex-direction: column
+  width: 50%
+  height: 50%
+  align-items: flex-start
+  justify-content: space-between
+  margin-top: 50px
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17)
+  border: solid 1px #ececec
+  background-color: #ececec
+  padding: 20px
+
+  h3
+    font-size: 30px
+    font-weight: bolder
+
+  &> div, h3
+    margin-bottom: 20px
+
+  &__input
+    border: solid 1px white
+    padding: 0 15px
+    min-width: 100%
+    height: 45px
+    transition: all 0.25s
+    margin-top: 20px
+    &:focus, &:hover
+      transform: scale(1.05)
+      border-color: cornflowerblue
+
+  &__label
+    font-weight: lighter
+
+  &__submit
+    @extend .content__add
+    border: solid 1px white
+    width: 100px
+    height: 30px
+    &:hover
+      color: white !important
+
+
 
 
 
