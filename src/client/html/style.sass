@@ -82,6 +82,9 @@ a
 
 a, button, input[type="button"]
   cursor: pointer
+  transition: all 0.25s
+  &:hover
+    color: cornflowerblue !important
 
 .container
   max-width: 1144px
@@ -89,11 +92,126 @@ a, button, input[type="button"]
 .header
   display: flex
   justify-content: space-between
-  min-height: 50px
+  min-height: 75px
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17)
   border: solid 1px #ececec
   background-color: #ececec
   align-items: center
   margin-bottom: 25px
 
+  &__left
+    width: 40%
+
   &__logo
+    font-weight: bold
+    transition: all 0.25s
+    & span, &:hover
+      color: cornflowerblue
+      font-weight: bolder
+
+  &__right
+    display: flex
+    align-items: center
+
+
+  &__username
+    margin-right: 20px
+    color: cornflowerblue
+    font-weight: bold
+
+  &__avatar
+    width: 50px
+    height: 50px
+    border-radius: 50px
+
+.content
+
+  &__filter
+    display: flex
+    align-items: flex-start
+    justify-content: space-between
+    margin-bottom: 50px
+
+
+  &__submit
+    background: none
+    border: solid 1px #eaeaea
+    padding: 0 15px
+    transition: background 0.25s, color 0.25s
+    font-weight: bold
+    height: 32px
+    &:hover
+      transform: scale(1.05)
+      background-color: cornflowerblue
+      color: #ececec
+  &__search
+    border: solid 1px #eaeaea
+    padding: 0 15px
+    height: 30px
+    transition: all 0.25s
+    width: 300px
+    &:focus, &:hover
+      transform: scale(1.05)
+      border-color: cornflowerblue
+
+  &__recipes
+    display: grid
+    grid-template-columns: 1fr 1fr
+    grid-template-rows: 1fr
+    grid-gap: 20px
+
+  &__recipe
+    height: 200px
+    width: 500px
+    display: flex
+    border: 1px solid #eaeaea
+    padding: 10px
+    transition: all 0.25s
+    &:hover
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17)
+      transform: scale(1.02)
+
+
+  &__desc
+    display: flex
+    flex-direction: column
+    h3, p
+      text-align: center
+      margin-bottom: 5px
+
+  &__pic
+    height: 200px
+    width: 200px
+    margin-right: 20px
+
+  &__add
+    background: none
+    border: solid 1px #eaeaea
+    padding: 0 15px
+    transition: background 0.25s, color 0.25s
+    font-weight: bold
+    height: 30px
+    margin-top: 20px
+    &:hover
+      transform: scale(1.05)
+      background-color: cornflowerblue
+      color: #ececec
+
+.footer
+  background-color: #e6e6e6
+  margin-top: 40px
+
+  &__container
+    height: 50px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    font-size: 14px
+    color: #7a7a7a
+
+  &__link
+    color: #7a7a7a
+
+
+
+
