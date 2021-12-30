@@ -30,7 +30,7 @@ async function sqlRequest(sql, params = null) {
 
 (async () => {
   await startDataBase();
-  //console.dir(await addUserToDb('testuser1', 'tes1@gmail.com', 'sfdsdfs'));
+
 })();
 
 async function addUserToDb(username, email, password) {
@@ -49,4 +49,23 @@ VALUES (NULL, ?, ?, ?);`;
   return false;
 }
 
-
+async function addRecipeToDb(
+  name,
+  category,
+  products,
+  description,
+  imageLink
+) {
+  const addRecipeRequest = `INSERT INTO \`recipes\`
+    (id, name, category, products, description, image_link)
+    VALUES (NULL, ?, ?, ?, ?, ?);`;
+  const res = await sqlRequest(addRecipeRequest, [
+    name,
+    category,
+    products,
+    description,
+    imageLink,
+  ]);
+  if (res.affectedRows === 1) return true;
+  return false;
+}
