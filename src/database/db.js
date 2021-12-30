@@ -56,7 +56,7 @@ async function addRecipeToDb(
   description,
   imageLink
 ) {
-  const addRecipeRequest = `INSERT INTO \`recipes\`
+  const addRecipeRequest = `INSERT INTO recipes
     (id, name, category_id, products, description, image_link)
     VALUES (NULL, ?, ?, ?, ?, ?);`;
   const res = await sqlRequest(addRecipeRequest, [
@@ -70,7 +70,27 @@ async function addRecipeToDb(
   return false;
 }
 
+async function addCategoryToDb(categoryName) {
+  const addCategoryRequest = `INSERT INTO categories
+    (id, name)
+    VALUES (NULL, ?);`;
+  const res = await sqlRequest(addCategoryRequest, [categoryName]);
+  if (res.affectedRows === 1) return true;
+  return false;
+}
+
+async function addUserFavRecipeToDb(userId, recipeId) {
+  const addUserFavRecipeRequest = `INSERT INTO favourite_recipes
+      (id, user_id, recipe_id)
+      VALUES (NULL, ?, ?);`;
+  const res = await sqlRequest(addUserFavRecipeRequest, [userId, recipeId]);
+  if (res.affectedRows === 1) return true;
+  return false;
+}
+
 module.exports = {
   addUserToDb,
-  addRecipeToDb
+  addRecipeToDb,
+  addCategoryToDb,
+  addUserFavRecipeToDb,
 };
