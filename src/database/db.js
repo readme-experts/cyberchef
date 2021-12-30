@@ -51,17 +51,17 @@ VALUES (NULL, ?, ?, ?);`;
 
 async function addRecipeToDb(
   name,
-  category,
+  categoryId,
   products,
   description,
   imageLink
 ) {
   const addRecipeRequest = `INSERT INTO \`recipes\`
-    (id, name, category, products, description, image_link)
+    (id, name, category_id, products, description, image_link)
     VALUES (NULL, ?, ?, ?, ?, ?);`;
   const res = await sqlRequest(addRecipeRequest, [
     name,
-    category,
+    categoryId,
     products,
     description,
     imageLink,
