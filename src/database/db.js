@@ -41,8 +41,8 @@ async function addUserToDb(username, email, password) {
   const checkMailExistence = await sqlRequest(findMailRequest, [email]);
   if (checkMailExistence[0]) return 'User with this email already exists';
 
-  const addUserRequest = `INSERT INTO \`usersdata\`
-(\`id\`, \`username\`, \`email\`, \`password\`)
+  const addUserRequest = `INSERT INTO usersdata
+(id, username, email, password)
 VALUES (NULL, ?, ?, ?);`;
   const res = await sqlRequest(addUserRequest, [username, email, password]);
   if (res.affectedRows === 1) return true;
@@ -69,3 +69,8 @@ async function addRecipeToDb(
   if (res.affectedRows === 1) return true;
   return false;
 }
+
+module.exports = {
+  addUserToDb,
+  addRecipeToDb
+};
