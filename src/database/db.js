@@ -16,7 +16,20 @@ async function startDataBase() {
   });
 }
 
+async function sqlRequest(sql, params = null) {
+  return new Promise((resolve, reject) => {
+    con.query(sql, params, (err, rows) => {
+      if (err) {
+        console.dir(err);
+        reject(new Error('Error!!!'));
+      } else {
+        resolve(rows);
+      }
+    });
+  }).then();
+}
 
 (async () => {
   await startDataBase();
+  console.dir(await sqlRequest('Select * from usersdata'));
 })();
