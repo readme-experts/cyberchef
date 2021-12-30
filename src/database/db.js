@@ -1,6 +1,6 @@
 'use strict';
 const mysql = require('mysql');
-const config = require('./config.json');
+const config = require('./config/config.json');
 
 let con;
 async function startDataBase() {
