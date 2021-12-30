@@ -21,7 +21,7 @@ async function sqlRequest(sql, params = null) {
     con.query(sql, params, (err, rows) => {
       if (err) {
         console.dir(err);
-        reject(new Error('Error!!!'));
+        reject(new Error(err));
       } else {
         resolve(rows);
       }
