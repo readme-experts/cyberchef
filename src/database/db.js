@@ -17,7 +17,7 @@ async function startDataBase() {
 }
 
 async function sqlRequest(sql, params = null) {
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     con.query(sql, params, (err, rows) => {
       if (err) {
         reject(new Error(err));
@@ -25,21 +25,22 @@ async function sqlRequest(sql, params = null) {
         resolve(rows);
       }
     });
-  }).then();
+  });
 }
 
 (async () => {
   await startDataBase();
-
 })();
 
 async function addUserToDb(username, email, password) {
   const findUserRequest = `SELECT * FROM usersdata WHERE username = ?`;
   const checkUserExistence = await sqlRequest(findUserRequest, [username]);
-  if (checkUserExistence[0]) return 'User with this username already exists';
+  if (checkUserExistence[0])
+    throw new Error('User with this username already exists');
   const findMailRequest = `SELECT * FROM usersdata WHERE email = ?`;
   const checkMailExistence = await sqlRequest(findMailRequest, [email]);
-  if (checkMailExistence[0]) return 'User with this email already exists';
+  if (checkMailExistence[0])
+    throw new Error('User with this email already exists');
 
   const addUserRequest = `INSERT INTO usersdata
 (id, username, email, password)
