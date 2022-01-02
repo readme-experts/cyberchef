@@ -5,6 +5,7 @@
     "fastify": "^3.25.3",
     "fastify-static": "^4.5.0",
     "mysql": "^2.18.1",
+    "puppeteer": "^13.0.1",
     "vue": "^2.6.14"
   }
 }
