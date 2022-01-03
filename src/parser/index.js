@@ -3,6 +3,8 @@
 const cheerio = require('cheerio');
 const chalk = require('chalk');
 
+import {getPageContent} from './helpers/puppeteer';
+
 const SITE = 'https://www.povarenok.ru/recipes/show/';
 let page = 100000;
 (async function main() {
