@@ -7,11 +7,11 @@ const SITE = 'https://www.povarenok.ru/recipes/show/';
 let page = 100000;
 (async function main() {
   try {
-    for(;page < 100100; page++) {
+    for (;page < 100100; page++) {
       const url = `${SITE}${page}`;
-      const pageContent = await getPageContent(url); // function is not ready yet
+      const pageContent = await getPageContent(url);//function is not ready yet
     }
-  } catch {
+  } catch (err){
     console.log(chalk.red('An error has occured \n'));
     console.log(err);
   }
