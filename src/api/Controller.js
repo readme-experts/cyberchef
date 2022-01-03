@@ -19,17 +19,16 @@ class Controller  {
         }
     }
 
-    // async getRecipe(req,res) {
-    //     try {
-    //         const recipeId = db.getRecipe()
-    //         const newRecipe = {name,categoryId,products,description,imageLink}
-    //         await db.addRecipeToDb(newRecipe.name,newRecipe.categoryId,newRecipe.products,
-    //             newRecipe.description, newRecipe.imageLink)
-    //     } catch (e) {
-    //         console.log(e)
-    //         res.status(400).json({message: 'Registration error'});
-    //     }
-    // }
+    async getRecipeById(req,res) {
+        try {
+            const {id} = req.body
+            const neededRecipe = await db.getRecipe(id)
+            return res.json({message: neededRecipe})
+        } catch (e) {
+            console.log(e)
+            res.status(400).json({message: 'error by getting recipe by id'});
+        }
+    }
     async getAllRecipes(req,res) {
         const allRecipes = await db.getAllRecipes()
         return res.json({recipes: allRecipes})
@@ -38,12 +37,16 @@ class Controller  {
             res.status(400).json({message: 'Error ocured while getting recipes list'});
         }
     
-        async deleteRecipe(req,res) {
-            
-            } catch (e) {
-                console.log(e)
-                res.status(400).json({message: 'Registration error'});
-            }
+    async deleteRecipeById(req,res) {
+        try {
+            const {id} = req.body
+            await db.deleteRecipe(id)
+            return res.json({message: "recipe successfully deleted"})
+        } catch (e) {
+            console.log(e)
+            res.status(400).json({message: 'error by deleting receipe'});
+        }
+    }
     
 
 }

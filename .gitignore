@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 src/database/config/config.json
+.DS_Store
+src/.DS_Store
+src/api/.env
