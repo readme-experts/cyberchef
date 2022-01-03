@@ -116,6 +116,20 @@ async function getUserFavRecipes(userId) {
   return undefined;
 }
 
+async function getRecipe(recipeId) {
+  const getRecipeRequest = `SELECT * FROM recipes WHERE id = ?`;
+  const res = await sqlRequest(getRecipeRequest, [recipeId]);
+  if (res[0]) return res[0];
+  return undefined;
+}
+
+async function deleteRecipe(recipeId) {
+  const deleteRecipeRequest = `DELETE FROM recipes WHERE id = ?`;
+  const res = await sqlRequest(deleteRecipeRequest, [recipeId]);
+  if (res.affectedRows === 1) return true;
+  return false;
+}
+
 module.exports = {
   addUserToDb,
   addRecipeToDb,
@@ -123,5 +137,7 @@ module.exports = {
   addUserFavRecipeToDb,
   getAllRecipes,
   getUserData,
-  getUserFavRecipes
+  getUserFavRecipes,
+  getRecipe,
+  deleteRecipe
 };
