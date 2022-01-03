@@ -1,6 +1,6 @@
 'use strict';
 const mysql = require('mysql');
-const config = require('./config/config.json');
+const config = require('./config/config.json')
 
 let con;
 async function startDataBase() {
@@ -130,6 +130,12 @@ async function deleteRecipe(recipeId) {
   return false;
 }
 
+async function getAllUsers() {
+  const getUsersRequest = `SELECT * FROM usersdata`;
+  const res = await sqlRequest(getUsersRequest);
+  return res; //returns array of objects(users)
+}
+
 module.exports = {
   addUserToDb,
   addRecipeToDb,
@@ -139,5 +145,6 @@ module.exports = {
   getUserData,
   getUserFavRecipes,
   getRecipe,
-  deleteRecipe
+  deleteRecipe,
+  getAllUsers
 };

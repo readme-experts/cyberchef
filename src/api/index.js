@@ -1,19 +1,23 @@
-import express from 'express'
-import router from './router.js'
+const express = require('express');
+const router = require('./router')
+const authRouter = require('./authRouter')
 
 
-const app = express()
+require('dotenv').config()
 
-app.use(express.json())
-app.use('/api',router)
+const app = express();
+const PORT = process.env.PORT 
 
-async function startApp(){
-    try{
-        app.listen(process.env.PORT ,() => console.log(`Server started on PORT ${PORT}`))
- 
-    } catch(e){
-        console.log(e)
-    }
+app.use(express.json());
+app.use('/', router);
+app.use('/auth',authRouter);
+
+async function startApp() {
+  try {
+    app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
+  } catch (e) {
+    console.log(e);
+  }
 }
 
-startApp()
+startApp();

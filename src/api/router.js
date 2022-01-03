@@ -1,24 +1,17 @@
-import Router from 'express'
-import Controller  from './Controller.js'
-
-
+const Router = require('express')
 const router = new Router()
-
-router.post('user/login', Controller.addUserToController) 
-router.get('user/login',Controller.getUser) 
-router.delete('user/login',Controller.deleteUserFromController) 
-router.post('recipes/:id' , Controller.handleCurrentRecipes) 
-router.get('recipes/:id' , Controller.handleCurrentRecipes) 
+const controller = require('./Controller')
 
 
-router.post('user/recipes/:id', Controller.addRecipeToController)
-router.get('user/recipes/:id', Controller.getOneRecipe) 
-router.delete('user/recipes/:id', Controller.deleteOneRecipe) 
+// router.post('recipes/:id' , Controller.handleCurrentRecipes) 
+// router.get('recipes/:id' , Controller.handleCurrentRecipes) 
 
 
+router.post('/user/recipes', controller.addRecipe)
+ 
 
+router.get('/user/myrecipes', controller.getAllRecipes) 
 
-router.get('user/recipes', Controller.getAllRecipes) 
-
-
-export default router
+// router.get('user/recipes', Controller.getOneRecipe) 
+// router.delete('user/recipes', controller.deleteOneRecipe)
+module.exports = router
