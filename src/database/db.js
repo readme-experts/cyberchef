@@ -30,7 +30,7 @@ async function sqlRequest(sql, params = null) {
 
 (async () => {
   await startDataBase();
-  console.dir(await getAllRecipes());
+
 })();
 
 async function addUserToDb(username, email, password) {
@@ -96,10 +96,18 @@ async function getAllRecipes() {
   return res; //returns array of objects(recipes)
 }
 
+async function getUserData(username) {
+  const getUserDataRequest = `SELECT * FROM usersdata WHERE username = ?`;
+  const res = await sqlRequest(getUserDataRequest, [username]);
+  if (res[0]) return res[0];
+  return undefined;
+}
+
 module.exports = {
   addUserToDb,
   addRecipeToDb,
   addCategoryToDb,
   addUserFavRecipeToDb,
-  getAllRecipes
+  getAllRecipes,
+  getUserData
 };
