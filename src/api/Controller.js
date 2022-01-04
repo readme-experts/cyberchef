@@ -47,7 +47,6 @@ class Controller  {
             res.status(400).json({message: 'error by deleting receipe'});
         }
     }
-    
 
 }
 
