@@ -1,20 +1,15 @@
 const express = require('express');
-const router = require('./router')
-const authRouter = require('./authRouter')
-// const cors = require('cors')
-const cookieParser = require('cookie-parser')
+const router = require('./routes/router');
+const authRouter = require('./routes/authRouter');
 
-
-require('dotenv').config()
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT 
+const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use(cookieParser())
-// app.use(cors())
 app.use('/', router);
-app.use('/auth',authRouter);
+app.use('/auth', authRouter);
 
 async function startApp() {
   try {
