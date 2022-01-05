@@ -1,4 +1,5 @@
 const db = require('../../database/db');
+const jwt = require('jsonwebtoken');
 
 class Controller {
   async addRecipe(req, res) {
@@ -47,16 +48,48 @@ class Controller {
       .json({ message: 'Error ocured while getting recipes list' });
   }
 
-  async deleteRecipeById(req, res) {
+//   async deleteRecipeById(req, res) {
+//     try {
+//       const { id } = req.body;
+//       await db.deleteRecipe(id);
+//       return res.json({ message: 'recipe successfully deleted' });
+//     } catch (e) {
+//       console.log(e);
+//       res.status(400).json({ message: 'error by deleting receipe' });
+//     }
+//   }
+
+  async addUserRecipe(req, res) {
     try {
-      const { id } = req.body;
-      await db.deleteRecipe(id);
-      return res.json({ message: 'recipe successfully deleted' });
+        const token = req.headers.authorization.split(' ')[1];
+        const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+        // req.user = decodedData;
+    //   const {user_id}  = jwt.verify(req.headers.authorization.split(' ')[1]);
+      const {recipe_id} = req.body
+      const user_id = payload.id
+      await db.addUserFavRecipeToDb(user_id,recipe_id);
+      return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: 'error by deleting receipe' });
+      res.status(400).json({ message: 'Error occured while adding recipe' });
     }
   }
+
+  async getUserRecipes(req, res) {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+      const user_id = payload.id
+      const userFavList = await db.getUserFavRecipes(user_id)
+      return res.json({list: userFavList});
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: 'Error occured while gettig recipe' });
+    }
+  }
+
+
 }
+
 
 module.exports = new Controller();

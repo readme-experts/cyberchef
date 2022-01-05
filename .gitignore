@@ -1,7 +1,7 @@
 node_modules
 package-lock.json
 src/database/config/config.json
-/.DS_Store
+.DS_Store
 src/.DS_Store
 src/api/.env
 src/api/node_modules
