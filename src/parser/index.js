@@ -1,30 +1,28 @@
 'use strict';
 
 const cheerio = require('cheerio');
-const chalk = require('chalk');
+//const chalk = require('chalk');
 const pupp = require('./helpers/puppeteer');
 const common = require('./helpers/common');
-
+//const listItemsHandler = require('./handlers/listItemsHandler');
 const SITE = 'https://www.povarenok.ru/recipes/';
-const pages = 2;
+const pages = 3;
+
 (async function main() {
+  const links = [];
   try {
     for (const page of common.arrayFromLength(pages)) {
-      const url = `${SITE}~${page}`;
-      const pageContent = await pupp.getPageContent(url);
+      const defaultURL = `${SITE}~${page}`;
+      const pageContent = await pupp.getPageContent(defaultURL);
       //console.log(pageContent);
       const $ = cheerio.load(pageContent);
-      const items = [];
-
       $('.desktop-img').each((i, header) => {
-        const url = $(header).find('a').attr('href');
-
-        items.push({
-          url,
-        });
+        const currentURL = $(header).find('a').attr('href');
+        links.push(currentURL);
       });
-      console.log(items);
+      //await listItemsHandler.receiveData(items);
     }
+    console.log(links);
   } catch (err) {
     console.log(chalk.red('An error has occured \n'));
     console.log(err);
