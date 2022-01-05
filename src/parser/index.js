@@ -28,11 +28,30 @@ const pages = 3;
     const $1 = cheerio.load(testPageContent);
 
     const name = $1('h1').text();
+
+    // eslint-disable-next-line camelcase
     const image_link = $1('.m-img')
       .find('img[itemprop="image"]')
       .attr('src');
 
-    console.log(name + '\n' + image_link);
+    const ingredients = [];
+    $1('span[itemprop="ingredient"]')
+      .each((i, header) => {
+        const name = $1(header)
+          .find('span[itemprop="name"]')
+          .html();
+        const mass = $1(header)
+          .find('span[itemprop="amount"]')
+          .html();
+
+        let ingredient = name;
+        mass ? ingredient = name + ' - ' + mass : ingredient = name;
+
+        ingredients.push(ingredient);
+      });
+    const products = ingredients.join('\n');
+
+    console.log(name + '\n' + image_link + '\n' + products);
 
   } catch (err) {
     console.log(chalk.red('An error has occured \n'));
