@@ -136,6 +136,15 @@ async function getAllUsers() {
   return res; //returns array of objects(users)
 }
 
+async function deleteFavouriteRecipe(userId, recipeId) {
+  const deleteFavRecipeRequest = `DELETE FROM favourite_recipes 
+  WHERE user_id = ?
+  AND recipe_id = ?`;
+  const res = await sqlRequest(deleteFavRecipeRequest, [userId, recipeId]);
+  if (res.affectedRows === 1) return true;
+  return false;
+}
+
 module.exports = {
   addUserToDb,
   addRecipeToDb,
@@ -146,5 +155,6 @@ module.exports = {
   getUserFavRecipes,
   getRecipe,
   deleteRecipe,
-  getAllUsers
+  getAllUsers,
+  deleteFavouriteRecipe
 };
