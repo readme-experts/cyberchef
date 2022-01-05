@@ -22,59 +22,68 @@ const pages = 3;
       });
       //await listItemsHandler.receiveData(items);
     }
-    // should do: name, imageLink, ingredients, description, category
-    const testLink = 'https://www.povarenok.ru/recipes/show/174588/';
-    const testPageContent = await pupp.getPageContent(testLink);
-    const $1 = cheerio.load(testPageContent);
 
-    const name = $1('h1').text();
+    const recipes = [];
 
-    // eslint-disable-next-line camelcase
-    const image_link = $1('.m-img')
-      .find('img[itemprop="image"]')
-      .attr('src');
+    for (const link of links) {
+      // const testLink = 'https://www.povarenok.ru/recipes/show/174588/';
+      const testPageContent = await pupp.getPageContent(link);
+      const $1 = cheerio.load(testPageContent);
 
-    const ingredients = [];
-    $1('span[itemprop="ingredient"]')
-      .each((i, header) => {
-        const name = $1(header)
-          .find('span[itemprop="name"]')
-          .html();
-        const mass = $1(header)
-          .find('span[itemprop="amount"]')
-          .html();
+      const name = $1('h1').text();
 
-        let ingredient = name;
-        mass ? ingredient = name + ' - ' + mass : ingredient = name;
+      // eslint-disable-next-line camelcase
+      const image_link = $1('.m-img')
+        .find('img[itemprop="image"]')
+        .attr('src');
 
-        ingredients.push(ingredient);
+      const ingredients = [];
+      $1('span[itemprop="ingredient"]')
+        .each((i, header) => {
+          const name = $1(header)
+            .find('span[itemprop="name"]')
+            .html();
+          const mass = $1(header)
+            .find('span[itemprop="amount"]')
+            .html();
+
+          let ingredient = name;
+          mass ? ingredient = name + ' - ' + mass : ingredient = name;
+
+          ingredients.push(ingredient);
+        });
+      const products = ingredients.join('\n');
+
+      // eslint-disable-next-line camelcase
+      const category_id = $1('.article-breadcrumbs')
+        .find('a')
+        .first()
+        .text()
+        .trim();
+
+      const steps = [];
+      $1('.cooking-bl').each((step, header) => {
+        const text = $1(header)
+          .find('p')
+          .text();
+
+        steps.push(`${step + 1}. ${text}`);
       });
-    const products = ingredients.join('\n');
+      const description = steps.join('\n');
 
-    // eslint-disable-next-line camelcase
-    const category_id = $1('.article-breadcrumbs')
-      .find('a')
-      .first()
-      .text()
-      .trim();
+      const recipe = {
+        name,
+        category_id,
+        products,
+        description,
+        image_link,
+      };
 
-    const steps = [];
-    $1('.cooking-bl').each((step, header) => {
-      const text = $1(header)
-        .find('p')
-        .text();
+      recipes.push(recipe);
+      console.log(`Added ${links.indexOf(link) + 1}/${links.length} recipes`);
+    }
 
-      steps.push(`${step + 1}. ${text}`);
-    });
-    const description = steps.join('\n');
-
-    console.log(
-      name + '\n' +
-      image_link + '\n' +
-      products + '\n' +
-      category_id + '\n' +
-      description
-    );
+    console.log(recipes);
 
   } catch (err) {
     // console.log(chalk.red('An error has occured \n'));
