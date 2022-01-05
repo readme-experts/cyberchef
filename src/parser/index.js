@@ -58,8 +58,22 @@ const pages = 3;
       .text()
       .trim();
 
+    const steps = [];
+    $1('.cooking-bl').each((step, header) => {
+      const text = $1(header)
+        .find('p')
+        .text();
+
+      steps.push(`${step + 1}. ${text}`);
+    });
+    const description = steps.join('\n');
+
     console.log(
-      name + '\n' + image_link + '\n' + products + '\n' + category_id
+      name + '\n' +
+      image_link + '\n' +
+      products + '\n' +
+      category_id + '\n' +
+      description
     );
 
   } catch (err) {
