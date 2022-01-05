@@ -51,8 +51,15 @@ const pages = 3;
       });
     const products = ingredients.join('\n');
 
+    // eslint-disable-next-line camelcase
+    const category_id = $1('.article-breadcrumbs')
+      .find('a')
+      .first()
+      .text()
+      .trim();
+
     console.log(
-      name + '\n' + image_link + '\n' + products
+      name + '\n' + image_link + '\n' + products + '\n' + category_id
     );
 
   } catch (err) {
