@@ -1,10 +1,10 @@
 'use strict';
 
 const cheerio = require('cheerio');
-//const chalk = require('chalk');
+// const chalk = require('chalk');
 const pupp = require('./helpers/puppeteer');
 const common = require('./helpers/common');
-//const listItemsHandler = require('./handlers/listItemsHandler');
+// const listItemsHandler = require('./handlers/listItemsHandler');
 const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 3;
 
@@ -22,7 +22,15 @@ const pages = 3;
       });
       //await listItemsHandler.receiveData(items);
     }
-    console.log(links);
+    // should do: name, imageLink, ingredients, description, category
+    const testLink = 'https://www.povarenok.ru/recipes/show/174588/';
+    const testPageContent = await pupp.getPageContent(testLink);
+    const $1 = cheerio.load(testPageContent);
+
+    const name = $1('h1').text();
+
+    console.log(name);
+
   } catch (err) {
     console.log(chalk.red('An error has occured \n'));
     console.log(err);
