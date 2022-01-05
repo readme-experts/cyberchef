@@ -10,11 +10,11 @@ class TokenService {
     });
   };
 
-//   getUserId = () => {
-//     const token = req.headers.authorization.split(' ')[1];
-//     const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-//     return payload.id
-//   }
+  getUserId = (req) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+    return payload.id;
+  };
 }
 
 module.exports = new TokenService();

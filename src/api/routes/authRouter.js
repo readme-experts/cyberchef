@@ -1,4 +1,3 @@
-
 const authRouter = require('express');
 const authrouter = new authRouter();
 const authcontroller = require('../controllers/authController');

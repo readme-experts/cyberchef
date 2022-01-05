@@ -1,6 +1,6 @@
 'use strict';
 const mysql = require('mysql');
-const config = require('./config/config.json')
+const config = require('./config/config.json');
 
 let con;
 async function startDataBase() {
@@ -10,7 +10,7 @@ async function startDataBase() {
     database: config.db_database,
     password: config.db_password,
   });
-  await con.connect(err => {
+  await con.connect((err) => {
     if (err) throw err;
     console.log('Connected!');
   });
@@ -156,5 +156,5 @@ module.exports = {
   getRecipe,
   deleteRecipe,
   getAllUsers,
-  deleteFavouriteRecipe
+  deleteFavouriteRecipe,
 };

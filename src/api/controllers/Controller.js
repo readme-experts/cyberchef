@@ -21,7 +21,7 @@ class Controller {
         newRecipe.description,
         newRecipe.image_link
       );
-      return res.json({ message: 'Recipe added succefully'});
+      return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'Error occured while adding recipe' });
@@ -49,26 +49,11 @@ class Controller {
       .json({ message: 'Error ocured while getting recipes list' });
   }
 
-//   async deleteRecipeById(req, res) {
-//     try {
-//       const { id } = req.body;
-//       await db.deleteRecipe(id);
-//       return res.json({ message: 'recipe successfully deleted' });
-//     } catch (e) {
-//       console.log(e);
-//       res.status(400).json({ message: 'error by deleting receipe' });
-//     }
-//   }
-
   async addUserRecipe(req, res) {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-        // req.user = decodedData;
-    //   const {user_id}  = jwt.verify(req.headers.authorization.split(' ')[1]);
-      const recipe_id = req.body
-      const user_id = payload.id
-      await db.addUserFavRecipeToDb(user_id,recipe_id.id);
+      const { recipe_id } = req.body;
+      const user_id = tokenService.getUserId(req);
+      await db.addUserFavRecipeToDb(user_id, recipe_id);
       return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
       console.log(e);
@@ -78,27 +63,31 @@ class Controller {
 
   async getUserRecipes(req, res) {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-        
-      const user_id = payload.id
-    //   return res.json(user_id)
-    //   const user_id = tokenService()
-      const userFavId = await db.getUserFavRecipes(user_id)
-      for(let i = 0;i<userFavId.length;i++)  {
-        const userFavList = await db.getRecipe(userFavId[i])
-        // console.log(userFavList);
-        return res.json(userFavList);
-      } 
-      
+      const user_id = tokenService.getUserId(req);
+      const userFavId = await db.getUserFavRecipes(user_id);
+      let userFavList = [];
+      for (let i = 0; i < userFavId.length; i++) {
+        let irecipe = await db.getRecipe(userFavId[i]);
+        userFavList.push(irecipe);
+      }
+      return res.json(userFavList);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'Error occured while gettig recipe' });
     }
   }
 
-
+  async deleteUserRecipe(req, res) {
+    try {
+      const user_id = tokenService.getUserId(req);
+      const { recipe_id } = req.body;
+      await db.deleteFavouriteRecipe(user_id, recipe_id);
+      return res.status(200).json({ message: 'User recipe deleted' });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: 'Error occured while deleting recipe' });
+    }
+  }
 }
-
 
 module.exports = new Controller();

@@ -1,10 +1,8 @@
-'use strict'
+'use strict';
 
 const db = require('../../database/db');
 const { validationResult } = require('express-validator');
 const tokenService = require('../service/token-service');
-
-
 
 class authController {
   async registration(req, res) {
