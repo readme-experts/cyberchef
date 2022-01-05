@@ -1,5 +1,6 @@
 const db = require('../../database/db');
 const jwt = require('jsonwebtoken');
+const tokenService = require('../service/token-service');
 
 class Controller {
   async addRecipe(req, res) {
@@ -20,7 +21,7 @@ class Controller {
         newRecipe.description,
         newRecipe.image_link
       );
-      return res.json({ message: 'Recipe added succefully' });
+      return res.json({ message: 'Recipe added succefully'});
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'Error occured while adding recipe' });
@@ -65,9 +66,9 @@ class Controller {
         const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
         // req.user = decodedData;
     //   const {user_id}  = jwt.verify(req.headers.authorization.split(' ')[1]);
-      const {recipe_id} = req.body
+      const recipe_id = req.body
       const user_id = payload.id
-      await db.addUserFavRecipeToDb(user_id,recipe_id);
+      await db.addUserFavRecipeToDb(user_id,recipe_id.id);
       return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
       console.log(e);
@@ -79,9 +80,17 @@ class Controller {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+        
       const user_id = payload.id
-      const userFavList = await db.getUserFavRecipes(user_id)
-      return res.json({list: userFavList});
+    //   return res.json(user_id)
+    //   const user_id = tokenService()
+      const userFavId = await db.getUserFavRecipes(user_id)
+      for(let i = 0;i<userFavId.length;i++)  {
+        const userFavList = await db.getRecipe(userFavId[i])
+        // console.log(userFavList);
+        return res.json(userFavList);
+      } 
+      
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'Error occured while gettig recipe' });

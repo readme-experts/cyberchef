@@ -11,7 +11,7 @@ router.get('/recipes',  controller.getRecipeById);
 router.post('/user/recipes', authMiddleware, controller.addUserRecipe);
 router.get('/user/recipes', authMiddleware, controller.getRecipeById);
 // router.delete('/user/recipes', authMiddleware, controller.deleteUserRecipe);
-router.get('/user/myrecipes', authMiddleware, controller.getAllRecipes);
+router.get('/user/myrecipes', authMiddleware, controller.getUserRecipes);
 
 
 module.exports = router;
