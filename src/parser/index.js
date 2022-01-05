@@ -28,8 +28,11 @@ const pages = 3;
     const $1 = cheerio.load(testPageContent);
 
     const name = $1('h1').text();
+    const image_link = $1('.m-img')
+      .find('img[itemprop="image"]')
+      .attr('src');
 
-    console.log(name);
+    console.log(name + '\n' + image_link);
 
   } catch (err) {
     console.log(chalk.red('An error has occured \n'));
