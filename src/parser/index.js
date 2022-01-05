@@ -56,7 +56,7 @@ const pages = 3;
     );
 
   } catch (err) {
-    console.log(chalk.red('An error has occured \n'));
+    // console.log(chalk.red('An error has occured \n'));
     console.log(err);
   }
 })();
