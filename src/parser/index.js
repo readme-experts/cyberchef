@@ -54,7 +54,7 @@ const pages = 3;
     console.log(name + '\n' + image_link + '\n' + products);
 
   } catch (err) {
-    console.log(chalk.red('An error has occured \n'));
+    // console.log(chalk.red('An error has occured \n'));
     console.log(err);
   }
 })();
