@@ -7,7 +7,9 @@ const common = require('./helpers/common');
 const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 1;
 
-(async function main() {
+const getName = require('./functions/name.js');
+
+(async () => {
   const links = [];
   try {
     for (const page of common.arrayFromLength(pages)) {
@@ -26,7 +28,7 @@ const pages = 1;
       const testPageContent = await pupp.getPageContent(link);
       const $1 = cheerio.load(testPageContent);
 
-      const name = $1('h1').text();
+      const name = getName(link);
 
       // eslint-disable-next-line camelcase
       const image_link = $1('.m-img')
