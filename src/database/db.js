@@ -145,6 +145,13 @@ async function deleteFavouriteRecipe(userId, recipeId) {
   return false;
 }
 
+async function getCategoryName(categoryId) {
+  const CategoryNameRequest = `SELECT name FROM categories WHERE id = ?`;
+  const res = await sqlRequest(CategoryNameRequest, [categoryId]);
+  if (res[0]) return res[0].name;
+  return undefined;
+}
+
 module.exports = {
   addUserToDb,
   addRecipeToDb,
@@ -157,4 +164,5 @@ module.exports = {
   deleteRecipe,
   getAllUsers,
   deleteFavouriteRecipe,
+  getCategoryName
 };
