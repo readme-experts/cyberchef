@@ -155,7 +155,7 @@ async function getCategoryName(categoryId) {
 async function findRecipes(str) {
   const findRecipesRequest = `SELECT * FROM recipes WHERE name LIKE ?`;
   const res = await sqlRequest(findRecipesRequest, [`%${str}%`]);
-  console.dir(res)
+  console.dir(res);
   if (res[0]) return res;
   return undefined;
 }
@@ -173,5 +173,5 @@ module.exports = {
   getAllUsers,
   deleteFavouriteRecipe,
   getCategoryName,
-  findRecipes
+  findRecipes,
 };

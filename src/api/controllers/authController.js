@@ -26,6 +26,13 @@ class authController {
 
   async login(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res
+          .status(400)
+          .json({ message: 'Registration mistake', errors });
+      }
+      
       const { username, password } = req.body;
       const user = await db.getUserData(username);
 

@@ -1,20 +1,16 @@
 const authRouter = require('express');
 const authrouter = new authRouter();
 const authcontroller = require('../controllers/authController');
-
-const { check } = require('express-validator');
+const userService = require('../../api/service/user-service');
 
 authrouter.post(
   '/registration',
-  [
-    check('username', 'Username should not be empty').notEmpty(),
-    check('password', 'Password should be longer than 6 symbols').isLength({
-      min: 4,
-      max: 14,
-    }),
-  ],
+  userService.validate,
   authcontroller.registration
 );
-authrouter.post('/login', authcontroller.login);
+
+authrouter.post('/login',
+  userService.validate(),
+  authcontroller.login);
 
 module.exports = authrouter;

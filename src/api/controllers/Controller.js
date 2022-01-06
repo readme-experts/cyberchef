@@ -1,32 +1,21 @@
 const db = require('../../database/db');
-const jwt = require('jsonwebtoken');
 const tokenService = require('../service/token-service');
 const ParseService = require('../service/recipe-service');
-// const fs = require('fs')
 
-
-let jsonData = require('../array.json')
-ParseService.addRecipesFromParcer(jsonData)
-
+// let jsonData = require('../../parser/recipes.json');
+// ParseService.addRecipesFromParcer(jsonData);
 
 class Controller {
   async addRecipe(req, res) {
     try {
       const { name, category_id, products, description, image_link } = req.body;
 
-      const newRecipe = {
+      await db.addRecipeToDb(
         name,
         category_id,
         products,
         description,
-        image_link,
-      };
-      await db.addRecipeToDb(
-        newRecipe.name,
-        newRecipe.category_id,
-        newRecipe.products,
-        newRecipe.description,
-        newRecipe.image_link
+        image_link
       );
       return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
@@ -55,9 +44,9 @@ class Controller {
 
   async addUserRecipe(req, res) {
     try {
-      const { recipe_id } = req.body;
+      const { id } = req.body;
       const user_id = tokenService.getUserId(req);
-      await db.addUserFavRecipeToDb(user_id, recipe_id);
+      await db.addUserFavRecipeToDb(user_id, id);
       return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
       console.log(e);
