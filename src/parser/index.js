@@ -13,19 +13,16 @@ const pages = 1;
     for (const page of common.arrayFromLength(pages)) {
       const defaultURL = `${SITE}~${page}`;
       const pageContent = await pupp.getPageContent(defaultURL);
-      //console.log(pageContent);
       const $ = cheerio.load(pageContent);
       $('.desktop-img').each((i, header) => {
         const currentURL = $(header).find('a').attr('href');
         links.push(currentURL);
       });
-      //await listItemsHandler.receiveData(items);
     }
 
     const recipes = [];
 
     for (const link of links) {
-      // const testLink = 'https://www.povarenok.ru/recipes/show/174588/';
       const testPageContent = await pupp.getPageContent(link);
       const $1 = cheerio.load(testPageContent);
 
