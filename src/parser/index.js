@@ -7,10 +7,7 @@ const common = require('./helpers/common');
 const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 1;
 
-const getName = require('./functions/name.js');
-const getCategory = require('./functions/category_id');
-
-(async () => {
+(async function main() {
   const links = [];
   try {
     for (const page of common.arrayFromLength(pages)) {
@@ -29,7 +26,7 @@ const getCategory = require('./functions/category_id');
       const testPageContent = await pupp.getPageContent(link);
       const $1 = cheerio.load(testPageContent);
 
-      const name = getName(link);
+      const name = $1('h1').text();
 
       // eslint-disable-next-line camelcase
       const image_link = $1('.m-img')
@@ -54,7 +51,11 @@ const getCategory = require('./functions/category_id');
       const products = ingredients.join('\n');
 
       // eslint-disable-next-line camelcase
-      const category_id = getCategory(link);
+      const category_id = $1('.article-breadcrumbs')
+        .find('a')
+        .first()
+        .text()
+        .trim();
 
       const steps = [];
       $1('.cooking-bl').each((step, header) => {
