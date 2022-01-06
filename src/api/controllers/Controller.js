@@ -1,6 +1,13 @@
 const db = require('../../database/db');
 const jwt = require('jsonwebtoken');
 const tokenService = require('../service/token-service');
+const ParseService = require('../service/recipe-service');
+// const fs = require('fs')
+
+
+let jsonData = require('../array.json')
+ParseService.addRecipesFromParcer(jsonData)
+
 
 class Controller {
   async addRecipe(req, res) {
@@ -32,16 +39,13 @@ class Controller {
     try {
       const { id } = req.body;
       const neededRecipe = await db.getRecipe(id);
-      return res.json({ neededRecipe });
+      return res.json(neededRecipe);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'error by getting recipe by id' });
     }
   }
-  async getAllRecipes(req, res) {
-    const allRecipes = await db.getAllRecipes();
-    return res.json({ recipes: allRecipes });
-  }
+
   catch(e) {
     console.log(e);
     res

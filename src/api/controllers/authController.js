@@ -35,8 +35,8 @@ class authController {
           .json({ message: `user ${username} was not found` });
       }
 
-      let compare = (str1, str2) => str1 === str2;
-      let result = compare(password, user.password);
+      let comparepass = (str1, str2) => str1 === str2;
+      let result = comparepass(password, user.password);
       if (!result) {
         return res.status(400).json({ message: `pass is not correct` });
       }
