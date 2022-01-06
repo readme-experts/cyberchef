@@ -1,12 +1,13 @@
 'use strict';
 
+const fs = require('fs');
 const cheerio = require('cheerio');
 // const chalk = require('chalk');
 const pupp = require('./helpers/puppeteer');
 const common = require('./helpers/common');
 // const listItemsHandler = require('./handlers/listItemsHandler');
 const SITE = 'https://www.povarenok.ru/recipes/';
-const pages = 3;
+const pages = 1;
 
 (async function main() {
   const links = [];
@@ -84,9 +85,16 @@ const pages = 3;
     }
 
     console.log(recipes);
+    const json = JSON.stringify(recipes);
 
+    fs.writeFile('./recipes.json', json, err => {
+      if (err) {
+        return console.log(err);
+      }
+      console.log('The file was saved!');
+    });
   } catch (err) {
-    // console.log(chalk.red('An error has occured \n'));
+    // console.log(chalk.red('An error has occurred \n'));
     console.log(err);
   }
 })();
