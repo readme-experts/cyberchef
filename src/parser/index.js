@@ -2,10 +2,8 @@
 
 const fs = require('fs');
 const cheerio = require('cheerio');
-// const chalk = require('chalk');
 const pupp = require('./helpers/puppeteer');
 const common = require('./helpers/common');
-// const listItemsHandler = require('./handlers/listItemsHandler');
 const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 1;
 
@@ -94,7 +92,6 @@ const pages = 1;
       console.log('The file was saved!');
     });
   } catch (err) {
-    // console.log(chalk.red('An error has occurred \n'));
     console.log(err);
   }
 })();
