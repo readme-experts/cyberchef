@@ -8,6 +8,7 @@ const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 1;
 
 const getName = require('./functions/name.js');
+const getCategory = require('./functions/category_id');
 
 (async () => {
   const links = [];
@@ -53,11 +54,7 @@ const getName = require('./functions/name.js');
       const products = ingredients.join('\n');
 
       // eslint-disable-next-line camelcase
-      const category_id = $1('.article-breadcrumbs')
-        .find('a')
-        .first()
-        .text()
-        .trim();
+      const category_id = getCategory(link);
 
       const steps = [];
       $1('.cooking-bl').each((step, header) => {
