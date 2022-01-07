@@ -1,15 +1,36 @@
 const db = require('../../database/db');
 
+const idRecipe = {
+    "Бульоны и супы":1,
+    "Горячие блюда":2,
+    "Салаты":3,
+    "Закуски":4,
+    "Напитки":5,
+    "Соусы":6,
+    "Выпечка":7,
+    "Десерты":8,
+    "Заготовки":9,
+    "Блюда из лаваша":10,
+    "Готовим в аэрогриле":11,
+    "Каши":12,
+    "Украшения для блюд":13,
+    "Готовим в пароварке":14,
+    "Приготовление молочных продуктов":15,
+    "Готовим в мультиварке":16,
+    "Маринад, панировка":17,
+}
+
+
 class ParseService {
     addRecipesFromParcer = (jsonData) => {
         for(let i = 0;i<jsonData.length;i++){
             let name = jsonData[i].name
-            let category_id = jsonData[i].category_id
+            let categoryId_str = jsonData[i].categoryId
+            let categoryId = idRecipe[categoryId_str]
             let products = jsonData[i].products
             let description = jsonData[i].description
-            let image_link = jsonData[i].image_link
-            console.log(`name${i+1} = ${name}`);
-            db.addRecipeToDb(name,category_id,products,description,image_link)
+            let imageLink = jsonData[i].imageLink
+            db.addRecipeToDb(name,categoryId,products,description,imageLink)
         }
     }
 }

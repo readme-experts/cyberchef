@@ -1,3 +1,5 @@
+'use strict';
+
 const db = require('../../database/db');
 const tokenService = require('../service/token-service');
 const ParseService = require('../service/recipe-service');
@@ -8,14 +10,14 @@ const ParseService = require('../service/recipe-service');
 class Controller {
   async addRecipe(req, res) {
     try {
-      const { name, category_id, products, description, image_link } = req.body;
+      const { name, categoryId, products, description, imageLink } = req.body;
 
       await db.addRecipeToDb(
         name,
-        category_id,
+        categoryId,
         products,
         description,
-        image_link
+        imageLink
       );
       return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
@@ -26,8 +28,8 @@ class Controller {
 
   async getRecipeById(req, res) {
     try {
-      const { id } = req.body;
-      const neededRecipe = await db.getRecipe(id);
+      const { recipeId } = req.body;
+      const neededRecipe = await db.getRecipe(recipeId);
       return res.json(neededRecipe);
     } catch (e) {
       console.log(e);
@@ -44,9 +46,9 @@ class Controller {
 
   async addUserRecipe(req, res) {
     try {
-      const { id } = req.body;
-      const user_id = tokenService.getUserId(req);
-      await db.addUserFavRecipeToDb(user_id, id);
+      const { recipeId } = req.body;
+      const userId = tokenService.getUserId(req);
+      await db.addUserFavRecipeToDb(userId, recipeId);
       return res.json({ message: 'Recipe added succefully' });
     } catch (e) {
       console.log(e);
@@ -56,11 +58,11 @@ class Controller {
 
   async getUserRecipes(req, res) {
     try {
-      const user_id = tokenService.getUserId(req);
-      const userFavId = await db.getUserFavRecipes(user_id);
-      let userFavList = [];
+      const userId = tokenService.getUserId(req);
+      const userFavId = await db.getUserFavRecipes(userId);
+      const userFavList = [];
       for (let i = 0; i < userFavId.length; i++) {
-        let irecipe = await db.getRecipe(userFavId[i]);
+        const irecipe = await db.getRecipe(userFavId[i]);
         userFavList.push(irecipe);
       }
       return res.json(userFavList);
@@ -72,9 +74,9 @@ class Controller {
 
   async deleteUserRecipe(req, res) {
     try {
-      const user_id = tokenService.getUserId(req);
-      const { recipe_id } = req.body;
-      await db.deleteFavouriteRecipe(user_id, recipe_id);
+      const userId = tokenService.getUserId(req);
+      const { recipeId } = req.body;
+      await db.deleteFavouriteRecipe(userId, recipeId);
       return res.status(200).json({ message: 'User recipe deleted' });
     } catch (e) {
       console.log(e);

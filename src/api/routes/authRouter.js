@@ -9,7 +9,8 @@ authrouter.post(
   authcontroller.registration
 );
 
-authrouter.post('/login',
+authrouter.post(
+  '/login',
   userService.validate(),
   authcontroller.login);
 
