@@ -1,11 +1,13 @@
-const authRouter = require('express');
-const authrouter = new authRouter();
+'use strict';
+
+const AuthRouter = require('express');
+const authrouter = new AuthRouter();
 const authcontroller = require('../controllers/authController');
 const userService = require('../../api/service/user-service');
 
 authrouter.post(
   '/registration',
-  userService.validate,
+  userService.validate(),
   authcontroller.registration
 );
 

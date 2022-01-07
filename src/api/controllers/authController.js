@@ -4,7 +4,7 @@ const db = require('../../database/db');
 const { validationResult } = require('express-validator');
 const tokenService = require('../service/token-service');
 
-class authController {
+class AuthController {
   async registration(req, res) {
     try {
       const errors = validationResult(req);
@@ -32,7 +32,7 @@ class authController {
           .status(400)
           .json({ message: 'Registration mistake', errors });
       }
-      
+
       const { username, password } = req.body;
       const user = await db.getUserData(username);
 
@@ -42,8 +42,8 @@ class authController {
           .json({ message: `user ${username} was not found` });
       }
 
-      let comparepass = (str1, str2) => str1 === str2;
-      let result = comparepass(password, user.password);
+      const comparepass = (str1, str2) => str1 === str2;
+      const result = comparepass(password, user.password);
       if (!result) {
         return res.status(400).json({ message: `pass is not correct` });
       }
@@ -56,4 +56,4 @@ class authController {
   }
 }
 
-module.exports = new authController();
+module.exports = new AuthController();

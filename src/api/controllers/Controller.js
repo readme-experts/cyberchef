@@ -2,10 +2,10 @@
 
 const db = require('../../database/db');
 const tokenService = require('../service/token-service');
-const ParseService = require('../service/recipe-service');
 
-// let jsonData = require('../../parser/recipes.json');
-// ParseService.addRecipesFromParcer(jsonData);
+const parser = require('../service/parser-service');
+let jsonData = require('../../parser/recipes.json');
+parser.addRecipesFromParcer(jsonData);
 
 class Controller {
   async addRecipe(req, res) {
@@ -70,10 +70,11 @@ class Controller {
       const userId = tokenService.getUserId(req);
       const userFavId = await db.getUserFavRecipes(userId);
       const userFavList = [];
-      for (let i = 0; i < userFavId.length; i++) {
-        const irecipe = await db.getRecipe(userFavId[i]);
-        userFavList.push(irecipe);
+      for (const el of userFavId) {
+        const recipeById = await db.getRecipe(el);
+        userFavList.push(recipeById);
       }
+
       return res.json(userFavList);
     } catch (e) {
       console.log(e);
