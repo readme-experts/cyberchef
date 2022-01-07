@@ -10,7 +10,7 @@ async function startDataBase() {
     database: config.db_database,
     password: config.db_password,
   });
-  await con.connect((err) => {
+  await con.connect(err => {
     if (err) throw err;
     console.log('Connected!');
   });
@@ -142,12 +142,6 @@ async function deleteFavouriteRecipe(userId, recipeId) {
   return false;
 }
 
-async function getCategoryName(categoryId) {
-  const categoryNameRequest = `SELECT name FROM categories WHERE id = ?`;
-  const res = await sqlRequest(CategoryNameRequest, [categoryId]);
-  if (res[0]) return res[0].name;
-}
-
 async function findRecipes(str) {
   const findRecipesRequest = `SELECT * FROM recipes WHERE name LIKE ?`;
   const res = await sqlRequest(findRecipesRequest, [`%${str}%`]);
@@ -167,6 +161,5 @@ module.exports = {
   deleteRecipe,
   getAllUsers,
   deleteFavouriteRecipe,
-  getCategoryName,
   findRecipes,
 };
