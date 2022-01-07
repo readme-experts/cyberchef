@@ -99,7 +99,6 @@ async function getUserData(username) {
   const getUserDataRequest = `SELECT * FROM usersdata WHERE username = ?`;
   const res = await sqlRequest(getUserDataRequest, [username]);
   if (res[0]) return res[0];
-  return undefined;
 }
 
 async function getUserFavRecipes(userId) {
@@ -113,14 +112,12 @@ async function getUserFavRecipes(userId) {
     }
     return recipesArr; //retuns array of recipes ids
   }
-  return undefined;
 }
 
 async function getRecipe(recipeId) {
   const getRecipeRequest = `SELECT * FROM recipes WHERE id = ?`;
   const res = await sqlRequest(getRecipeRequest, [recipeId]);
   if (res[0]) return res[0];
-  return undefined;
 }
 
 async function deleteRecipe(recipeId) {
@@ -146,10 +143,9 @@ async function deleteFavouriteRecipe(userId, recipeId) {
 }
 
 async function getCategoryName(categoryId) {
-  const CategoryNameRequest = `SELECT name FROM categories WHERE id = ?`;
+  const categoryNameRequest = `SELECT name FROM categories WHERE id = ?`;
   const res = await sqlRequest(CategoryNameRequest, [categoryId]);
   if (res[0]) return res[0].name;
-  return undefined;
 }
 
 async function findRecipes(str) {
@@ -157,7 +153,6 @@ async function findRecipes(str) {
   const res = await sqlRequest(findRecipesRequest, [`%${str}%`]);
   console.dir(res);
   if (res[0]) return res;
-  return undefined;
 }
 
 module.exports = {
