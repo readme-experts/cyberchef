@@ -37,11 +37,20 @@ class Controller {
     }
   }
 
+  async getRecipeByName(req, res) {
+    try {
+      const { recipeName } = req.body;
+      const recipe = await db.findRecipes(recipeName);
+      return res.json(recipe);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: 'error by getting recipe by name' });
+    }
+  }
+
   catch(e) {
     console.log(e);
-    res
-      .status(400)
-      .json({ message: 'Error ocured while getting recipes list' });
+    res.status(400).json({ message: 'Error ocured while getting recipe' });
   }
 
   async addUserRecipe(req, res) {
@@ -68,7 +77,9 @@ class Controller {
       return res.json(userFavList);
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: 'Error occured while gettig recipe' });
+      res
+        .status(400)
+        .json({ message: 'Error occured while gettig user recipes' });
     }
   }
 
