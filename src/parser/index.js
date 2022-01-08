@@ -11,7 +11,8 @@ const infoHandler = require('./handlers/infoHandler');
 
 (async () => {
   const links = await infoHandler.getLinks();
-  console.log(links);
+  const recipes = await infoHandler.getRecipes(links);
+  console.log(recipes);
 })();
 
 
