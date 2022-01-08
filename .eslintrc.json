@@ -155,7 +155,7 @@
     "prefer-const": ["error"],
     "prefer-numeric-literals": ["error"],
     "prefer-rest-params": ["error"],
-    "prefer-spread": ["error"],
+    "prefer-spread": ["error"],  
     "rest-spread-spacing": ["error", "never"],
     "template-curly-spacing": ["error", "never"]
   }
