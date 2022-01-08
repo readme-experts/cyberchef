@@ -28,8 +28,7 @@ const pages = 1;
 
       const name = $1('h1').text();
 
-      // eslint-disable-next-line camelcase
-      const image_link = $1('.m-img')
+      const imageLink = $1('.m-img')
         .find('img[itemprop="image"]')
         .attr('src');
 
@@ -50,8 +49,7 @@ const pages = 1;
         });
       const products = ingredients.join('\n');
 
-      // eslint-disable-next-line camelcase
-      const category_id = $1('.article-breadcrumbs')
+      const categoryId = $1('.article-breadcrumbs')
         .find('a')
         .first()
         .text()
@@ -69,24 +67,24 @@ const pages = 1;
 
       const recipe = {
         name,
-        category_id,
+        categoryId,
         products,
         description,
-        image_link,
+        imageLink,
       };
 
       recipes.push(recipe);
       console.log(`Added ${links.indexOf(link) + 1}/${links.length} recipes`);
     }
 
-    console.log(recipes);
+    //console.log(recipes);
     const json = JSON.stringify(recipes);
 
-    fs.writeFile('./recipes.json', json, err => {
+    fs.writeFile('./data/recipes.json', json, err => {
       if (err) {
         return console.log(err);
       }
-      console.log('The file was saved!');
+      //console.log('The file was saved!');
     });
   } catch (err) {
     console.log(err);
