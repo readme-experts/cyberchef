@@ -59,7 +59,9 @@ export default new Vuex.Store({
         url: '/auth/registration',
         data: user,
         method: 'POST',
-      }).catch(() => alert('Something went wrong, please try again'));
+      }).catch((err) =>
+        alert(`Something went wrong, please try again\n${err}`)
+      );
     },
     async logout({ commit }) {
       commit('logout');
