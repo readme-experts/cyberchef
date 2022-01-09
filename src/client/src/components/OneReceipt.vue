@@ -17,4 +17,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+img {
+  float: left;
+  margin: 5px;
+}
+</style>
