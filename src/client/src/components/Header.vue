@@ -7,12 +7,12 @@
     </div>
     <div class="header__right">
       <router-link
-        v-if="user"
-        :to="{ path: `/user/${user.id}` }"
+        v-if="chefUser"
+        :to="{ path: `/user/${chefUser.id}` }"
         class="header__logo_link"
       >
-        <p class="header__username">{{ user.name }}</p>
-        <img :src="user.avatar" alt="avatar" class="header__avatar" />
+        <p class="header__username">{{ chefUser.name }}</p>
+        <img :src="chefUser.avatar" alt="avatar" class="header__avatar" />
       </router-link>
       <router-link v-else :to="{ path: `Login` }" class="header__logo_link">
         <p class="header__username">Login</p>
@@ -26,8 +26,11 @@ export default {
   name: 'Header',
   data() {
     return {
-      user: this.$store.getters.user,
+      chefUser: this.$store.getters.user,
     };
+  },
+  mounted() {
+    console.log(this.chefUser);
   },
 };
 </script>
