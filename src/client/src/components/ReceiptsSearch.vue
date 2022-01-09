@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     searchHandler(queryString) {
-      this.$store.dispatch('loadUserReceipts', queryString).then(() => {
+      this.$store.dispatch('loadReceipts', queryString).then(() => {
         this.recipes = this.$store.getters.receipts;
       });
     },
