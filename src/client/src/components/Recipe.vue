@@ -11,7 +11,7 @@
           }}</router-link>
         </h3>
         <p class="content__description">{{ recipe.text }}</p>
-        <button class="content__add" @click="$emit('addRecipe')">
+        <button class="content__add" @click="$emit('addRecipe', recipe)">
           Add to favourites
         </button>
       </div>
