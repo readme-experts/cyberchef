@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <div class="header__left">
-      <a href="#" class="header__logo_link">
+      <router-link :to="{ path: `/user/${user.id}` }" class="header__logo_link">
         <h3 class="header__logo"><span>Cyber</span>chef</h3>
-      </a>
+      </router-link>
     </div>
     <div class="header__right">
       <p class="header__username">{{ user.name }}</p>
