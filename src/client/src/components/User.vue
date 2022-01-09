@@ -23,6 +23,9 @@ export default {
       recipes: this.$store.getters.userReceipts,
     };
   },
+  mounted() {
+    this.$store.dispatch('loadUserReceipts').then();
+  },
 };
 </script>
 
