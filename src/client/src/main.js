@@ -6,6 +6,7 @@ import store from './store';
 import VueHTTP from './plugins/http';
 
 Vue.config.productionTip = false;
+Vue.use(VueHTTP);
 
 const app = new Vue({
   router,
