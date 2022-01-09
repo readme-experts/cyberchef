@@ -13,6 +13,6 @@
   },
   "scripts": {
     "installDependecies": "npm --prefix src/client install && npm --prefix src install",
-    "start": "npm run --prefix src/client build && npm run --prefix src srt"
+    "start": "npm run --prefix src/client build && npm run --prefix src start"
   }
 }
