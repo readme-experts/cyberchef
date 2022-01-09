@@ -32,8 +32,7 @@ JWT_ACCESS_SECRET = "your secret key"
 ### Technology stack
 * Parser - NodeJS
 * Backend - Express 
-* Database - MySQL 
-* Frontend - Andrew knows
+* Database - MySQL
 
 
 ### License
