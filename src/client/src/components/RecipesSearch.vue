@@ -1,19 +1,7 @@
 <template>
   <main class="container">
     <div class="content">
-      <form class="content__filter">
-        <h3>Find recipes</h3>
-        <label for="search" class="content__label"></label>
-        <div>
-          <input
-            type="text"
-            name="search"
-            id="search"
-            class="content__search"
-          />
-          <button type="submit" class="content__submit">Search</button>
-        </div>
-      </form>
+      <Search></Search>
       <div v-if="recipes" class="content__recipes">
         <Recipe v-for="recipe of recipes" :key="recipe.id"></Recipe>
       </div>
@@ -23,8 +11,15 @@
 </template>
 
 <script>
+import Recipe from './Recipe';
+import Search from './Search';
+
 export default {
   name: 'RecipesSearch',
+  components: {
+    Recipe,
+    Search,
+  },
 };
 </script>
 
