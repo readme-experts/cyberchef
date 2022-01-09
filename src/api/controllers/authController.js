@@ -17,7 +17,7 @@ class AuthController {
       const { username, password } = req.body;
 
       const hash = bcrypt.hashSync(password, 6);
-      await db.addUserToDb(username, username, password);
+      await db.addUserToDb(username, username, hash);
 
       return res.json({ message: 'user added succcesfully' });
     } catch (e) {
