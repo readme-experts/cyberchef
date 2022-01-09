@@ -1,18 +1,18 @@
 <template>
   <div>
     <Header></Header>
-    <Receipt></Receipt>
+    <OneReceipt></OneReceipt>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
-import Receipt from '@/components/Receipt';
+import OneReceipt from '@/components/OneReceipt';
 import Footer from '@/components/Footer';
 export default {
   name: 'Receipt',
-  components: { Header, Receipt, Footer },
+  components: { Header, OneReceipt, Footer },
 };
 </script>
 
