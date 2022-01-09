@@ -11,7 +11,7 @@ export default {
   name: 'OneReceipt',
   data() {
     return {
-      receipt: this.$store.getters.recieptById(this.$route.params.id),
+      receipt: this.$store.getters.receiptById(this.$route.params.id),
     };
   },
 };
