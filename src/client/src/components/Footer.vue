@@ -7,7 +7,11 @@
         </p>
       </div>
       <div class="footer__right">
-        <a href="/.github" class="footer__link">Github</a>
+        <a
+          href="https://github.com/readme-experts/cyberchef"
+          class="footer__link"
+          >Github</a
+        >
       </div>
     </div>
   </footer>
