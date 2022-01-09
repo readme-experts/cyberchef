@@ -6,7 +6,7 @@ export default {
   },
   getters: {
     receipts: (state) => [...state.receipts],
-    recieptById: (state) => (id) =>
+    receiptById: (state) => (id) =>
       state.receipts.find((receipt) => receipt.id === id),
   },
   mutations: {
