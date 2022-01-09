@@ -2,7 +2,7 @@
   <main class="container">
     <img :src="receipt.img" alt="Receipt image" />
     <h3>{{ receipt.title }}</h3>
-    <p>receipt.text</p>
+    <p>receipt.desc</p>
   </main>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   name: 'OneReceipt',
   data() {
     return {
-      receipt: this.$store.getters.receipt,
+      receipt: this.$store.getters.recieptById(this.$route.params.id),
     };
   },
 };
