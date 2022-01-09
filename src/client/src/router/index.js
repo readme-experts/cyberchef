@@ -5,6 +5,7 @@ import Login from '@/views/Login';
 import UserPage from '@/views/UserPage';
 import AllReceipts from '@/views/AllReceipts';
 import Receipt from '@/views/Receipt';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,19 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = `CyberChef | ${to.name}`;
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    next('/');
+  } else {
+    next();
+  }
 });
 
 export default router;
