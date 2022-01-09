@@ -1,9 +1,13 @@
 <template>
   <main class="container">
     <div class="content">
-      <Search></Search>
+      <Search @submitQuery="searchHandler($event)"></Search>
       <div v-if="recipes" class="content__recipes">
-        <Recipe v-for="recipe of recipes" :key="recipe.id"></Recipe>
+        <Recipe
+          v-for="recipe of recipes"
+          :key="recipe.id"
+          @addRecipe="addHandler($event)"
+        ></Recipe>
       </div>
       <h3 v-else>No recipes</h3>
     </div>
@@ -19,6 +23,21 @@ export default {
   components: {
     Recipe,
     Search,
+  },
+  data() {
+    return {
+      recipes: null,
+    };
+  },
+  methods: {
+    searchHandler(queryString) {
+      this.$store.dispatch('loadReceipts', queryString).then(() => {
+        this.recipes = this.$store.getters.receipts;
+      });
+    },
+    addHandler(recipe) {
+      this.$store.dispatch('newReceipts', recipe);
+    },
   },
 };
 </script>
