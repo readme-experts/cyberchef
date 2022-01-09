@@ -1,6 +1,6 @@
 # Cyberchef
 
-## It is api that creates CRUD operations on food recipes. Cyberchef has built in pasrer that can parse recipes from web.
+## It is api that does CRUD operations on food recipes. Cyberchef has built in pasrer that can parse recipes from web.
 ### 
 
 
@@ -20,17 +20,18 @@ JWT_ACCESS_SECRET = "your secret key"
 
 #### To start parser:
 ```bash
-/src/parser node index.js
+/src/parser/ node index.js
 ```
 
 #### To start server:
 ```bash
-/src/api npm run dev
+/src/api/ npm run dev
 ```
 
 
 ### Technology stack
 * Parser - NodeJS
+* Frontend - VueJs
 * Backend - Express 
 * Database - MySQL
 
