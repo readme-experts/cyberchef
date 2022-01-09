@@ -15,7 +15,7 @@ import Recipe from '@/components/Recipe';
 import Search from '@/components/Search';
 
 export default {
-  name: 'RecipesSearch',
+  name: 'ReceiptsSearch',
   components: {
     Recipe,
     Search,
