@@ -51,7 +51,7 @@ class AuthController {
         return res.status(400).json({ message: `pass is not correct` });
       }
       const token = tokenService.generateAccessToken(user.id);
-      return res.json({ token });
+      return res.json({ token, user });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'Login error' });
