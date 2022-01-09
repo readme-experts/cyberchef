@@ -6,6 +6,7 @@ import UserPage from '@/views/UserPage';
 import AllReceipts from '@/views/AllReceipts';
 import Receipt from '@/views/Receipt';
 import store from '@/store';
+import Register from '@/views/Register';
 
 require('dotenv').config();
 
@@ -25,7 +26,7 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: Login,
+    component: Register,
   },
   {
     path: '/user/:id',
