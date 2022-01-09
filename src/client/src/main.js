@@ -20,5 +20,5 @@ const user = localStorage.getItem('user');
 if (token && user) {
   app.$http.defaults.headers.common.authorization = token;
   const res = JSON.parse(user);
-  app.$store.commit('auth_success', { token, res });
+  app.$store.commit('auth_success', { token, user: res });
 }
