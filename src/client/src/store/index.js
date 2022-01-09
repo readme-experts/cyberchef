@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import receipts from '@/store/modules/receipts';
+import userReceipts from '@/store/modules/userReceipts';
 
 Vue.use(Vuex);
 
@@ -70,5 +72,9 @@ export default new Vuex.Store({
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
     user: (state) => state.user,
+  },
+  modules: {
+    receipts,
+    userReceipts,
   },
 });
