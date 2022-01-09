@@ -14,7 +14,7 @@ export default {
       state.userReceipts = [...payload.data];
     },
     addNewReceipt(state, payload) {
-      state.userReceipts.push(payload.receipt);
+      state.userReceipts.push(payload);
     },
   },
   actions: {
@@ -28,7 +28,8 @@ export default {
       const recipeId = receipt.id;
       axios
         .post('/api/user/recipes', { recipeId })
-        .then(() => {
+        .then((r) => {
+          console.log(r);
           commit('addNewReceipt', receipt);
           alert('Added recipe!');
         })

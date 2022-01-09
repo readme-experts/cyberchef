@@ -3,7 +3,11 @@
     <div class="content">
       <h3>Here is your precious recipes you added to favourites</h3>
       <div v-if="recipes" class="content__recipes">
-        <Recipe v-for="recipe of recipes" :key="recipe.id"></Recipe>
+        <Recipe
+          v-for="recipe of recipes"
+          :recipe="recipe"
+          :key="recipe.id"
+        ></Recipe>
       </div>
       <h3 v-else>No recipes</h3>
     </div>
@@ -20,7 +24,7 @@ export default {
   },
   data() {
     return {
-      recipes: null,
+      recipes: this.$store.getters.userReceipts,
     };
   },
   mounted() {
