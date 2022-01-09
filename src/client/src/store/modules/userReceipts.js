@@ -5,8 +5,8 @@ export default {
     userReceipts: [],
   },
   getters: {
-    receipts: (state) => [...state.userReceipts],
-    recieptById: (state) => (id) =>
+    userReceipts: (state) => [...state.userReceipts],
+    userRecieptById: (state) => (id) =>
       state.userReceipts.find((receipt) => receipt.id === id),
   },
   mutations: {
