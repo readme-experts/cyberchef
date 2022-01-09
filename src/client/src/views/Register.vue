@@ -11,17 +11,34 @@
           class="login__input"
           placeholder="example@email.com"
           required
+          v-model.lazy="email"
         />
       </div>
       <div>
         <label for="pass" class="login__label">Password</label><br />
-        <input type="text" name="" id="pass" class="login__input" required />
+        <input
+          type="text"
+          name=""
+          id="pass"
+          class="login__input"
+          required
+          v-model.lazy="password"
+        />
       </div>
       <div>
         <label for="pass" class="login__label">Confirm password</label><br />
-        <input type="text" name="" id="confirm" class="login__input" required />
+        <input
+          type="text"
+          name=""
+          id="confirm"
+          class="login__input"
+          required
+          v-model.lazy="confirm"
+        />
       </div>
-      <a href="#" class="login__register">Already have an account?</a>
+      <router-link to="/login" class="login__register"
+        >Already have an account?</router-link
+      >
       <button type="submit" class="login__submit">Register</button>
     </form>
   </div>
@@ -30,6 +47,36 @@
 <script>
 export default {
   name: 'Register',
+  data() {
+    return {
+      email: '',
+      password: '',
+      confirm: '',
+    };
+  },
+  methods: {
+    submitHandler() {
+      const data = {
+        username: this.email,
+        password: this.password,
+      };
+      if (this.check) {
+        this.$store
+          .dispatch('register', data)
+          .then(() => this.$router.push('/login'))
+          .catch(() =>
+            alert(
+              'Something went wrong, did you wrote your email and password correctly?'
+            )
+          );
+      }
+    },
+  },
+  computed: {
+    check() {
+      return this.password === this.confirm;
+    },
+  },
 };
 </script>
 
