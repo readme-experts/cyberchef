@@ -29,9 +29,6 @@ export default {
       chefUser: this.$store.getters.user,
     };
   },
-  mounted() {
-    console.log(this.chefUser);
-  },
 };
 </script>
 
