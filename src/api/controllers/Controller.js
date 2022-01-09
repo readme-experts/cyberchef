@@ -39,7 +39,7 @@ class Controller {
 
   async getRecipeByName(req, res) {
     try {
-      const { recipeName } = req.body;
+      const { recipeName } = req.query;
       const recipe = await db.findRecipes(recipeName);
       return res.json(recipe);
     } catch (e) {
