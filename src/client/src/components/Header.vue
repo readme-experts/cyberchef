@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__left">
-      <router-link to="/home" class="header__logo_link">
+      <router-link to="/" class="header__logo_link">
         <h3 class="header__logo"><span>Cyber</span>chef</h3>
       </router-link>
     </div>
