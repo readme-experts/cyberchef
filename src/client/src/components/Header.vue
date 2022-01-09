@@ -11,7 +11,7 @@
         :to="{ path: `/user/${chefUser.id}` }"
         class="header__logo_link"
       >
-        <p class="header__username">{{ chefUser.name }}</p>
+        <p class="header__username">{{ chefUser.username }}</p>
         <img :src="chefUser.avatar" alt="avatar" class="header__avatar" />
       </router-link>
       <router-link v-else :to="{ path: `Login` }" class="header__logo_link">
