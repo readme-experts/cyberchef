@@ -13,9 +13,9 @@ class AuthController {
           .status(400)
           .json({ message: 'Registration mistake', errors });
       }
-      const { username, email, password } = req.body;
+      const { username, password } = req.body;
 
-      await db.addUserToDb(username, email, password);
+      await db.addUserToDb(username, username, password);
 
       return res.json({ message: 'user added succcesfully' });
     } catch (e) {
