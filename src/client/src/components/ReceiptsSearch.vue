@@ -3,7 +3,11 @@
     <div class="content">
       <Search @submitQuery="searchHandler($event)"></Search>
       <div v-if="recipes" class="content__recipes">
-        <Recipe v-for="recipe of recipes" :key="recipe.id"></Recipe>
+        <Recipe
+          v-for="recipe of recipes"
+          :key="recipe.id"
+          @addRecipe="addHandler($event)"
+        ></Recipe>
       </div>
       <h3 v-else>No recipes</h3>
     </div>
@@ -30,6 +34,9 @@ export default {
       this.$store.dispatch('loadUserReceipts', queryString).then(() => {
         this.recipes = this.$store.getters.receipts;
       });
+    },
+    addHandler(recipe) {
+      this.$store.dispatch('newReceipts', recipe);
     },
   },
 };
