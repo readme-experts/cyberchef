@@ -15,10 +15,12 @@ export default {
     },
   },
   actions: {
-    async loadReceipts({ commit }, recipeName) {
-      const result = await axios
-        .post('/api/recipes', { recipeName })
-        .catch((e) => console.log(e));
+    async loadReceipts({ commit }, name) {
+      const result = await axios({
+        url: '/api/recipes',
+        data: { name },
+        method: 'GET',
+      }).catch((e) => console.log(e));
       commit('updateReceipts', [...result.data]);
     },
   },
