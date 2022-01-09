@@ -7,6 +7,8 @@ import AllReceipts from '@/views/AllReceipts';
 import Receipt from '@/views/Receipt';
 import store from '@/store';
 
+require('dotenv').config();
+
 Vue.use(VueRouter);
 
 const routes = [
