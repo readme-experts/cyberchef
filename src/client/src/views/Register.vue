@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form action="#" class="login">
+    <form action="#" class="login" @submit.prevent="submitHandler">
       <h3 class="login__heading">Register</h3>
       <div>
         <label for="name" class="login__label">Email</label><br />
@@ -17,7 +17,7 @@
       <div>
         <label for="pass" class="login__label">Password</label><br />
         <input
-          type="text"
+          type="password"
           name=""
           id="pass"
           class="login__input"
@@ -28,7 +28,7 @@
       <div>
         <label for="pass" class="login__label">Confirm password</label><br />
         <input
-          type="text"
+          type="password"
           name=""
           id="confirm"
           class="login__input"
@@ -63,12 +63,7 @@ export default {
       if (this.check) {
         this.$store
           .dispatch('register', data)
-          .then(() => this.$router.push('/login'))
-          .catch(() =>
-            alert(
-              'Something went wrong, did you wrote your email and password correctly?'
-            )
-          );
+          .then(() => this.$router.push('/login'));
       }
     },
   },
