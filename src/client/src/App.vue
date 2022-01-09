@@ -15,6 +15,9 @@ export default {
         throw err;
       });
     });
+    if (this.$http.defaults.headers.common.authorization) {
+      this.$router.push('/receipts');
+    }
   },
 };
 </script>
