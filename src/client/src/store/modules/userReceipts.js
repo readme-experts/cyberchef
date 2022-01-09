@@ -25,11 +25,14 @@ export default {
       commit('updateUserReceipts', [...result.data]);
     },
     async newReceipts({ commit }, receipt) {
+      const recipeId = receipt.id;
       axios
-        .post('/api/user/recipes', receipt)
-        .then(commit('addNewReceipt', receipt))
+        .post('/api/user/recipes', { recipeId })
+        .then(() => {
+          commit('addNewReceipt', receipt);
+          alert('Added recipe!');
+        })
         .catch((err) => console.log(err));
-      commit('addNewReceipt', receipt);
     },
   },
 };

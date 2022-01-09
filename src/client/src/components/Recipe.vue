@@ -2,15 +2,15 @@
   <div class="content__recipes">
     <div class="content__recipe">
       <router-link :to="{ path: `/recipes/${recipe.id}` }">
-        <img :src="recipe.img" alt="Recipe" class="content__pic" />
+        <img :src="recipe.image_link" alt="Recipe" class="content__pic" />
       </router-link>
       <div class="content__desc">
         <h3 class="content__heading">
           <router-link :to="{ path: `/recipes/${recipe.id}` }">{{
-            recipe.head
+            recipe.name
           }}</router-link>
         </h3>
-        <p class="content__description">{{ recipe.text }}</p>
+        <pre class="content__description">{{ recipe.products }}</pre>
         <button class="content__add" @click="$emit('addRecipe', recipe)">
           Add to favourites
         </button>

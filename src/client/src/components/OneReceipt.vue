@@ -1,8 +1,9 @@
 <template>
   <main class="container">
-    <img :src="receipt.img" alt="Receipt image" />
-    <h3>{{ receipt.title }}</h3>
-    <p>receipt.desc</p>
+    <img :src="receipt.image_link" alt="Receipt image" />
+    <h3>{{ receipt.name }}</h3>
+    <pre>{{ receipt.products }}</pre>
+    <pre>{{ receipt.description }}</pre>
   </main>
 </template>
 

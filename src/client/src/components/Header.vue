@@ -26,7 +26,7 @@ export default {
   name: 'Header',
   data() {
     return {
-      chefUser: this.$store.getters.user,
+      chefUser: JSON.parse(localStorage.getItem('user')),
     };
   },
 };

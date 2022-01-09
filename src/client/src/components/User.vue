@@ -20,11 +20,13 @@ export default {
   },
   data() {
     return {
-      recipes: this.$store.getters.userReceipts,
+      recipes: null,
     };
   },
   mounted() {
-    this.$store.dispatch('loadUserReceipts').then();
+    this.$store
+      .dispatch('loadUserReceipts')
+      .then(() => (this.recipes = this.$store.getters.userReceipts));
   },
 };
 </script>
