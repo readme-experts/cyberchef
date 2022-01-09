@@ -1,9 +1,9 @@
 <template>
   <div class="content__recipes">
     <div class="content__recipe">
-      <a href="#">
+      <router-link :to="{ path: `/recipes/${recipe.id}` }">
         <img :src="recipe.img" alt="Recipe" class="content__pic" />
-      </a>
+      </router-link>
       <div class="content__desc">
         <h3 class="content__heading">
           <router-link :to="{ path: `/recipes/${recipe.id}` }">{{
@@ -11,7 +11,7 @@
           }}</router-link>
         </h3>
         <p class="content__description">{{ recipe.text }}</p>
-        <button class="content__add" @click="$emit('addRecipe')">
+        <button class="content__add" @click="$emit('addRecipe', recipe)">
           Add to favourites
         </button>
       </div>
@@ -22,6 +22,9 @@
 <script>
 export default {
   name: 'Recipe',
+  props: {
+    recipe: Object,
+  },
 };
 </script>
 

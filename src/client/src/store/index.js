@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import receipts from '@/store/modules/receipts';
+import userReceipts from '@/store/modules/userReceipts';
 
 Vue.use(Vuex);
 
@@ -8,28 +10,24 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user: {},
-    receipts: [],
+    user: null,
   },
   mutations: {
-    authRequest(state) {
+    auth_request(state) {
       state.status = 'loading';
     },
-    authSuccess(state, payload) {
+    auth_success(state, payload) {
       state.status = 'success';
       state.token = payload.token;
       state.user = JSON.parse(localStorage.getItem('user')) || payload.user;
     },
-    authError(state) {
+    auth_error(state) {
       state.status = 'error';
     },
     logout(state) {
       state.status = '';
       state.token = '';
-      state.user = '{}';
-    },
-    loadReceipts(state, payload) {
-      state.receipts = [...payload.receipts];
+      state.user = 'null';
     },
   },
   actions: {
@@ -45,7 +43,7 @@ export default new Vuex.Store({
         const responseUser = r.data.user;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(responseUser));
-        axios.defaults.headers.common.usertoken = token;
+        axios.defaults.headers.common.authorization = token;
         commit('auth_success', { token, responseUser });
         return r;
       } catch (err) {
@@ -61,22 +59,24 @@ export default new Vuex.Store({
         url: '/auth/registration',
         data: user,
         method: 'POST',
-      }).catch(() => alert('Something went wrong, please try again'));
+      }).catch((err) =>
+        alert(`Something went wrong, please try again\n${err}`)
+      );
     },
     async logout({ commit }) {
       commit('logout');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      return delete axios.defaults.headers.authorization;
-    },
-    async receipts({ commit }, receipts) {
-      commit('loadReceipts', receipts);
+      return delete axios.defaults.headers.common.authorization;
     },
   },
   getters: {
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
     user: (state) => state.user,
-    receipts: (state) => state.receipts,
+  },
+  modules: {
+    receipts,
+    userReceipts,
   },
 });

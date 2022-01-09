@@ -11,7 +11,7 @@ import Header from '@/components/Header';
 import User from '@/components/User';
 import Footer from '@/components/Footer';
 export default {
-  name: 'User',
+  name: 'UserPage',
   components: {
     Header,
     User,

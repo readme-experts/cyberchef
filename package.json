@@ -10,5 +10,9 @@
     "mysql": "^2.18.1",
     "puppeteer": "^13.0.1",
     "vue": "^2.6.14"
+  },
+  "scripts": {
+    "installDependecies": "npm --prefix src/client install && npm --prefix src/api install",
+    "start": "npm run --prefix src/client build && npm run --prefix src/api start"
   }
 }

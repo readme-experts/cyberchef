@@ -13,7 +13,7 @@ class TokenService {
   }
 
   getUserId(req)  {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization;
     const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
     return payload.id;
   }

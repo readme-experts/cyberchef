@@ -4,7 +4,7 @@ const db = require('../../database/db');
 const tokenService = require('../service/token-service');
 
 const parser = require('../service/parser-service');
-let jsonData = require('../../parser/recipes.json');
+const jsonData = require('../../parser/data/recipes.json');
 parser.addRecipesFromParcer(jsonData);
 
 class Controller {
@@ -46,11 +46,6 @@ class Controller {
       console.log(e);
       res.status(400).json({ message: 'error by getting recipe by name' });
     }
-  }
-
-  catch(e) {
-    console.log(e);
-    res.status(400).json({ message: 'Error ocured while getting recipe' });
   }
 
   async addUserRecipe(req, res) {
