@@ -3,6 +3,7 @@
 const db = require('../../database/db');
 const { validationResult } = require('express-validator');
 const tokenService = require('../service/token-service');
+const bcrypt = require('bcrypt');
 
 class AuthController {
   async registration(req, res) {
@@ -15,6 +16,7 @@ class AuthController {
       }
       const { username, password } = req.body;
 
+      const hash = bcrypt.hashSync(password, 6);
       await db.addUserToDb(username, username, password);
 
       return res.json({ message: 'user added succcesfully' });
@@ -42,8 +44,7 @@ class AuthController {
           .json({ message: `user ${username} was not found` });
       }
 
-      const comparepass = (str1, str2) => str1 === str2;
-      const result = comparepass(password, user.password);
+      const result = bcrypt.compareSync(password, user.password);
       if (!result) {
         return res.status(400).json({ message: `pass is not correct` });
       }
