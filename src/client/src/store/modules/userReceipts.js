@@ -20,11 +20,15 @@ export default {
   actions: {
     async loadUserReceipts({ commit }) {
       const result = await axios
-        .get('/user/myrecipes')
+        .get('/api/user/myrecipes')
         .catch((e) => console.log(e));
       commit('updateUserReceipts', [...result.data]);
     },
     async newReceipts({ commit }, receipt) {
+      axios
+        .post('/api/user/recipes', receipt)
+        .then(commit('addNewReceipt', receipt))
+        .catch((err) => console.log(err));
       commit('addNewReceipt', receipt);
     },
   },
