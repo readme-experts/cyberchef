@@ -17,7 +17,7 @@ export default {
   actions: {
     async loadReceipts({ commit }, recipeName) {
       const result = await axios
-        .post('/receipts', { recipeName })
+        .post('/api/recipes', { recipeName })
         .catch((e) => console.log(e));
       commit('updateReceipts', [...result.data]);
     },
