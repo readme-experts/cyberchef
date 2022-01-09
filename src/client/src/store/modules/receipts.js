@@ -11,14 +11,14 @@ export default {
   },
   mutations: {
     updateReceipts(state, payload) {
-      state.receipts = [...payload.data];
+      state.receipts = [...payload];
     },
   },
   actions: {
-    async loadReceipts({ commit }, name) {
+    async loadReceipts({ commit }, recipeName) {
       const result = await axios({
         url: '/api/recipes',
-        data: { name },
+        params: { recipeName },
         method: 'GET',
       }).catch((e) => console.log(e));
       commit('updateReceipts', [...result.data]);

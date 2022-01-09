@@ -3,9 +3,9 @@
 const db = require('../../database/db');
 const tokenService = require('../service/token-service');
 
-const parser = require('../service/parser-service');
-const jsonData = require('../../parser/data/recipes.json');
-parser.addRecipesFromParcer(jsonData);
+// const parser = require('../service/parser-service');
+// const jsonData = require('../../parser/data/recipes.json');
+// parser.addRecipesFromParcer(jsonData);
 
 class Controller {
   async addRecipe(req, res) {
@@ -28,7 +28,7 @@ class Controller {
 
   async getRecipeById(req, res) {
     try {
-      const { recipeId } = req.body;
+      const { recipeId } = req.query;
       const neededRecipe = await db.getRecipe(recipeId);
       return res.json(neededRecipe);
     } catch (e) {
@@ -39,8 +39,11 @@ class Controller {
 
   async getRecipeByName(req, res) {
     try {
-      const { recipeName } = req.body;
+      const { recipeName } = req.query;
       const recipe = await db.findRecipes(recipeName);
+      if (!recipe) {
+        return res.json({ message: "sorry, we don't have such recipe" });
+      }
       return res.json(recipe);
     } catch (e) {
       console.log(e);
@@ -65,6 +68,9 @@ class Controller {
       const userId = tokenService.getUserId(req);
       const userFavId = await db.getUserFavRecipes(userId);
       const userFavList = [];
+      if (!userFavId) {
+        return res.json({ mesage: 'You dont have any favorite recipes yet' });
+      }
       for (const el of userFavId) {
         const recipeById = await db.getRecipe(el);
         userFavList.push(recipeById);

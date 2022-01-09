@@ -6,6 +6,7 @@
         <Recipe
           v-for="recipe of recipes"
           :key="recipe.id"
+          :recipe="recipe"
           @addRecipe="addHandler($event)"
         ></Recipe>
       </div>
@@ -26,7 +27,7 @@ export default {
   },
   data() {
     return {
-      recipes: null,
+      recipes: this.$store.getters.receipts,
     };
   },
   methods: {
