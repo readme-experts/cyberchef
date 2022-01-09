@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Recipe from './Recipe';
-import Search from './Search';
+import Recipe from '@/components/Recipe';
+import Search from '@/components/Search';
 
 export default {
   name: 'RecipesSearch',
