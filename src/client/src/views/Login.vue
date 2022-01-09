@@ -17,7 +17,7 @@
       <div>
         <label for="pass" class="login__label">Password</label><br />
         <input
-          type="text"
+          type="password"
           name=""
           id="pass"
           class="login__input"
@@ -50,9 +50,10 @@ export default {
       };
       this.$store
         .dispatch('login', data)
-        .catch(() =>
+        .then(() => this.$router.push('/receipts'))
+        .catch((e) =>
           alert(
-            'Something went wrong, did you wrote your email and password correctly?'
+            `Something went wrong, did you wrote your email and password correctly?\n${e}`
           )
         );
     },
