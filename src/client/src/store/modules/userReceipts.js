@@ -13,6 +13,9 @@ export default {
     updateUserReceipts(state, payload) {
       state.userReceipts = [...payload.data];
     },
+    addNewReceipt(state, payload) {
+      state.userReceipts.push(payload.receipt);
+    },
   },
   actions: {
     async loadUserReceipts({ commit }) {
@@ -20,6 +23,9 @@ export default {
         .get('/user/myrecipes')
         .catch((e) => console.log(e));
       commit('updateUserReceipts', [...result.data]);
+    },
+    async newReceipts({ commit }, receipt) {
+      commit('addNewReceipt', receipt);
     },
   },
 };
