@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      recipes: null,
+      recipes: this.$store.getters.receipts,
     };
   },
   methods: {
