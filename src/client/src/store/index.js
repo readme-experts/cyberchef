@@ -9,27 +9,23 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     user: {},
-    receipts: [],
   },
   mutations: {
-    authRequest(state) {
+    auth_request(state) {
       state.status = 'loading';
     },
-    authSuccess(state, payload) {
+    auth_success(state, payload) {
       state.status = 'success';
       state.token = payload.token;
       state.user = JSON.parse(localStorage.getItem('user')) || payload.user;
     },
-    authError(state) {
+    auth_error(state) {
       state.status = 'error';
     },
     logout(state) {
       state.status = '';
       state.token = '';
       state.user = '{}';
-    },
-    loadReceipts(state, payload) {
-      state.receipts = [...payload.receipts];
     },
   },
   actions: {
@@ -69,14 +65,10 @@ export default new Vuex.Store({
       localStorage.removeItem('user');
       return delete axios.defaults.headers.authorization;
     },
-    async receipts({ commit }, receipts) {
-      commit('loadReceipts', receipts);
-    },
   },
   getters: {
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
     user: (state) => state.user,
-    receipts: (state) => state.receipts,
   },
 });
