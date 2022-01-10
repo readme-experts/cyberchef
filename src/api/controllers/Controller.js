@@ -3,9 +3,9 @@
 const db = require('../../database/db');
 const tokenService = require('../service/token-service');
 
-// const parser = require('../service/parser-service');
-// const jsonData = require('../../parser/data/recipes.json');
-// parser.addRecipesFromParcer(jsonData);
+const parser = require('../service/parser-service');
+const jsonData = require('../../parser/data/recipes.json');
+parser.addRecipesFromParcer(jsonData);
 
 class Controller {
   async addRecipe(req, res) {
