@@ -7,17 +7,20 @@ const prisma = new PrismaClient();
 
 class RecipeRepository {
   async add(name, categoryId, products, description, imageLink) {
-    const recipe = await prisma.recipes.create({
-      data: {
-        name,
-        category_id: parseInt(categoryId),
-        products,
-        description,
-        image_link: imageLink,
-      },
-    });
-    if (typeof recipe !== 'undefined' && recipe) {
+    try {
+      await prisma.recipes.create({
+        data: {
+          name,
+          category_id: parseInt(categoryId),
+          products,
+          description,
+          image_link: imageLink,
+        },
+      });
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   }
 
@@ -36,22 +39,22 @@ class RecipeRepository {
   }
 
   async delete(recipeId) {
-    const deleteFavRecipes = prisma.favourite_recipes.deleteMany({
-      where: {
-        recipe_id: parseInt(recipeId),
-      },
-    });
-    const deleteRecipe = prisma.recipes.delete({
-      where: {
-        id: parseInt(recipeId),
-      },
-    });
-    const transaction = await prisma.$transaction([
-      deleteFavRecipes,
-      deleteRecipe,
-    ]);
-    if (typeof transaction !== 'undefined' && transaction[1]) {
+    try {
+      const deleteFavRecipes = prisma.favourite_recipes.deleteMany({
+        where: {
+          recipe_id: parseInt(recipeId),
+        },
+      });
+      const deleteRecipe = prisma.recipes.delete({
+        where: {
+          id: parseInt(recipeId),
+        },
+      });
+      await prisma.$transaction([deleteFavRecipes, deleteRecipe]);
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   }
 
@@ -69,15 +72,19 @@ class RecipeRepository {
 
 class CategoryRepository {
   async add(name) {
-    const category = await prisma.categories.create({
-      data: {
-        name,
-      },
-    });
-    if (typeof category !== 'undefined' && category) {
+    try {
+      await prisma.categories.create({
+        data: {
+          name,
+        },
+      });
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   }
+
   async findAll() {
     const allCategories = await prisma.categories.findMany();
     return allCategories; //returns an array of all categories
@@ -86,15 +93,18 @@ class CategoryRepository {
 
 class UserRepository {
   async add(username, email, passwordhash) {
-    const user = await prisma.users.create({
-      data: {
-        email,
-        username,
-        password: passwordhash,
-      },
-    });
-    if (typeof user !== 'undefined' && user) {
+    try {
+      await prisma.users.create({
+        data: {
+          email,
+          username,
+          password: passwordhash,
+        },
+      });
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   }
 
@@ -133,17 +143,26 @@ class UserRepository {
   }
 
   async deleteRecipe(userId, recipeId) {
-    const deleteFavRecipe = await prisma.favourite_recipes.deleteMany({
-      where: {
-        user_id: userId,
-        recipe_id: recipeId,
-      },
-    });
-    if (deleteFavRecipe && deleteFavRecipe.count > 0) {
+    try {
+      await prisma.favourite_recipes.deleteMany({
+        where: {
+          user_id: userId,
+          recipe_id: recipeId,
+        },
+      });
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   }
 }
+
+(async () => {
+  const recipe = new RecipeRepository();
+  const data = await recipe.delete(4);
+  console.log(data);
+})();
 
 module.exports = {
   RecipeRepository,
