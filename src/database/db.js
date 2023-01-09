@@ -5,6 +5,19 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
+async function addUserToDb(username, email, passwordhash) {
+  const user = await prisma.users.create({
+    data: {
+      email: email,
+      username: username,
+      password: passwordhash,
+    },
+  });
+  if (typeof user !== 'undefined' && user) {
+    return true;
+  }
+}
+
 async function getRecipe(recipeId) {
   const recipe = await prisma.recipes.findUnique({
     where: {
@@ -43,7 +56,7 @@ async function getUserData(username) {
 
 (async () => {
   await prisma.$connect();
-  const recipes = await getUserData("Alice1");
+  const recipes = await addUserToDb('Alice34', 'sdfa@mail.com', 'pass');
   console.log(recipes);
 })();
 
@@ -51,4 +64,5 @@ module.exports = {
   getAllRecipes,
   getUserFavRecipes,
   getRecipe,
+  addUserToDb,
 };
