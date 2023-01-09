@@ -5,7 +5,7 @@ const tokenService = require('../service/token-service');
 
 const parser = require('../service/parser-service');
 const jsonData = require('../../parser/data/recipes.json');
-parser.addRecipesFromParcer(jsonData);
+// parser.addRecipesFromParcer(jsonData);
 
 class Controller {
   async addRecipe(req, res) {
@@ -29,6 +29,7 @@ class Controller {
   async getRecipeById(req, res) {
     try {
       const { recipeId } = req.query;
+      console.log(req.query);
       const neededRecipe = await db.getRecipe(recipeId);
       return res.json(neededRecipe);
     } catch (e) {

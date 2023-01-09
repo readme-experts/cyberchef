@@ -4,7 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": 2020
   },
@@ -21,7 +21,10 @@
     "semi": ["error", "always"],
     "no-loop-func": ["error"],
     "block-spacing": ["error", "always"],
-    "camelcase": ["error"],
+    "camelcase": [
+      "error",
+      { "allow": ["user_id", "recipe_id", "category_id", "image_link"] }
+    ],
     "eqeqeq": ["error", "always"],
     "strict": ["error", "global"],
     "brace-style": [
@@ -155,7 +158,7 @@
     "prefer-const": ["error"],
     "prefer-numeric-literals": ["error"],
     "prefer-rest-params": ["error"],
-    "prefer-spread": ["error"],  
+    "prefer-spread": ["error"],
     "rest-spread-spacing": ["error", "never"],
     "template-curly-spacing": ["error", "never"]
   }

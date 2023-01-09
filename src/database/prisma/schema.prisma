@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id      Int       @id @unique(map: "category_id") @default(autoincrement())
+  name    String
+  recipes recipes[]
+}
+
+model favourite_recipes {
+  id        Int     @id(map: "favourite_recipe_id") @default(autoincrement())
+  user_id   Int
+  recipe_id Int
+  recipes   recipes @relation(fields: [recipe_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recipe_id")
+  users     users   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_id")
+}
+
+model recipes {
+  id                Int                 @id(map: "recipe_id") @default(autoincrement())
+  name              String
+  category_id       Int
+  products          String
+  description       String
+  image_link        String?
+  favourite_recipes favourite_recipes[]
+  categories        categories          @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "category")
+}
+
+model users {
+  id                Int                 @id(map: "user_id") @default(autoincrement())
+  username          String              @unique(map: "username")
+  email             String              @unique(map: "email")
+  password          String
+  favourite_recipes favourite_recipes[]
+}
