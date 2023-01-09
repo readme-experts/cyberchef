@@ -39,6 +39,17 @@ async function addRecipeToDb(
   }
 }
 
+async function addCategoryToDb(name) {
+  const category = await prisma.categories.create({
+    data: {
+      name: name
+    },
+  });
+  if (typeof category !== 'undefined' && category) {
+    return true;
+  }
+}
+
 async function getRecipe(recipeId) {
   const recipe = await prisma.recipes.findUnique({
     where: {
@@ -51,6 +62,11 @@ async function getRecipe(recipeId) {
 async function getAllRecipes() {
   const allRecipes = await prisma.recipes.findMany();
   return allRecipes; //returns an array of all recipes
+}
+
+async function getAllCategories() {
+  const allCategories = await prisma.categories.findMany();
+  return allCategories; //returns an array of all categories
 }
 
 async function getUserFavRecipes(userId) {
@@ -77,14 +93,17 @@ async function getUserData(username) {
 
 (async () => {
   await prisma.$connect();
-  const recipes = await addRecipeToDb('recipe', 1, 'pr', 'desc', 'somelink');
-  console.log(recipes);
+  const data = await getAllCategories();
+  console.log(data);
 })();
 
 module.exports = {
   getAllRecipes,
+  getAllCategories,
   getUserFavRecipes,
   getRecipe,
+  getUserData,
   addUserToDb,
   addRecipeToDb,
+  addCategoryToDb
 };
