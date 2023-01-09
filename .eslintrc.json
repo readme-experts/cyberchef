@@ -21,7 +21,7 @@
     "semi": ["error", "always"],
     "no-loop-func": ["error"],
     "block-spacing": ["error", "always"],
-    "camelcase": ["error"],
+    "camelcase": ["error", { "allow": ["user_id", "recipe_id"] }],
     "eqeqeq": ["error", "always"],
     "strict": ["error", "global"],
     "brace-style": [
@@ -155,7 +155,7 @@
     "prefer-const": ["error"],
     "prefer-numeric-literals": ["error"],
     "prefer-rest-params": ["error"],
-    "prefer-spread": ["error"],  
+    "prefer-spread": ["error"],
     "rest-spread-spacing": ["error", "never"],
     "template-curly-spacing": ["error", "never"]
   }
