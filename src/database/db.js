@@ -58,23 +58,9 @@ class RecipeRepository {
   async search(str) {
     const recipes = await prisma.recipes.findMany({
       where: {
-        OR: [
-          {
-            name: {
-              contains: str,
-            },
-          },
-          {
-            products: {
-              contains: str,
-            },
-          },
-          {
-            description: {
-              contains: str,
-            },
-          },
-        ],
+        name: {
+          contains: str,
+        },
       },
     });
     return recipes;
@@ -130,7 +116,7 @@ class UserRepository {
         recipe_id: true,
       },
     });
-    favRecipes = favRecipes.map(el => el.recipe_id);
+    favRecipes = favRecipes.map((el) => el.recipe_id);
     return favRecipes; //returns an array user favourite recipes ids
   }
 
