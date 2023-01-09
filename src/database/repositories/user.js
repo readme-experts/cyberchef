@@ -5,13 +5,13 @@ class UserRepository {
     this.prisma = prisma;
   }
 
-  async add(username, email, passwordhash) {
+  async add(userData) {
     try {
       await this.prisma.users.create({
         data: {
-          email,
-          username,
-          password: passwordhash,
+          email: userData.email,
+          username: userData.username,
+          password: userData.passwordhash,
         },
       });
       return true;
@@ -43,11 +43,11 @@ class UserRepository {
     return favRecipes; //returns an array user favourite recipes ids
   }
 
-  async addRecipe(userId, recipeId) {
+  async addRecipe(recipeData) {
     const favRecipe = await this.prisma.favourite_recipes.create({
       data: {
-        user_id: userId,
-        recipe_id: recipeId,
+        user_id: recipeData.userId,
+        recipe_id: recipeData.recipeId,
       },
     });
     if (typeof favRecipe !== 'undefined' && favRecipe) {
@@ -55,12 +55,12 @@ class UserRepository {
     }
   }
 
-  async deleteRecipe(userId, recipeId) {
+  async deleteRecipe(recipeData) {
     try {
       await this.prisma.favourite_recipes.deleteMany({
         where: {
-          user_id: userId,
-          recipe_id: recipeId,
+          user_id: recipeData.userId,
+          recipe_id: recipeData.recipeId,
         },
       });
       return true;

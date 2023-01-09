@@ -5,15 +5,15 @@ class RecipeRepository {
     this.prisma = prisma;
   }
 
-  async add(name, categoryId, products, description, imageLink) {
+  async add(recipeData) {
     try {
       await this.prisma.recipes.create({
         data: {
-          name,
-          category_id: parseInt(categoryId),
-          products,
-          description,
-          image_link: imageLink,
+          name: recipeData.name,
+          category_id: parseInt(recipeData.categoryId),
+          products: recipeData.products,
+          description: recipeData.description,
+          image_link: recipeData.imageLink,
         },
       });
       return true;
