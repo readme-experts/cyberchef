@@ -123,9 +123,21 @@ async function deleteRecipe(recipeId) {
   }
 }
 
+async function deleteFavouriteRecipe(userId, recipeId) {
+  const deleteFavRecipe = await prisma.favourite_recipes.deleteMany({
+    where: {
+      user_id: userId,
+      recipe_id: recipeId,
+    },
+  });
+  if (deleteFavRecipe && deleteFavRecipe.count > 0) {
+    return true;
+  }
+}
+
 (async () => {
   await prisma.$connect();
-  const data = await deleteRecipe(10);
+  const data = await deleteFavouriteRecipe(3, 13);
   console.log(data);
 })();
 
@@ -140,4 +152,5 @@ module.exports = {
   addCategoryToDb,
   addUserFavRecipeToDb,
   deleteRecipe,
+  deleteFavouriteRecipe,
 };
