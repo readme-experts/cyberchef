@@ -90,7 +90,7 @@ async function getUserFavRecipes(userId) {
       recipe_id: true,
     },
   });
-  favRecipes = favRecipes.map((el) => el.recipe_id);
+  favRecipes = favRecipes.map(el => el.recipe_id);
   return favRecipes; //returns an array user favourite recipes ids
 }
 
