@@ -11,7 +11,7 @@ async function getRecipe(recipeId) {
       id: recipeId,
     },
   });
-  return recipe; //return recipe object
+  return recipe; //returns recipe object
 }
 
 async function getAllRecipes() {
@@ -32,9 +32,18 @@ async function getUserFavRecipes(userId) {
   return favRecipes; //returns an array user favourite recipes ids
 }
 
+async function getUserData(username) {
+  const user = await prisma.users.findUnique({
+    where: {
+      username: username,
+    },
+  });
+  return user; //returns user object
+}
+
 (async () => {
   await prisma.$connect();
-  const recipes = await getRecipe(3);
+  const recipes = await getUserData("Alice1");
   console.log(recipes);
 })();
 
