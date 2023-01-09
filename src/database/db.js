@@ -164,4 +164,5 @@ module.exports = {
   addUserFavRecipeToDb,
   deleteRecipe,
   deleteFavouriteRecipe,
+  findRecipes,
 };
