@@ -8,3 +8,4 @@ src/.DS_Store
 src/api/.env
 src/api/node_modules
 src/api/package.json
+.env
