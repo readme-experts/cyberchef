@@ -135,9 +135,20 @@ async function deleteFavouriteRecipe(userId, recipeId) {
   }
 }
 
+async function findRecipes(str) {
+  const recipes = await prisma.recipes.findMany({
+    where: {
+      name: {
+        contains: str,
+      },
+    },
+  });
+  return recipes; //returns array of recipes that contain some string or empty array
+}
+
 (async () => {
   await prisma.$connect();
-  const data = await deleteFavouriteRecipe(3, 13);
+  const data = await findRecipes('курка');
   console.log(data);
 })();
 
