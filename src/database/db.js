@@ -130,7 +130,7 @@ class UserRepository {
         recipe_id: true,
       },
     });
-    favRecipes = favRecipes.map((el) => el.recipe_id);
+    favRecipes = favRecipes.map(el => el.recipe_id);
     return favRecipes; //returns an array user favourite recipes ids
   }
 
@@ -158,13 +158,6 @@ class UserRepository {
     }
   }
 }
-
-(async () => {
-  const recipe = new RecipeRepository();
-  const user = new UserRepository();
-  const data = await user.deleteRecipe(2, 3);
-  console.log(data);
-})();
 
 module.exports = {
   RecipeRepository,
