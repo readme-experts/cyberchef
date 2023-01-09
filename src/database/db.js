@@ -28,7 +28,7 @@ async function addRecipeToDb(
   const recipe = await prisma.recipes.create({
     data: {
       name,
-      category_id: categoryId,
+      category_id: parseInt(categoryId),
       products,
       description,
       image_link: imageLink,
@@ -65,7 +65,7 @@ async function addUserFavRecipeToDb(userId, recipeId) {
 async function getRecipe(recipeId) {
   const recipe = await prisma.recipes.findUnique({
     where: {
-      id: recipeId,
+      id: parseInt(recipeId),
     },
   });
   return recipe; //returns recipe object
@@ -84,13 +84,13 @@ async function getAllCategories() {
 async function getUserFavRecipes(userId) {
   let favRecipes = await prisma.favourite_recipes.findMany({
     where: {
-      user_id: userId,
+      user_id: parseInt(userId),
     },
     select: {
       recipe_id: true,
     },
   });
-  favRecipes = favRecipes.map(el => el.recipe_id);
+  favRecipes = favRecipes.map((el) => el.recipe_id);
   return favRecipes; //returns an array user favourite recipes ids
 }
 
@@ -106,12 +106,12 @@ async function getUserData(username) {
 async function deleteRecipe(recipeId) {
   const deleteFavRecipes = prisma.favourite_recipes.deleteMany({
     where: {
-      recipe_id: recipeId,
+      recipe_id: parseInt(recipeId),
     },
   });
   const deleteRecipe = prisma.recipes.delete({
     where: {
-      id: recipeId,
+      id: parseInt(recipeId),
     },
   });
   const transaction = await prisma.$transaction([

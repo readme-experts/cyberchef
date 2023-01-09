@@ -23,6 +23,11 @@ const idRecipe = {
 };
 
 class ParseService {
+  /*
+  Remake it,
+  need to add categories to database first, or it'll throw error;
+
+  */
   addRecipesFromParcer(jsonData)  {
     for (const el of jsonData) {
       const name = el.name;
