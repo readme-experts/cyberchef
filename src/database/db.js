@@ -42,7 +42,7 @@ async function addRecipeToDb(
 async function addCategoryToDb(name) {
   const category = await prisma.categories.create({
     data: {
-      name: name
+      name: name,
     },
   });
   if (typeof category !== 'undefined' && category) {
@@ -54,7 +54,7 @@ async function addUserFavRecipeToDb(userId, recipeId) {
   const favRecipe = await prisma.favourite_recipes.create({
     data: {
       user_id: userId,
-      recipe_id: recipeId
+      recipe_id: recipeId,
     },
   });
   if (typeof favRecipe !== 'undefined' && favRecipe) {
@@ -103,9 +103,29 @@ async function getUserData(username) {
   return user; //returns user object
 }
 
+async function deleteRecipe(recipeId) {
+  const deleteFavRecipes = prisma.favourite_recipes.deleteMany({
+    where: {
+      recipe_id: recipeId,
+    },
+  });
+  const deleteRecipe = prisma.recipes.delete({
+    where: {
+      id: recipeId,
+    },
+  });
+  const transaction = await prisma.$transaction([
+    deleteFavRecipes,
+    deleteRecipe,
+  ]);
+  if (typeof transaction !== 'undefined' && transaction[1]) {
+    return true;
+  }
+}
+
 (async () => {
   await prisma.$connect();
-  const data = await addUserFavRecipeToDb(13, 5);
+  const data = await deleteRecipe(10);
   console.log(data);
 })();
 
@@ -119,4 +139,5 @@ module.exports = {
   addRecipeToDb,
   addCategoryToDb,
   addUserFavRecipeToDb,
+  deleteRecipe,
 };
