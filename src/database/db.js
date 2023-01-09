@@ -18,6 +18,27 @@ async function addUserToDb(username, email, passwordhash) {
   }
 }
 
+async function addRecipeToDb(
+  name,
+  categoryId,
+  products,
+  description,
+  imageLink
+) {
+  const recipe = await prisma.recipes.create({
+    data: {
+      name: name,
+      category_id: categoryId,
+      products: products,
+      description: description,
+      image_link: imageLink,
+    },
+  });
+  if (typeof recipe !== 'undefined' && recipe) {
+    return true;
+  }
+}
+
 async function getRecipe(recipeId) {
   const recipe = await prisma.recipes.findUnique({
     where: {
@@ -56,7 +77,7 @@ async function getUserData(username) {
 
 (async () => {
   await prisma.$connect();
-  const recipes = await addUserToDb('Alice34', 'sdfa@mail.com', 'pass');
+  const recipes = await addRecipeToDb('recipe', 1, 'pr', 'desc', 'somelink');
   console.log(recipes);
 })();
 
@@ -65,4 +86,5 @@ module.exports = {
   getUserFavRecipes,
   getRecipe,
   addUserToDb,
+  addRecipeToDb,
 };
