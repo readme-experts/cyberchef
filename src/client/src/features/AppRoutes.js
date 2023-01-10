@@ -25,12 +25,11 @@ const ProtectedAppRoutes = [
   // },
   // {
   //   path: '/recipes',
-  //   element: <Receipts />,
+  //   element: <SearchRecipes />,
   // },
   // {
   //   path: '/recipes/:id',
-  //   name: 'Receipt',
-  //   component: <Receipt />,
+  //   component: <RecipePage />,
   // },
 ];
 
