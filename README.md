@@ -18,6 +18,11 @@ PORT = 3000 || any other port
 JWT_ACCESS_SECRET = "your secret key"
 ```
 
+#### To generate prisma client
+```bash
+npx prisma generate --schema=./src/database/prisma/schema.prisma
+```
+
 #### To start parser:
 ```bash
 /src/parser/ node index.js
