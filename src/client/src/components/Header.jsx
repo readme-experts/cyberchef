@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Header() {
-  const [user] = useState(null);
+  const user = useSelector(state => state.account.user);
   return (
     <header className='header'>
       <div className='header__left'>
