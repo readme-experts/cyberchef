@@ -2,11 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const addUserRecipe = createAsyncThunk(
   'account/addRecipe',
-  async ({ recipe, token }, { rejectWithValue }) => {
+  async ({ recipe }, { getState, rejectWithValue }) => {
     try {
+      const token = getState()?.account.token;
       const headers = {
         'Content-Type': 'application/json',
-        'authorization': token
+        'authorization': token,
       };
       const response = await fetch('/api/user/recipes', {
         method: 'PUT',

@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loadRecipes = createAsyncThunk(
   'recipes/loadRecipes',
-  async ({ queryString, token }, { rejectWithValue }) => {
+  async ({ queryString }, { getState, rejectWithValue }) => {
     try {
+      const token = getState()?.account.token;
       const headers = {
         'Content-Type': 'application/json',
         'authorization': token
