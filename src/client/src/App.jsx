@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoutes, ProtectedAppRoutes } from './features/AppRoutes';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './features/ProtectedRoute';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const [user] = useState(null);
+  const user = useSelector(state => state.account.user);
 
   return (
     <div className="App">
