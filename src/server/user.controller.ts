@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { users as UserModel, Prisma } from '@prisma/client';
-import { UserRepository } from '../database/repositories/user.js';
+import { UserRepository } from '../database/repositories/user';
 
 const prisma = new PrismaService();
 const user = new UserRepository(prisma);

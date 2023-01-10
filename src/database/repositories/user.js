@@ -72,4 +72,3 @@ class UserRepository {
 }
 
 exports.UserRepository = UserRepository;
-// module.exports = UserRepository;

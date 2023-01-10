@@ -69,4 +69,4 @@ class RecipeRepository {
   }
 }
 
-module.exports = RecipeRepository;
+exports.RecipeRepository = RecipeRepository;
