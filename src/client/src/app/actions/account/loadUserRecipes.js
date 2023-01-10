@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const addUserRecipe = createAsyncThunk(
+export const loadUserRecipes = createAsyncThunk(
   'account/loadUserRecipes',
   async ({ token }, { rejectWithValue }) => {
     try {
