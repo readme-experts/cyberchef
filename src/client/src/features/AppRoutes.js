@@ -24,11 +24,11 @@ const ProtectedAppRoutes = [
   //   element: <User/>
   // },
   // {
-  //   path: '/receipts',
+  //   path: '/recipes',
   //   element: <Receipts />,
   // },
   // {
-  //   path: '/receipts/:id',
+  //   path: '/recipes/:id',
   //   name: 'Receipt',
   //   component: <Receipt />,
   // },
