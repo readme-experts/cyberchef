@@ -3,7 +3,7 @@ import {Injectable} from '@nestjs/common';
 import { CreateRecipeDto } from './recipe.dto';
 
 import { PrismaService } from '.././prisma.service';
-import { recipes as RecipeModel, Prisma } from '@prisma/client';
+// import { recipes as RecipeModel, Prisma } from '@prisma/client';
 import { RecipeRepository } from '../../database/repositories/recipe';
 
 
@@ -13,7 +13,6 @@ const recipe = new RecipeRepository(prisma);
 @Injectable()
 export class RecipeService {
   async addRecipe (dto : CreateRecipeDto ) {
-    // return `kolya : ${dto.name}, products : ${dto.products}`
     const newRecipe = await recipe.add(dto)
     return newRecipe
 
@@ -35,21 +34,5 @@ export class RecipeService {
     const recipeByName = await recipe.search(recipeName)
     return recipeByName
   }
-
-  async addFavRecipe () {
-
-
-  }
-
-  async getFavRecipes () {
-
-
-  }
-
-  async deleteFavRecipe () {
-
-
-  }
-
 }
 

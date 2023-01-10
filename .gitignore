@@ -11,3 +11,5 @@ src/api/package.json
 .env
 src/database/prisma/migrations
 src/server/dist
+src/.env
+

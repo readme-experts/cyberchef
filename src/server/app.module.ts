@@ -15,8 +15,9 @@
 import {Module} from "@nestjs/common";
 import { RecipeModule } from './recipes/recipe.module';
 import { PrismaService } from './prisma.service'
+import { UserModule } from "user/user.module";
 
 @Module({
-  imports: [RecipeModule],
+  imports: [RecipeModule,UserModule],
 })
 export class AppModule {}
