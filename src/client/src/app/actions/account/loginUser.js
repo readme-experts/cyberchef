@@ -28,6 +28,5 @@ export const loginUser = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
-
-  },
+  }
 );
