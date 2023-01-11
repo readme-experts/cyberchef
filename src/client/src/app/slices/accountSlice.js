@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loginUser } from '../actions/account/loginUser';
 import { registerUser } from '../actions/account/registerUser';
 import { loadUserRecipes } from '../actions/account/loadUserRecipes';
-import { addUserRecipe } from '../actions/recipes/loadRecipes';
+import { addUserRecipe } from '../actions/account/addUserRecipe';
 
 const initialState = {
   user: localStorage.getItem('cyberChefUser'),
