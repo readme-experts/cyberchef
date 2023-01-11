@@ -1,3 +1,4 @@
+import { JwtStrategy } from './../auth/jwt.strategy';
 
 import {
   Controller,
@@ -26,5 +27,32 @@ import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 export class UserController {
   constructor( private userService : UserService, private  authService: AuthService) {}
 
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @Post('/user/recipes')
+  addFavRecipe(@Request() req) {
+    const userId  =  req.user.userId
+    const recipeId = req.body.recipeId
+    
+    const recipeData = {"userId" : userId, "recipeId" : recipeId}
+    return this.userService.addRecipe(recipeData)
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/user/recipes')
+  getFavRecipes(@Request() req) {
+    const userId  =  req.user.userId
+    return this.userService.getRecipes(userId)
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('/user/recipes')
+  deleteFavRecipe(@Request() req) {
+    const userId  =  req.user.userId
+    const recipeId = req.body.recipeId
+    
+    const recipeData = {"userId" : userId, "recipeId" : recipeId}
+    return this.userService.deleteRecipe(recipeData)
+  }
+  
+
 }

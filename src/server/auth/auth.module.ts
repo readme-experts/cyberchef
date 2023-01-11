@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { PrismaService } from './../prisma.service';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
@@ -23,10 +24,10 @@ import { AuthController } from './auth.controller';
       PassportModule,
       JwtModule.register({
         secret: 'SECRET',
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '3660s' },
       }),
     ],
-    providers: [AuthService],
+    providers: [AuthService, JwtStrategy,UserService],
     controllers: [AuthController],
     exports: [AuthService],
   })

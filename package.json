@@ -29,7 +29,8 @@
   "scripts": {
     "preinstall": "sudo npm i -g @nestjs/cli && npx prisma generate --schema=./src/database/prisma/schema.prisma",
     "installDependecies": "npm --prefix src/client install && npm --prefix src/api install",
-    "start": "npm run --prefix src/client build && npm run --prefix src/api start"
+    "start": "npm run --prefix src/client build && npm run --prefix src/api start",
+    "start:dev":"nest start --watch"
   },
   "devDependencies": {
     "@types/passport-jwt": "^3.0.8",

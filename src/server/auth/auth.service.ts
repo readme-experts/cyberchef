@@ -15,21 +15,22 @@ export class AuthService {
   //   // return null;
   // }
 
-  async login(user: any) {
+  async login(user) {
     const payload = { username: user.username, id: user.id };
-
-    console.log(payload, this.jwtService);
-
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload)
     };
   }
 
-  async register(user: any) {
+//   async getUserId(req)  {
+//     const token = req.headers.authorization;
+//     const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+//     return payload.id;
+//   }
+
+  async register(user) {
     const payload = { username: user.username, id: user.id };
-
-    console.log(payload, this.jwtService);
-
+    // console.log(payload, this.jwtService);
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -26,4 +26,13 @@ export class UserService {
         return userFavRecipe
     }
 
+    async getRecipes(recipeData) {
+        const userFavRecipes = await user.findRecipes(recipeData)
+        return userFavRecipes
+    }
+
+    async deleteRecipe(recipeData) {
+        const deleteRecipe = await user.deleteRecipe(recipeData)
+        return deleteRecipe
+    }
 }
