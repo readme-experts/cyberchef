@@ -26,32 +26,5 @@ import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 export class UserController {
   constructor( private userService : UserService, private  authService: AuthService) {}
 
-  @Post('/registration')
-  addUser(@Body() dto: CreateUserDto) {
-    return this.userService.addUser(dto)
-  }
-
-
   // @UseGuards(LocalAuthGuard)
-  @Post('/login')
-    login(@Body('username') username: string) {
-    const user = this.userService.findUser(username)
-    const token = this.authService.login(user)
-    return token
-  }
-
-  // @Post('/login')
-  // async login(@Body() user) {
-  //   return this.authService.login(user);
-  // }
-
-  // @UseGuards(JwtAuthGuard)
-  @Get('/hello')
-  sayHello() {
-    return this.authService.hello()
-  }
-  @Post('/user/recipes')
-   addFavRecipe(@Body() recipeData) {
-    return this.userService.addRecipe(recipeData)
-  }
 }
