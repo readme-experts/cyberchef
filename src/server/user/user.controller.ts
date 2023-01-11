@@ -13,17 +13,16 @@ import {
   Request
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/createUser.dto';
 import { AuthService } from 'auth/auth.service';
 import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 
-@Controller()
+@Controller('/user/recipes')
 export class UserController {
   constructor( private userService : UserService, private  authService: AuthService,
     private recipeService : RecipeService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post('/user/recipes')
+  @Post()
   addFavRecipe(@Request() req) {
     const userId  =  req.user.userId
     const recipeId = req.body.recipeId
@@ -33,7 +32,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/user/recipes')
+  @Get()
   async getFavRecipes(@Request() req) {
     const userId  =  req.user.userId
     const recipesId = await this.userService.getRecipes(userId)
@@ -45,7 +44,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete('/user/recipes')
+  @Delete()
   deleteFavRecipe(@Request() req) {
     const userId  =  req.user.userId
     const recipeId = req.body.recipeId

@@ -1,7 +1,7 @@
-import { CreateUserDto } from './../user/dto/createUser.dto';
 import { UserService } from './../user/user.service';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -18,14 +18,21 @@ export class AuthService {
   }
 
   async login(user) {
+      if(!user) {
+          throw new BadRequestException('invalid user')
+      }
       const payload = { username: user.username, id: user.id };
       return {
       access_token: this.jwtService.sign(payload)
     };
   }
 
-  async register(dto : CreateUserDto) {
-    const user = await  this.userService.addUser(dto)
+  async register(regData) {
+    const passwordhash = await bcrypt.hash(regData.password,12)
+    const userRegData = {"email": regData.email,
+                        "username" : regData.username,
+                        "passwordhash":passwordhash}
+    const user = await this.userService.addUser(userRegData)
     return user
   }
 }
