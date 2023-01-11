@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className='header'>
       <div className='header__left'>
-        <Link to='/' class='header__logo_link'>
+        <Link to='/' className='header__logo_link'>
           <h3 className='header__logo'><span>Cyber</span>chef</h3>
         </Link>
       </div>
