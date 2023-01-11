@@ -12,8 +12,6 @@ const user = new UserRepository(prisma);
 export class UserService {
     async addUser(dto: CreateUserDto) {
         const newUser = await user.add(dto)
-        console.log(newUser);
-        
         return newUser
     }
     async findUser(username) {
