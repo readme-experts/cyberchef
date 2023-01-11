@@ -11,10 +11,10 @@ export default class ValidationError {
       'email', 'Invalid email',
     ));
     if (data.password.length < 8) validationErrors.push(new ValidationError(
-      'password', 'Password is shorter that 8 symbols',
+      'password', 'Password is shorter than 8 symbols',
     ));
     if (data.confirm && data.confirm !== data.password) validationErrors.push(new ValidationError(
-      'password', 'Password does not match',
+      'confirm', 'Password does not match',
     ));
     return validationErrors;
   }
