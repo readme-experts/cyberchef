@@ -1,3 +1,4 @@
+import { RecipeService } from './../recipes/recipe.service';
 import { JwtStrategy } from './../auth/jwt.strategy';
 import { JwtService } from '@nestjs/jwt';
 import { Module } from "@nestjs/common";
@@ -6,7 +7,7 @@ import { UserController } from "./user.controller";
 import {UserService} from './user.service'
 
 @Module({
-    providers: [UserService,AuthService,JwtService,JwtStrategy],
+    providers: [UserService,AuthService,JwtService,JwtStrategy,RecipeService],
     exports: [UserService],
     controllers:[UserController]
 })

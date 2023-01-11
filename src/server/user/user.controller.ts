@@ -1,3 +1,4 @@
+import { RecipeService } from './../recipes/recipe.service';
 import { JwtStrategy } from './../auth/jwt.strategy';
 
 import {
@@ -25,7 +26,8 @@ import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 
 @Controller()
 export class UserController {
-  constructor( private userService : UserService, private  authService: AuthService) {}
+  constructor( private userService : UserService, private  authService: AuthService,
+    private recipeService : RecipeService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('/user/recipes')
@@ -39,9 +41,14 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/user/recipes')
-  getFavRecipes(@Request() req) {
+  async getFavRecipes(@Request() req) {
     const userId  =  req.user.userId
-    return this.userService.getRecipes(userId)
+    const recipesId = await this.userService.getRecipes(userId)
+    let favRecipes = []
+    for(let el of recipesId){
+      favRecipes.push(await this.recipeService.getRecipeById(el))
+    }
+    return favRecipes
   }
 
   @UseGuards(JwtAuthGuard)
