@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ValidationError from '../features/ValidationError';
 import { loginUser } from '../app/actions/account/loginUser';
 
 function Login() {
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   let formData = {
     email: '',
@@ -20,14 +21,14 @@ function Login() {
 
   const handleSubmit = event => {
     event.preventDefault();
+    setErrors([]);
     const validationErrors = ValidationError.Validate(formData);
     if (validationErrors.length) {
       setErrors(validationErrors);
-      alert(`There are form errors: ${errors.join('\n')}`);
       return;
     }
     dispatch(loginUser(formData));
-    return <Navigate to='/recipes' />;
+    return navigate('/recipes');
   };
   const failedValidationStyles = {
     'outline': '1px solid red',
@@ -42,7 +43,7 @@ function Login() {
           <label htmlFor='name' className='login__label'>Email</label><br />
           <input
             type='text'
-            name=''
+            name='email'
             id='name'
             className='login__input'
             placeholder='example@email.com'
@@ -50,18 +51,20 @@ function Login() {
             onChange={handleChange}
             style={errors.some(error => error.type === 'email') ? failedValidationStyles : {}}
           />
+          {errors.some(error => error.type === 'email') ? <p style={{ 'color': 'red' }}>Invalid email</p> : <></>}
         </div>
         <div>
           <label htmlFor='pass' className='login__label'>Password</label><br />
           <input
             type='password'
-            name=''
+            name='password'
             id='pass'
             className='login__input'
             required
             onChange={handleChange}
             style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}
           />
+          {errors.some(error => error.type === 'password') ? <p style={{ 'color': 'red' }}>Invalid password</p> : <></>}
         </div>
         <Link to='/register' className='login__register'
         >Don`t have an account?</Link>
