@@ -1,3 +1,4 @@
+import { RecipeService } from './../recipes/recipe.service';
 
 import {
   Controller,
@@ -8,30 +9,49 @@ import {
   Put,
   Delete,
   Query,
+  UseGuards,
+  Request
 } from '@nestjs/common';
 import { UserService } from './user.service';
-// import { PrismaService } from '.././prisma.service';
-// import { users as UserModel, Prisma } from '@prisma/client';
-// import { UserRepository } from '../../database/repositories/user';
-import { CreateUserDto } from './dto/createUser.dto';
+import { AuthService } from 'auth/auth.service';
+import { JwtAuthGuard } from 'auth/jwt-auth.guard';
 
-// const prisma = new PrismaService();
-// const user = new UserRepository(prisma);
-
-@Controller()
+@Controller('/user/recipes')
 export class UserController {
-  constructor( private userService : UserService) {}
+  constructor( private userService : UserService, private  authService: AuthService,
+    private recipeService : RecipeService) {}
 
-
-  @Post('/registration')
-  async addUser(@Body() dto: CreateUserDto) {
-    console.log(dto);
-    return this.userService.addUser(dto)
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  addFavRecipe(@Request() req) {
+    const userId  =  req.user.userId
+    const recipeId = req.body.recipeId
+    
+    const recipeData = {"userId" : userId, "recipeId" : recipeId}
+    return this.userService.addRecipe(recipeData)
   }
 
-  @Get('/users')
-  async  findUser(@Body('username') username: string) {
-    console.log(username);
-    return this.userService.findUser(username)
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async getFavRecipes(@Request() req) {
+    const userId  =  req.user.userId
+    const recipesId = await this.userService.getRecipes(userId)
+    let favRecipes = []
+    for(let el of recipesId){
+      favRecipes.push(await this.recipeService.getRecipeById(el))
+    }
+    return favRecipes
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  deleteFavRecipe(@Request() req) {
+    const userId  =  req.user.userId
+    const recipeId = req.body.recipeId
+    
+    const recipeData = {"userId" : userId, "recipeId" : recipeId}
+    return this.userService.deleteRecipe(recipeData)
+  }
+  
+
 }
