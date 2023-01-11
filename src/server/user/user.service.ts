@@ -21,4 +21,9 @@ export class UserService {
         return specificUser
     }
 
+    async addRecipe(recipeData) {
+        const userFavRecipe = await user.addRecipe(recipeData)
+        return userFavRecipe
+    }
+
 }
