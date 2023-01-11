@@ -34,7 +34,7 @@ const ProtectedAppRoutes = [
   },
   {
     path: '/recipes/:id',
-    component: <RecipePage />,
+    element: <RecipePage />,
   },
 ];
 

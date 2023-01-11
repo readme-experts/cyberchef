@@ -13,8 +13,8 @@ ProtectedRoute.propTypes = {
   user: PropTypes.shape({
     userRecipes: PropTypes.array.isRequired,
     username: PropTypes.string,
-  }).isRequired,
-  children: PropTypes.func.isRequired,
+  }),
+  children: PropTypes.element.isRequired,
 };
 
 export default ProtectedRoute;
