@@ -10,21 +10,21 @@ function App() {
   const user = useSelector(state => state.account.user);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <Routes>
         {AppRoutes.map((route, index) => {
           const { element, ...rest } = route;
-          return <Route key={index} {...rest} element={element}/>;
+          return <Route key={index} {...rest} element={element} />;
         })}
         {ProtectedAppRoutes.map((route, index) => {
           const { element, ...rest } = route;
           return <Route key={index} {...rest} element={
             <ProtectedRoute user={user}>
               {element}
-            </ProtectedRoute>}/>;
+            </ProtectedRoute>} />;
         })}
-        <Route path="*" element={<p>There&amp;s nothing here: 404!</p>} />
+        <Route path='*' element={<p>There&amp;s nothing here: 404!</p>} />
       </Routes>
       <Footer />
     </div>

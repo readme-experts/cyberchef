@@ -7,7 +7,7 @@ export const loadUserRecipes = createAsyncThunk(
       const token = getState()?.account.token;
       const headers = {
         'Content-Type': 'application/json',
-        'authorization': token
+        'authorization': token,
       };
       const response = await fetch('/api/user/myrecipes', {
         method: 'GET',

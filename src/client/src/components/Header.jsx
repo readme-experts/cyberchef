@@ -12,10 +12,10 @@ function Header() {
         </Link>
       </div>
       <div className='header__right'>
-        {user ? <Link className="header__logo_link" to={`/user/${user.id}`}>
-          <p className='header__username'>{ user.username }</p>
+        {user ? <Link className='header__logo_link' to={`/user/${user.id}`}>
+          <p className='header__username'>{user.username}</p>
         </Link> :
-          <Link to='/login' className="header__logo_link">
+          <Link to='/login' className='header__logo_link'>
             <p className='header__username'>Login</p>
           </Link>}
       </div>

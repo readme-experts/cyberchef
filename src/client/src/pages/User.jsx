@@ -6,13 +6,13 @@ function User() {
   const userRecipes = useSelector(state => state.account.userRecipes);
 
   return (
-    <main className="container">
-      <div className="content">
+    <main className='container'>
+      <div className='content'>
         <h3>Here is your precious recipes you added to favourites</h3>
-        {userRecipes ? <div className="content__recipes">
-          {userRecipes.map((recipe, index) => <Recipe recipe={recipe} key={index}/>)}
+        {userRecipes ? <div className='content__recipes'>
+          {userRecipes.map((recipe, index) => <Recipe recipe={recipe} key={index} />)}
         </div> :
-          <h3 >No recipes</h3>}
+          <h3>No recipes</h3>}
       </div>
     </main>
   );

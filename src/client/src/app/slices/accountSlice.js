@@ -9,12 +9,12 @@ const initialState = {
   token: localStorage.getItem('cyberChefToken'),
   userRecipes: [],
   loading: false,
-  error: null
+  error: null,
 };
 
 const storageNames = {
   user: 'cyberChefUser',
-  token: 'cyberChefToken'
+  token: 'cyberChefToken',
 };
 
 const isRejectedAction = action => action.type.endsWith('rejected');
@@ -29,7 +29,7 @@ const accountSlice = createSlice({
       state.token = null;
       localStorage.removeItem(storageNames.user);
       localStorage.removeItem(storageNames.token);
-    }
+    },
   },
   extraReducers: builder => {
     builder.addCase(loginUser.fulfilled, (state, action) => {

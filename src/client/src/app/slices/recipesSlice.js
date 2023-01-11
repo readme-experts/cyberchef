@@ -4,7 +4,7 @@ import { loadRecipes } from '../actions/recipes/loadRecipes';
 const initialState = {
   recipes: [],
   loading: false,
-  error: null
+  error: null,
 };
 
 const recipesSlice = createSlice({

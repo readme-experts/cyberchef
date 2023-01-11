@@ -5,6 +5,7 @@ import { loadRecipes } from '../app/actions/recipes/loadRecipes';
 import { addUserRecipe } from '../app/actions/account/addUserRecipe';
 import Recipe from '../components/Recipe';
 import Loader from '../components/Loader';
+
 function SearchRecipes() {
   const [recipes, setRecipes] = useState([]);
   const dispatch = useDispatch();
@@ -24,11 +25,11 @@ function SearchRecipes() {
   if (error) return <pre>Error occurred: {error.message}</pre>;
 
   return (
-    <main className="container">
-      <div className="content">
-        <Search searchCallback={searchCallback}/>
-        { recipes.length ?
-          <div className="content__recipes">
+    <main className='container'>
+      <div className='content'>
+        <Search searchCallback={searchCallback} />
+        {recipes.length ?
+          <div className='content__recipes'>
             {recipes.map((recipe, index) => <Recipe recipe={recipe}
               clickHandler={clickCallback}
               key={index} />)}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ user, children }) => {
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to='/login' replace />;
   }
   return children;
 };
@@ -14,7 +14,7 @@ ProtectedRoute.propTypes = {
     userRecipes: PropTypes.array.isRequired,
     username: PropTypes.string,
   }).isRequired,
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
 };
 
 export default ProtectedRoute;

@@ -10,15 +10,15 @@ const AppRoutes = [
   {
     path: '/',
     index: true,
-    element: <Home/>
+    element: <Home />,
   },
   {
     path: '/login',
-    element: <Login/>
+    element: <Login />,
   },
   {
     path: '/register',
-    element: <Register/>
+    element: <Register />,
   },
 
 ];
@@ -26,7 +26,7 @@ const AppRoutes = [
 const ProtectedAppRoutes = [
   {
     path: '/user/:id',
-    element: <User/>
+    element: <User />,
   },
   {
     path: '/recipes',
