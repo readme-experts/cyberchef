@@ -43,7 +43,7 @@ function Register() {
     <div className='container'>
       <form action='#' className='login' onSubmit={handleSubmit}>
         <h3 className='login__heading'>Register</h3>
-        <div style={errors.some(error => error.type === 'email') ? failedValidationStyles : {}}>
+        <div>
           <label htmlFor='name' className='login__label'>Email</label><br />
           <input
             type='text'
@@ -53,9 +53,10 @@ function Register() {
             placeholder='example@email.com'
             required
             onChange={handleChange}
+            style={errors.some(error => error.type === 'email') ? failedValidationStyles : {}}
           />
         </div>
-        <div style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}>
+        <div>
           <label htmlFor='pass' className='login__label'>Password</label><br />
           <input
             type='password'
@@ -64,9 +65,10 @@ function Register() {
             className='login__input'
             required
             onChange={handleChange}
+            style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}
           />
         </div>
-        <div style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}>
+        <div>
           <label htmlFor='pass' className='login__label'>Confirm password</label><br />
           <input
             type='password'
@@ -75,6 +77,7 @@ function Register() {
             className='login__input'
             required
             onChange={handleChange}
+            style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}
           />
         </div>
         <Link to='/login' className='login__register'

@@ -38,7 +38,7 @@ function Login() {
     <div className='container'>
       <form action='#' className='login' onSubmit={handleSubmit}>
         <h3 className='login__heading'>Login</h3>
-        <div style={errors.some(error => error.type === 'email') ? failedValidationStyles : {}}>
+        <div >
           <label htmlFor='name' className='login__label'>Email</label><br />
           <input
             type='text'
@@ -48,9 +48,10 @@ function Login() {
             placeholder='example@email.com'
             required
             onChange={handleChange}
+            style={errors.some(error => error.type === 'email') ? failedValidationStyles : {}}
           />
         </div>
-        <div style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}>
+        <div>
           <label htmlFor='pass' className='login__label'>Password</label><br />
           <input
             type='password'
@@ -59,6 +60,7 @@ function Login() {
             className='login__input'
             required
             onChange={handleChange}
+            style={errors.some(error => error.type === 'password') ? failedValidationStyles : {}}
           />
         </div>
         <Link to='/register' className='login__register'
