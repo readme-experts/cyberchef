@@ -37,16 +37,17 @@ async function getRecipes(links) {
         .attr('src');
 
       const ingredients = [];
-      $('span[itemprop="ingredient"]')
+      $('[itemprop="recipeIngredient"]')
         .each((i, header) => {
           const name = $(header)
-            .find('span[itemprop="name"]')
+            .find('a span')
             .html();
           const mass = $(header)
-            .find('span[itemprop="amount"]')
+            .find('span')
+            .last()
             .html();
 
-          const ingredient = mass ? name + ' - ' + mass : name;
+          let ingredient = name === mass ? name : name + ' - ' + mass;
 
           ingredients.push(ingredient);
         });
