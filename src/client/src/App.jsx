@@ -7,7 +7,7 @@ import ProtectedRoute from './features/ProtectedRoute';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const user = useSelector(state => state.account.user);
+  const user = useSelector(state => state.account.user) || null;
 
   return (
     <div className='App'>
