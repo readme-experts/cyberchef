@@ -25,11 +25,11 @@ async function getPageContent(url) {
     const page = await browser.newPage();
     await page.goto(url, PAGE_PUPPETEER_OPTS);
     const content = await page.content();
-    browser.close();
+    await browser.close();
 
     return content;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 }
 
