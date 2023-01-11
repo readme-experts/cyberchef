@@ -46,7 +46,7 @@ async function getRecipes(links) {
             .find('span[itemprop="amount"]')
             .html();
 
-          let ingredient = mass ? name + ' - ' + mass : name
+          const ingredient = mass ? name + ' - ' + mass : name;
 
           ingredients.push(ingredient);
         });
