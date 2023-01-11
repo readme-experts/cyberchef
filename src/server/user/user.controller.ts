@@ -33,17 +33,17 @@ export class UserController {
 
 
   // @UseGuards(LocalAuthGuard)
-  // @Post('/login')
-  //   login(@Body('username') username: string) {
-  //   const user = this.userService.findUser(username)
-  //   const token = this.authService.login(user)
-  //   return token
-  // }
-
   @Post('/login')
-  async login(@Body() user) {
-    return this.authService.login(user);
+    login(@Body('username') username: string) {
+    const user = this.userService.findUser(username)
+    const token = this.authService.login(user)
+    return token
   }
+
+  // @Post('/login')
+  // async login(@Body() user) {
+  //   return this.authService.login(user);
+  // }
 
   // @UseGuards(JwtAuthGuard)
   @Get('/hello')
