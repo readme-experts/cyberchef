@@ -77,9 +77,6 @@ async function getRecipes(links) {
       };
 
       recipes.push(recipe);
-      // console.log(
-      //   `Added ${links.indexOf(link) + 1}/${links.length} recipes`
-      // );
     }
     return recipes;
   } catch (err) {
@@ -91,5 +88,3 @@ module.exports = {
   getLinks,
   getRecipes,
 };
-
-
