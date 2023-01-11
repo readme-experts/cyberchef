@@ -2,14 +2,13 @@
 
 const cheerio = require('cheerio');
 const pupp = require('../helpers/puppeteer');
-const common = require('../helpers/common');
 const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 1;
 
 async function getLinks() {
   try {
     const links = [];
-    for (const page of common.arrayFromLength(pages)) {
+    for (let page = 1; page <= pages; page++) {
       const defaultURL = `${SITE}~${page}`;
       const pageContent = await pupp.getPageContent(defaultURL);
       const $ = cheerio.load(pageContent);
