@@ -9,7 +9,6 @@ async function saveData(data) {
       if (err) {
         return console.log(err);
       }
-      //console.log('The file was saved!');
     });
   } catch (err) {
     console.log(err);
