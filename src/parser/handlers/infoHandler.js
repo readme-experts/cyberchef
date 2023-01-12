@@ -79,6 +79,7 @@ async function getRecipes(links) {
 
       recipes.push(recipe);
     }
+
     return recipes;
   } catch (err) {
     console.log(err);
