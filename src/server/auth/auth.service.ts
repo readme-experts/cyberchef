@@ -2,6 +2,8 @@ import { UserService } from '../user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { UserEntity } from '../user/Entities/user.entity';
+import { CreateUserDto } from './DTO/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,17 +12,15 @@ export class AuthService {
     private userService: UserService
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.userService.findUser(username);
-    console.log(user);
-
-    if (user && user.password === password) {
+  async validateUser(userDto: CreateUserDto): Promise<UserEntity> {
+    const user = await this.userService.findUser(userDto.username);
+    if (user && user.password === userDto.password) {
       return user;
     }
     return null;
   }
 
-  async login(user) {
+  async login(user: UserEntity) {
     if (!user) {
       throw new BadRequestException('invalid user');
     }
