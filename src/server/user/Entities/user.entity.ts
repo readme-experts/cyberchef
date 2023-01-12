@@ -5,5 +5,5 @@ export interface UserEntity {
   username: string;
   email: string;
   password: string;
-  favourite_recipes: FavouriteRecipeEntity[];
+  favourite_recipes?: FavouriteRecipeEntity[];
 }
