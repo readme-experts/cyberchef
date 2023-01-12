@@ -1,6 +1,6 @@
 'use strict';
 
-class CategoryRepository {
+export default class CategoryRepository {
   constructor(prisma) {
     this.prisma = prisma;
   }
@@ -20,9 +20,6 @@ class CategoryRepository {
   }
 
   async findAll() {
-    const allCategories = await this.prisma.categories.findMany();
-    return allCategories; //returns an array of all categories
+    return await this.prisma.categories.findMany(); //returns an array of all categories
   }
 }
-
-exports.CategoryRepository = CategoryRepository;

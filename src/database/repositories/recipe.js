@@ -1,6 +1,6 @@
 'use strict';
 
-class RecipeRepository {
+export default class RecipeRepository {
   constructor(prisma) {
     this.prisma = prisma;
   }
@@ -24,17 +24,15 @@ class RecipeRepository {
   }
 
   async find(recipeId) {
-    const recipe = await this.prisma.recipes.findUnique({
+    return await this.prisma.recipes.findUnique({
       where: {
         id: parseInt(recipeId),
       },
     });
-    return recipe;
   }
 
   async findAll() {
-    const allRecipes = await this.prisma.recipes.findMany();
-    return allRecipes;
+    return await this.prisma.recipes.findMany();
   }
 
   async delete(recipeId) {
@@ -58,15 +56,12 @@ class RecipeRepository {
   }
 
   async search(str) {
-    const recipes = await this.prisma.recipes.findMany({
+    return await this.prisma.recipes.findMany({
       where: {
         name: {
           contains: str,
         },
       },
     });
-    return recipes;
   }
 }
-
-exports.RecipeRepository = RecipeRepository;

@@ -1,6 +1,6 @@
 'use strict';
 
-class UserRepository {
+export default class UserRepository {
   constructor(prisma) {
     this.prisma = prisma;
   }
@@ -22,12 +22,11 @@ class UserRepository {
   }
 
   async find(username) {
-    const user = await this.prisma.users.findUnique({
+    return await this.prisma.users.findUnique({
       where: {
         username,
       },
-    });
-    return user; //returns user object
+    }); //returns user object
   }
 
   async findRecipes(userId) {
@@ -70,5 +69,3 @@ class UserRepository {
     }
   }
 }
-
-exports.UserRepository = UserRepository;
