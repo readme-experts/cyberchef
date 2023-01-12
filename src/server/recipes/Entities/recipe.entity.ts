@@ -1,5 +1,5 @@
 import { FavouriteRecipeEntity } from './favouriteRecipe.entity';
-import { CategoryEntity } from './category,entity';
+import { CategoryEntity } from './category.entity';
 
 export interface RecipeEntity {
   id: number;
