@@ -1,11 +1,16 @@
+import { PrismaService } from './../prisma.service';
 import { UserService } from './../user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { UserRepository } from '../../database/repositories/user';
+
+const prisma = new PrismaService()
+const prismaUser = new UserRepository(prisma)
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService, private userService: UserService) {}
+  constructor(private jwtService: JwtService) {}
 
   async validateUser(username: string, password: string, user: any ): Promise<any> {
     const passwordCheck = await bcrypt.compare(password, user.password);
@@ -30,7 +35,7 @@ export class AuthService {
     const userRegData = {"email": regData.email,
                         "username" : regData.username,
                         "passwordhash":passwordhash}
-    const user = await this.userService.addUser(userRegData)
+    const user = await prismaUser.add(userRegData)
     return user
   }
 }

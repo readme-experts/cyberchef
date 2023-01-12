@@ -7,10 +7,10 @@ const user = new UserRepository(prisma);
 
 @Injectable()
 export class UserService {
-    async addUser(regData) {
-            const newUser = await user.add(regData)
-            return newUser
-    }
+    // async addUser(regData) {
+    //         const newUser = await user.add(regData)
+    //         return newUser
+    // }
     async findUser(username) {
         const specificUser = await user.find(username)
         return specificUser
