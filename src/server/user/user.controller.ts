@@ -1,4 +1,3 @@
-import { PrismaService } from './../prisma.service';
 import { RecipeService } from './../recipes/recipe.service';
 
 import {
@@ -11,50 +10,55 @@ import {
   Delete,
   Query,
   UseGuards,
-  Request
+  Request,
+  Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
 import { JwtAuthGuard } from 'auth/jwt-auth.guard';
-import { RecipeRepository } from '../../database/repositories/recipe';
-const prisma = new PrismaService();
-const recipe = new RecipeRepository(prisma);
 
 @Controller('/user')
 export class UserController {
-  constructor( private userService : UserService, private  authService: AuthService,
-    private recipeService : RecipeService) {}
+  constructor(
+    private userService: UserService,
+    private recipeService: RecipeService
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  addFavRecipe(@Request() req) {
-    const userId  =  req.user.userId
-    const recipeId = req.body.recipeId
-    
-    const recipeData = {"userId" : userId, "recipeId" : recipeId}
-    return this.userService.addRecipe(recipeData)
+  addFavRecipe(@Request() req, @Res() res) {
+    const userId = req.user.userId;
+    const recipeId = req.body.recipeId;
+    if (!recipeId) {
+      return res.status(400).json({ message: 'no recipeId provided' });
+    }
+
+    const recipeData = { userId: userId, recipeId: recipeId };
+    return this.userService.addRecipe(recipeData);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
   async getFavRecipes(@Request() req) {
-    const userId  =  req.user.userId
-    const recipesId = await this.userService.getRecipes(userId)
-    let favRecipes = []
-    for(let el of recipesId){
-      favRecipes.push(await this.recipeService.getRecipeById(el))
+    const userId = req.user.userId;
+    const recipesId = await this.userService.getRecipes(userId);
+    let favRecipes = [];
+    for (let el of recipesId) {
+      favRecipes.push(await this.recipeService.getRecipeById(el));
     }
-    return favRecipes
+    return favRecipes;
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
-  deleteFavRecipe(@Request() req) {
-    const userId  =  req.user.userId
-    const recipeId = req.body.recipeId
-    
-    const recipeData = {"userId" : userId, "recipeId" : recipeId}
-    return this.userService.deleteRecipe(recipeData)
+  deleteFavRecipe(@Request() req, res) {
+    const userId = req.user.userId;
+    const recipeId = req.body.recipeId;
+    if (!recipeId) {
+      return res.status(400).json({ message: 'no recipeId provided' });
+    }
+
+    const recipeData = { userId: userId, recipeId: recipeId };
+    return this.userService.deleteRecipe(recipeData);
   }
-  
 }

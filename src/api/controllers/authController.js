@@ -4,6 +4,7 @@ const db = require('../../database/db');
 const { validationResult } = require('express-validator');
 const tokenService = require('../service/token-service');
 const bcrypt = require('bcrypt');
+const { HttpCode } = require('@nestjs/common');
 
 class AuthController {
   async registration(req, res) {
