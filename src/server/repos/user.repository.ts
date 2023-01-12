@@ -32,15 +32,11 @@ export class UserRepository {
   }
 
   async findRecipes(userId: string) {
-    const favRecipes = await this.prisma.favourite_recipes.findMany({
+    return this.prisma.favourite_recipes.findMany({
       where: {
         user_id: parseInt(userId),
       },
-      select: {
-        recipe_id: true,
-      },
-    });
-    return favRecipes.map(el => el.recipe_id); //returns an array user favourite recipes ids
+    }); //returns an array user favourite recipes ids
   }
 
   async addRecipe(recipeData): Promise<boolean> {
