@@ -1,5 +1,5 @@
 import { RecipeService } from '../recipes/recipe.service';
-import { JwtStrategy } from '../auth/jwt.strategy';
+import { JwtStrategy } from '../auth/JWT/jwt.strategy';
 import { JwtService } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { AuthService } from 'auth/auth.service';
