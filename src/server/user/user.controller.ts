@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
-import { JwtAuthGuard } from 'auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'auth/JWT/jwt-auth.guard';
 
 @Controller('/user/recipes')
 export class UserController {
