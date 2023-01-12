@@ -4,7 +4,7 @@ export default class ValidationError {
     this.description = description;
   }
 
-  static Validate(data) {
+  static validate(data) {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const validationErrors = [];
     if (!emailRegex.test(data.email)) validationErrors.push(new ValidationError(
@@ -12,6 +12,9 @@ export default class ValidationError {
     ));
     if (data.password.length < 8) validationErrors.push(new ValidationError(
       'password', 'Password is shorter than 8 symbols',
+    ));
+    if (!data.password || !data.password.length) validationErrors.push(new ValidationError(
+      'password', 'Password is required',
     ));
     if (data.confirm && data.confirm !== data.password) validationErrors.push(new ValidationError(
       'confirm', 'Password does not match',
