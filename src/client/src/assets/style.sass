@@ -70,12 +70,11 @@
   font-style: italic
   font-display: swap
 
-
 *
   margin: 0 auto
   outline: none
   font-family: 'Lato', sans-serif
-
+  box-sizing: border-box
 a
   text-decoration: none
   color: black
@@ -83,21 +82,26 @@ a
 a, button, input[type="button"]
   cursor: pointer
   transition: all 0.25s
+
   &:hover
     color: cornflowerblue !important
 
 .container
   max-width: 1144px
+  width: 50%
+  height: 50vh
+  flex: 1 0 auto
 
 .header
+  position: sticky
   display: flex
   justify-content: space-between
-  min-height: 75px
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17)
   border: solid 1px #ececec
   background-color: #ececec
   align-items: center
-  margin-bottom: 25px
+  height: 50px
+  width: 100%
 
   &__left
     width: 40%
@@ -105,6 +109,7 @@ a, button, input[type="button"]
   &__logo
     font-weight: bold
     transition: all 0.25s
+
     & span, &:hover
       color: cornflowerblue
       font-weight: bolder
@@ -125,12 +130,13 @@ a, button, input[type="button"]
     border-radius: 50px
 
 .content
-
   &__filter
     display: flex
     align-items: flex-start
     justify-content: space-between
     margin-bottom: 50px
+    margin-top: 20px
+    height: 75vh
 
 
   &__submit
@@ -140,16 +146,19 @@ a, button, input[type="button"]
     transition: background 0.25s, color 0.25s
     font-weight: bold
     height: 32px
+
     &:hover
       transform: scale(1.05)
       background-color: cornflowerblue
       color: #ececec
+
   &__search
     border: solid 1px #eaeaea
     padding: 0 15px
     height: 30px
     transition: all 0.25s
     width: 300px
+
     &:focus, &:hover
       transform: scale(1.05)
       border-color: cornflowerblue
@@ -166,6 +175,7 @@ a, button, input[type="button"]
     border: 1px solid #eaeaea
     padding: 10px
     transition: all 0.25s
+
     &:hover
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17)
       transform: scale(1.02)
@@ -174,6 +184,7 @@ a, button, input[type="button"]
   &__desc
     display: flex
     flex-direction: column
+
     h3, p
       text-align: center
       margin-bottom: 5px
@@ -191,13 +202,15 @@ a, button, input[type="button"]
     font-weight: bold
     height: 30px
     margin-top: 20px
+
     &:hover
       transform: scale(1.05)
       background-color: cornflowerblue
 
 .footer
   background-color: #e6e6e6
-  margin-top: 40px
+  flex: 0 0 auto
+  width: 100%
 
   &__container
     height: 50px
@@ -213,8 +226,8 @@ a, button, input[type="button"]
 .login
   display: flex
   flex-direction: column
-  width: 50%
-  height: 50%
+  width: 60%
+  height: 80%
   align-items: flex-start
   justify-content: space-between
   margin-top: 50px
@@ -227,7 +240,7 @@ a, button, input[type="button"]
     font-size: 30px
     font-weight: bolder
 
-  &> div, h3
+  & > div, h3
     margin-bottom: 20px
 
   &__input
@@ -236,7 +249,8 @@ a, button, input[type="button"]
     min-width: 100%
     height: 45px
     transition: all 0.25s
-    margin-top: 20px
+    margin-top: 10px
+
     &:focus, &:hover
       transform: scale(1.05)
       border-color: cornflowerblue
@@ -249,6 +263,7 @@ a, button, input[type="button"]
     border: solid 1px white
     width: 100px
     height: 30px
+
     &:hover
       color: white !important
 
@@ -257,8 +272,9 @@ a, button, input[type="button"]
   justify-content: center
   align-items: center
   flex-direction: column
-  height: 100vh
+  height: 75vh
   background-image: url("https://t.me/c/1410489556/1414")
+
   h3
     font-weight: bolder
     font-size: 32px
@@ -285,8 +301,21 @@ a, button, input[type="button"]
     text-align: center
     line-height: 50px
 
+.loader
+  border: 16px solid #f3f3f3
+  border-top: 16px solid #3498db
+  border-radius: 50%
+  width: 120px
+  height: 120px
+  animation: spin 2s linear infinite
 
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
 
-
-
-
+.App
+  display: flex
+  flex-direction: column
+  height: 100vh
