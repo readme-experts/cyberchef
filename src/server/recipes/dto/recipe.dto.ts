@@ -3,5 +3,5 @@ export class CreateRecipeDto {
   readonly category_id: number;
   readonly products: string;
   readonly description: string;
-  readonly image_link: string;
+  readonly image_link?: string;
 }
