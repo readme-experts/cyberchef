@@ -1,17 +1,13 @@
 import { RegisterUserDto } from '../user/dto/registration.dto';
-import { PrismaService } from '../prisma.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import UserRepository from '../../database/repositories/user';
 import { UserEntity } from '../user/Entities/user.entity';
-
-const prisma = new PrismaService();
-const prismaUser = new UserRepository(prisma);
+import { UserRepository } from '../repos/user.repository';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(private jwtService: JwtService, private user: UserRepository) {}
 
   async validateUser(
     username: string,
@@ -33,6 +29,6 @@ export class AuthService {
   }
   async register(dto: RegisterUserDto) {
     dto.passwordHash = await bcrypt.hash(dto.password, 12);
-    return await prismaUser.add(dto);
+    return await this.user.add(dto);
   }
 }
