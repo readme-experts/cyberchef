@@ -9,10 +9,13 @@ export const addUserRecipe = createAsyncThunk(
         'Content-Type': 'application/json',
         'authorization': token,
       };
+      const body = JSON.stringify({
+        recipeId: recipe.id
+      });
       const response = await fetch('/api/user/recipes', {
         method: 'PUT',
         headers,
-        body: { recipeId: JSON.stringify(recipe.id) },
+        body,
       });
       if (!response.ok) {
         return rejectWithValue(await response.json());
