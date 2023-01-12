@@ -1,0 +1,330 @@
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato Hairline";
+  src: url("fonts/Lato-Hairline.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato Hairline";
+  src: url("fonts/Lato-HairlineItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/Lato-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+* {
+  margin: 0 auto;
+  outline: none;
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a, button, input[type=button] {
+  cursor: pointer;
+  transition: all 0.25s;
+}
+a:hover, button:hover, input[type=button]:hover {
+  color: cornflowerblue !important;
+}
+
+.container {
+  max-width: 1144px;
+  width: 50%;
+  height: 50vh;
+  flex: 1 0 auto;
+}
+
+.header {
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17);
+  border: solid 1px #ececec;
+  background-color: #ececec;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+}
+.header__left {
+  width: 40%;
+}
+.header__logo {
+  font-weight: bold;
+  transition: all 0.25s;
+}
+.header__logo span, .header__logo:hover {
+  color: cornflowerblue;
+  font-weight: bolder;
+}
+.header__right {
+  display: flex;
+  align-items: center;
+}
+.header__username {
+  margin-right: 20px;
+  color: cornflowerblue;
+  font-weight: bold;
+}
+.header__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.content__filter {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  height: 75vh;
+}
+.content__submit {
+  background: none;
+  border: solid 1px #eaeaea;
+  padding: 0 15px;
+  transition: background 0.25s, color 0.25s;
+  font-weight: bold;
+  height: 32px;
+}
+.content__submit:hover {
+  transform: scale(1.05);
+  background-color: cornflowerblue;
+  color: #ececec;
+}
+.content__search {
+  border: solid 1px #eaeaea;
+  padding: 0 15px;
+  height: 30px;
+  transition: all 0.25s;
+  width: 300px;
+}
+.content__search:focus, .content__search:hover {
+  transform: scale(1.05);
+  border-color: cornflowerblue;
+}
+.content__recipes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(200px, auto);
+  grid-gap: 20px;
+}
+.content__recipe {
+  width: 500px;
+  display: flex;
+  border: 1px solid #eaeaea;
+  padding: 10px;
+  transition: all 0.25s;
+}
+.content__recipe:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17);
+  transform: scale(1.02);
+}
+.content__desc {
+  display: flex;
+  flex-direction: column;
+}
+.content__desc h3, .content__desc p {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.content__pic {
+  height: 200px;
+  width: 200px;
+  margin-right: 20px;
+}
+.content__add, .login__submit {
+  background: none;
+  border: solid 1px #eaeaea;
+  padding: 0 15px;
+  transition: background 0.25s, color 0.25s;
+  font-weight: bold;
+  height: 30px;
+  margin-top: 20px;
+}
+.content__add:hover, .login__submit:hover {
+  transform: scale(1.05);
+  background-color: cornflowerblue;
+}
+
+.footer {
+  background-color: #e6e6e6;
+  flex: 0 0 auto;
+  width: 100%;
+}
+.footer__container {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #7a7a7a;
+}
+.footer__link {
+  color: #7a7a7a;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 80%;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 50px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17);
+  border: solid 1px #ececec;
+  background-color: #ececec;
+  padding: 20px;
+}
+.login h3 {
+  font-size: 30px;
+  font-weight: bolder;
+}
+.login > div, .login h3 {
+  margin-bottom: 20px;
+}
+.login__input {
+  border: solid 1px white;
+  padding: 0 15px;
+  min-width: 100%;
+  height: 45px;
+  transition: all 0.25s;
+  margin-top: 10px;
+}
+.login__input:focus, .login__input:hover {
+  transform: scale(1.05);
+  border-color: cornflowerblue;
+}
+.login__label {
+  font-weight: lighter;
+}
+.login__submit {
+  border: solid 1px white;
+  width: 100px;
+  height: 30px;
+}
+.login__submit:hover {
+  color: white !important;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 75vh;
+  background-image: url("https://t.me/c/1410489556/1414");
+}
+.banner h3 {
+  font-weight: bolder;
+  font-size: 32px;
+  color: cornflowerblue;
+  margin-bottom: 40px;
+}
+.banner p {
+  font-size: 20px;
+  font-weight: lighter;
+  margin-bottom: 80px;
+}
+.banner__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.banner__href {
+  background: none;
+  color: black;
+  margin-left: 20px;
+  width: 100px;
+  height: 50px;
+  border: solid 1px #eaeaea;
+  text-align: center;
+  line-height: 50px;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/*# sourceMappingURL=style.css.map */
