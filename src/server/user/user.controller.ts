@@ -23,14 +23,14 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  addFavRecipe(@Request() req, @Res() res) {
+  async addFavRecipe(@Request() req, @Res() res) {
     const userId = req.user.userId;
     const recipeId = req.body.recipeId;
     if (!recipeId) {
       return res.status(400).json({ message: 'no recipeId provided' });
     }
-
-    const recipeData = { userId: userId, recipeId: recipeId };
+    const recipeData = { userId, recipeId };
+    return await this.userService.addRecipe(recipeData);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -39,7 +39,7 @@ export class UserController {
     const userId = req.user.userId;
     const recipesId = await this.userService.getRecipes(userId);
     const favRecipes = [];
-    for (let el of recipesId) {
+    for (const el of recipesId) {
       favRecipes.push(await this.recipeService.getRecipeById(el));
     }
     return favRecipes;
@@ -53,8 +53,7 @@ export class UserController {
     if (!recipeId) {
       return res.status(400).json({ message: 'no recipeId provided' });
     }
-
-    const recipeData = { userId: userId, recipeId: recipeId };
+    const recipeData = { userId, recipeId };
     return this.userService.deleteRecipe(recipeData);
   }
 }
