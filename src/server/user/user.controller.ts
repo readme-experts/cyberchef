@@ -7,12 +7,13 @@ import {
   Delete,
   UseGuards,
   Request,
+  Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
 import { JwtAuthGuard } from 'auth/JWT/jwt-auth.guard';
 
-@Controller('/user/recipes')
+@Controller('/user')
 export class UserController {
   constructor(
     private userService: UserService,
@@ -22,12 +23,14 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  addFavRecipe(@Request() req) {
+  async addFavRecipe(@Request() req, @Res() res) {
     const userId = req.user.userId;
     const recipeId = req.body.recipeId;
-
+    if (!recipeId) {
+      return res.status(400).json({ message: 'no recipeId provided' });
+    }
     const recipeData = { userId, recipeId };
-    return this.userService.addRecipe(recipeData);
+    return await this.userService.addRecipe(recipeData);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -44,10 +47,12 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Delete()
-  deleteFavRecipe(@Request() req) {
+  deleteFavRecipe(@Request() req, res) {
     const userId = req.user.userId;
     const recipeId = req.body.recipeId;
-
+    if (!recipeId) {
+      return res.status(400).json({ message: 'no recipeId provided' });
+    }
     const recipeData = { userId, recipeId };
     return this.userService.deleteRecipe(recipeData);
   }

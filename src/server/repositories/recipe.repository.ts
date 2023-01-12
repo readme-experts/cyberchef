@@ -1,16 +1,20 @@
-'use strict';
+import { PrismaService } from '../prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
+import { CreateRecipeDto } from '../recipes/DTO/recipe.dto';
+import { RecipeEntity } from '../prisma/Entities/recipe.entity';
 
-export default class RecipeRepository {
-  constructor(prisma) {
+@Injectable()
+export class RecipeRepository {
+  constructor(private prisma: PrismaService) {
     this.prisma = prisma;
   }
 
-  async add(recipeData) {
+  async add(recipeData: CreateRecipeDto) {
     try {
       await this.prisma.recipes.create({
         data: {
           name: recipeData.name,
-          category_id: parseInt(recipeData.categoryId),
+          category_id: +recipeData.categoryId,
           products: recipeData.products,
           description: recipeData.description,
           image_link: recipeData.imageLink,
@@ -23,19 +27,19 @@ export default class RecipeRepository {
     }
   }
 
-  async find(recipeId) {
-    return await this.prisma.recipes.findUnique({
+  async find(recipeId: string): Promise<RecipeEntity> {
+    return this.prisma.recipes.findUnique({
       where: {
         id: parseInt(recipeId),
       },
     });
   }
 
-  async findAll() {
-    return await this.prisma.recipes.findMany();
+  async findAll(): Promise<RecipeEntity[]> {
+    return this.prisma.recipes.findMany();
   }
 
-  async delete(recipeId) {
+  async delete(recipeId: string): Promise<boolean> {
     try {
       const deleteFavRecipes = this.prisma.favourite_recipes.deleteMany({
         where: {
@@ -55,8 +59,8 @@ export default class RecipeRepository {
     }
   }
 
-  async search(str) {
-    return await this.prisma.recipes.findMany({
+  async search(str: string): Promise<RecipeEntity[]> {
+    return this.prisma.recipes.findMany({
       where: {
         name: {
           contains: str,

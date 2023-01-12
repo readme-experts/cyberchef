@@ -1,17 +1,19 @@
-'use strict';
+import { PrismaService } from '../prisma/prisma.service';
+import { RegisterUserDto } from '../user/dto/registration.dto';
+import { Injectable } from '@nestjs/common';
+import { UserEntity } from '../prisma/Entities/user.entity';
 
-export default class UserRepository {
-  constructor(prisma) {
-    this.prisma = prisma;
-  }
+@Injectable()
+export class UserRepository {
+  constructor(private prisma: PrismaService) {}
 
-  async add(userData) {
+  async add(userData: RegisterUserDto): Promise<boolean> {
     try {
       await this.prisma.users.create({
         data: {
           email: userData.email,
           username: userData.username,
-          password: userData.passwordhash,
+          password: userData.passwordHash,
         },
       });
       return true;
@@ -21,40 +23,33 @@ export default class UserRepository {
     }
   }
 
-  async find(username) {
-    return await this.prisma.users.findUnique({
+  async find(username: string): Promise<UserEntity> {
+    return this.prisma.users.findUnique({
       where: {
         username,
       },
     }); //returns user object
   }
 
-  async findRecipes(userId) {
-    let favRecipes = await this.prisma.favourite_recipes.findMany({
+  async findRecipes(userId: string) {
+    return this.prisma.favourite_recipes.findMany({
       where: {
         user_id: parseInt(userId),
       },
-      select: {
-        recipe_id: true,
-      },
-    });
-    favRecipes = favRecipes.map(el => el.recipe_id);
-    return favRecipes; //returns an array user favourite recipes ids
+    }); //returns an array user favourite recipes ids
   }
 
-  async addRecipe(recipeData) {
+  async addRecipe(recipeData): Promise<boolean> {
     const favRecipe = await this.prisma.favourite_recipes.create({
       data: {
         user_id: recipeData.userId,
         recipe_id: recipeData.recipeId,
       },
     });
-    if (typeof favRecipe !== 'undefined' && favRecipe) {
-      return true;
-    }
+    return !!(typeof favRecipe !== 'undefined' && favRecipe);
   }
 
-  async deleteRecipe(recipeData) {
+  async deleteRecipe(recipeData): Promise<boolean> {
     try {
       await this.prisma.favourite_recipes.deleteMany({
         where: {

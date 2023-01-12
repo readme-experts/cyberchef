@@ -8,6 +8,6 @@ export interface RecipeEntity {
   products: string;
   description: string;
   image_link?: string;
-  favourite_recipes: FavouriteRecipeEntity[];
-  categories: CategoryEntity[];
+  favourite_recipes?: FavouriteRecipeEntity[];
+  categories?: CategoryEntity[];
 }

@@ -1,5 +1,5 @@
 import { RecipeEntity } from './recipe.entity';
-import { UserEntity } from '../../user/Entities/user.entity';
+import { UserEntity } from './user.entity';
 
 export interface FavouriteRecipeEntity {
   id: number;

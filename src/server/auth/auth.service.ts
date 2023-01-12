@@ -1,23 +1,21 @@
-import { UserService } from '../user/user.service';
+import { RegisterUserDto } from '../user/dto/registration.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UserEntity } from '../user/Entities/user.entity';
-import { CreateUserDto } from './DTO/user.dto';
+import { UserEntity } from '../prisma/Entities/user.entity';
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private jwtService: JwtService,
-    private userService: UserService
-  ) {}
+  constructor(private jwtService: JwtService, private user: UserRepository) {}
 
-  async validateUser(userDto: CreateUserDto): Promise<UserEntity> {
-    const user = await this.userService.findUser(userDto.username);
-    if (user && user.password === userDto.password) {
-      return user;
-    }
-    return null;
+  async validateUser(
+    username: string,
+    password: string,
+    user: UserEntity
+  ): Promise<boolean> {
+    const passwordCheck = await bcrypt.compare(password, user.password);
+    return user.username === username && passwordCheck === true;
   }
 
   async login(user: UserEntity) {
@@ -29,14 +27,8 @@ export class AuthService {
       accessToken: this.jwtService.sign(payload),
     };
   }
-
-  async register(regData) {
-    const passwordHash = await bcrypt.hash(regData.password, 12);
-    const userRegData = {
-      email: regData.email,
-      username: regData.username,
-      passwordHash,
-    };
-    return await this.userService.addUser(userRegData);
+  async register(dto: RegisterUserDto) {
+    dto.passwordHash = await bcrypt.hash(dto.password, 12);
+    return await this.user.add(dto);
   }
 }

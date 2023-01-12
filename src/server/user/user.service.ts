@@ -1,31 +1,24 @@
 import { Injectable } from '@nestjs/common';
-
-import { PrismaService } from '../prisma.service';
-import { UserRepository } from '../../database/repositories/user';
-import { UserEntity } from './Entities/user.entity';
-import { FavouriteRecipeEntity } from '../recipes/Entities/favouriteRecipe.entity';
-
-const prisma = new PrismaService();
-const user = new UserRepository(prisma);
+import { FavouriteRecipeEntity } from '../prisma/Entities/favouriteRecipe.entity';
+import { UserEntity } from '../prisma/Entities/user.entity';
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UserService {
-  async addUser(regData) {
-    return await user.add(regData);
-  }
-  async findUser(username): Promise<UserEntity> {
-    return await user.find(username);
-  }
+  constructor(private user: UserRepository) {}
 
   async addRecipe(recipeData) {
-    return await user.addRecipe(recipeData);
+    return await this.user.addRecipe(recipeData);
   }
 
   async getRecipes(recipeData): Promise<FavouriteRecipeEntity[]> {
-    return await user.findRecipes(recipeData);
+    return await this.user.findRecipes(recipeData);
+  }
+  async findUser(username: string): Promise<UserEntity> {
+    return await this.user.find(username);
   }
 
   async deleteRecipe(recipeData) {
-    return await user.deleteRecipe(recipeData);
+    return await this.user.deleteRecipe(recipeData);
   }
 }

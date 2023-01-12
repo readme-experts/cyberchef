@@ -1,27 +1,55 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { CreateRecipeDto } from './DTO/recipe.dto';
+import { Body, Controller, Get, Res, Post } from '@nestjs/common';
+import { CreateRecipeDto } from './dto/recipe.dto';
 import { RecipeService } from './recipe.service';
+import { recipeCategories } from './recipeCategories';
+import * as jsonRecipes from '../../parser/data/recipes.json';
 
-@Controller('/api')
+@Controller('/recipes')
 export class RecipeController {
   constructor(private recipeService: RecipeService) {}
-  @Post('/recipes')
-  addRecipe(@Body() dto: CreateRecipeDto) {
+
+  @Post()
+  addRecipe(@Body() dto: CreateRecipeDto, @Res() res) {
+    if (!dto) {
+      return res.status(400).json({ message: 'no recipeId provided' });
+    }
     return this.recipeService.addRecipe(dto);
   }
 
-  @Get('/recipes/all-recipes')
+  @Get('/allrecipes')
   getAllRecipes() {
     return this.recipeService.getAllRecipes();
   }
 
-  @Get('/recipes')
-  getRecipeByName(@Query('recipeName') recipeName: string) {
-    return this.recipeService.getRecipeByName(recipeName);
+  @Get()
+  getRecipeByName(@Body() recipe, @Res() res) {
+    if (!recipe) {
+      return res.status(400).json({ message: `recipe was not provided` });
+    }
+    return this.recipeService.getRecipeByName(recipe.name);
   }
 
-  @Get('/user/recipes')
-  getRecipeById(@Query('recipeId') recipeId: number) {
-    return this.recipeService.getRecipeById(recipeId);
+  @Post('/categories')
+  addCategories(recipesObject, @Res() res) {
+    if (!recipesObject) {
+      return res.status(400).json({
+        message: `recipe categories object
+           was not provided`,
+      });
+    }
+    recipesObject = recipeCategories;
+    return this.recipeService.addRecipeCategoriesToDb(recipesObject);
+  }
+
+  @Post('/addRecipes')
+  addRecipes(recipes, @Res() res) {
+    recipes = jsonRecipes;
+    if (!recipes) {
+      return res.status(400).json({
+        message: `recipes from json file
+            were not provided`,
+      });
+    }
+    return this.recipeService.addParsedRecipesToDb(recipes);
   }
 }
