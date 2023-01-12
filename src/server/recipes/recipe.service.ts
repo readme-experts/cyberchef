@@ -16,7 +16,7 @@ export class RecipeService {
     return await recipe.add(dto);
   }
 
-  async getRecipeById(id) {
+  async getRecipeById(id): Promise<RecipeEntity> {
     return await recipe.find(id);
   }
 
