@@ -1,26 +1,23 @@
-import { RecipeService } from './../recipes/recipe.service';
+import { RecipeService } from '../recipes/recipe.service';
 
 import {
   Controller,
   Get,
-  Param,
   Post,
-  Body,
-  Put,
   Delete,
-  Query,
   UseGuards,
   Request,
   Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
-import { JwtAuthGuard } from 'auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'auth/JWT/jwt-auth.guard';
 
 @Controller('/user')
 export class UserController {
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private recipeService: RecipeService
   ) {}
 
@@ -34,7 +31,6 @@ export class UserController {
     }
 
     const recipeData = { userId: userId, recipeId: recipeId };
-    return this.userService.addRecipe(recipeData);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -42,7 +38,7 @@ export class UserController {
   async getFavRecipes(@Request() req) {
     const userId = req.user.userId;
     const recipesId = await this.userService.getRecipes(userId);
-    let favRecipes = [];
+    const favRecipes = [];
     for (let el of recipesId) {
       favRecipes.push(await this.recipeService.getRecipeById(el));
     }

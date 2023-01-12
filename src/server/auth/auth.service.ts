@@ -20,16 +20,15 @@ export class AuthService {
     return 'incorrect data';
   }
 
-  async login(user) {
-      if(!user) {
-          throw new BadRequestException('invalid user')
-      }
-      const payload = { username: user.username, id: user.id };
-      return {
-      access_token: this.jwtService.sign(payload)
+  async login(user: UserEntity) {
+    if (!user) {
+      throw new BadRequestException('invalid user');
+    }
+    const payload = { username: user.username, id: user.id };
+    return {
+      accessToken: this.jwtService.sign(payload),
     };
   }
-
   async register(dto : RegisterUserDto) {
     const passwordhash = await bcrypt.hash(dto.password,12)
     dto.passwordhash = passwordhash

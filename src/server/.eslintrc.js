@@ -1,16 +1,22 @@
-{
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
   },
-  "extends": ["eslint:recommended"],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  root: true,
+  env: {
+    node: true,
+    jest: true,
   },
-  "rules": {
+  ignorePatterns: ['.eslintrc.js'],
+  rules: {
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": [
@@ -163,5 +169,5 @@
     "prefer-spread": ["error"],
     "rest-spread-spacing": ["error", "never"],
     "template-curly-spacing": ["error", "never"]
-  }
-}
+  },
+};

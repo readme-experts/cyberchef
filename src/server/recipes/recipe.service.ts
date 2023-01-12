@@ -4,6 +4,7 @@ import { CreateRecipeDto } from './dto/recipe.dto';
 
 import { PrismaService } from '.././prisma.service';
 import { RecipeRepository } from '../../database/repositories/recipe';
+
 const recipeCategories = require('./recipeCategories')
 const prisma = new PrismaService();
 const recipe = new RecipeRepository(prisma);
@@ -22,10 +23,8 @@ export class RecipeService {
     return recipeById
   }
 
-  async getAllRecipes ()  {
-    const recipes = await recipe.findAll()
-    return recipes
-
+  async getAllRecipes(): Promise<RecipeEntity[]> {
+    return await recipe.findAll();
   }
   async getRecipeByName(recipeName) {
     const recipeByName = await recipe.search(recipeName)
@@ -45,4 +44,3 @@ export class RecipeService {
     }
   }
 }
-
