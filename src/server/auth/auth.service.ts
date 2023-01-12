@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UserRepository } from '../../database/repositories/user';
+import UserRepository from '../../database/repositories/user';
 import { UserEntity } from '../user/Entities/user.entity';
 
 const prisma = new PrismaService();
@@ -17,12 +17,9 @@ export class AuthService {
     username: string,
     password: string,
     user: UserEntity
-  ): Promise<string | boolean> {
+  ): Promise<boolean> {
     const passwordCheck = await bcrypt.compare(password, user.password);
-    if (user.username === username && passwordCheck === true) {
-      return true;
-    }
-    return 'incorrect data';
+    return user.username === username && passwordCheck === true;
   }
 
   async login(user: UserEntity) {
@@ -35,7 +32,7 @@ export class AuthService {
     };
   }
   async register(dto: RegisterUserDto) {
-    dto.passwordhash = await bcrypt.hash(dto.password, 12);
+    dto.passwordHash = await bcrypt.hash(dto.password, 12);
     return await prismaUser.add(dto);
   }
 }
