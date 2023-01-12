@@ -1,5 +1,7 @@
+import { LoginUserDto } from './../user/dto/login.dto';
+import { RegisterUserDto } from './../user/dto/registration.dto';
 import { PrismaService } from './../prisma.service';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserRepository } from '../../database/repositories/user';
 
@@ -10,15 +12,16 @@ const prismaUser = new UserRepository(prisma)
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @UsePipes(ValidationPipe)
   @Post('/registration')
-  async addUser(@Body() regData) {
-    return await this.authService.register(regData);
+  async addUser(@Body() dto : RegisterUserDto) {
+    return await this.authService.register(dto);
   }
 
   @Post('/login')
-  async login(@Body() userData) {
-    const user = await prismaUser.find(userData.username) 
-    const validateUser =  await this.authService.validateUser(userData.username, userData.password,user)
+  async login(@Body() dto : LoginUserDto) {
+    const user = await prismaUser.find(dto.username) 
+    const validateUser =  await this.authService.validateUser(user.username, dto.password,user)
     if(validateUser === true) {
         return this.authService.login(user)
     }

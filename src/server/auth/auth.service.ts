@@ -1,3 +1,4 @@
+import { RegisterUserDto } from './../user/dto/registration.dto';
 import { PrismaService } from './../prisma.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -29,12 +30,10 @@ export class AuthService {
     };
   }
 
-  async register(regData) {
-    const passwordhash = await bcrypt.hash(regData.password,12)
-    const userRegData = {"email": regData.email,
-                        "username" : regData.username,
-                        "passwordhash":passwordhash}
-    const user = await prismaUser.add(userRegData)
+  async register(dto : RegisterUserDto) {
+    const passwordhash = await bcrypt.hash(dto.password,12)
+    dto.passwordhash = passwordhash
+    const user = await prismaUser.add(dto)
     return user
   }
 }
