@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '.././prisma.service';
 import { UserRepository } from '../../database/repositories/user';
@@ -8,27 +8,22 @@ const user = new UserRepository(prisma);
 
 @Injectable()
 export class UserService {
-    async addUser(regData) {
-            const newUser = await user.add(regData)
-            return newUser
-    }
-    async findUser(username) {
-        const specificUser = await user.find(username)
-        return specificUser
-    }
+  async addUser(regData) {
+    return await user.add(regData);
+  }
+  async findUser(username) {
+    return await user.find(username);
+  }
 
-    async addRecipe(recipeData) {
-        const userFavRecipe = await user.addRecipe(recipeData)
-        return userFavRecipe
-    }
+  async addRecipe(recipeData) {
+    return await user.addRecipe(recipeData);
+  }
 
-    async getRecipes(recipeData) {
-        const userFavRecipes = await user.findRecipes(recipeData)
-        return userFavRecipes
-    }
+  async getRecipes(recipeData) {
+    return await user.findRecipes(recipeData);
+  }
 
-    async deleteRecipe(recipeData) {
-        const deleteRecipe = await user.deleteRecipe(recipeData)
-        return deleteRecipe
-    }
+  async deleteRecipe(recipeData) {
+    return await user.deleteRecipe(recipeData);
+  }
 }

@@ -1,38 +1,29 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common";
-import { CreateRecipeDto } from "./recipe.dto";
-import { RecipeService } from "./recipe.service";
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { CreateRecipeDto } from './recipe.dto';
+import { RecipeService } from './recipe.service';
 
-@Controller("/api")
+@Controller('/api')
 export class RecipeController {
-    constructor(private recipeService : RecipeService) {}
-    @Post('/recipes')
-    addRecipe(@Body() dto: CreateRecipeDto) {
-        console.log(dto);
-        
-        return this.recipeService.addRecipe(dto);
-    }
+  constructor(private recipeService: RecipeService) {}
+  @Post('/recipes')
+  addRecipe(@Body() dto: CreateRecipeDto) {
+    console.log(dto);
 
-    @Get('/recipes/allrecipes')
-    getAllRecipes() {
-        return this.recipeService.getAllRecipes()
-    }
+    return this.recipeService.addRecipe(dto);
+  }
 
-    @Get('/recipes')
-    getRecipeByName(@Query('recipeName') recipeName : string) {
-        return this.recipeService.getRecipeByName(recipeName)
-    }
+  @Get('/recipes/all-recipes')
+  getAllRecipes() {
+    return this.recipeService.getAllRecipes();
+  }
 
-    @Get('/user/recipes')
-    getRecipeById(@Query('recipeId') recipeId : number) {
-        return this.recipeService.getRecipeById(recipeId)
-    }
+  @Get('/recipes')
+  getRecipeByName(@Query('recipeName') recipeName: string) {
+    return this.recipeService.getRecipeByName(recipeName);
+  }
 
-    // @Post('/user/recipes')
-    // addFavRecipe(@Body()) {}
-
-    getFavRecipes() {}
-
-    deleteFavRecipe() {}
+  @Get('/user/recipes')
+  getRecipeById(@Query('recipeId') recipeId: number) {
+    return this.recipeService.getRecipeById(recipeId);
+  }
 }
-
-
