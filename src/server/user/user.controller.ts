@@ -1,3 +1,4 @@
+import { PrismaService } from './../prisma.service';
 import { RecipeService } from './../recipes/recipe.service';
 
 import {
@@ -15,8 +16,11 @@ import {
 import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
 import { JwtAuthGuard } from 'auth/jwt-auth.guard';
+import { RecipeRepository } from '../../database/repositories/recipe';
+const prisma = new PrismaService();
+const recipe = new RecipeRepository(prisma);
 
-@Controller('/user/recipes')
+@Controller('/user')
 export class UserController {
   constructor( private userService : UserService, private  authService: AuthService,
     private recipeService : RecipeService) {}

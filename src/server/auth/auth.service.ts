@@ -1,5 +1,4 @@
 import { PrismaService } from './../prisma.service';
-import { UserService } from './../user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';

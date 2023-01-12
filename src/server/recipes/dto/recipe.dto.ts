@@ -1,8 +1,8 @@
 export class CreateRecipeDto {
     readonly name;
-    readonly category_id;
+    readonly categoryId;
     readonly products;
     readonly desription;
-    readonly image_link 
+    readonly imageLink ;
   }
   

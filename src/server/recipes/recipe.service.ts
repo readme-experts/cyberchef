@@ -1,4 +1,3 @@
-import { RecipeModule } from './recipe.module';
 import {Injectable} from '@nestjs/common';
 import { CreateRecipeDto } from './dto/recipe.dto';
 
@@ -14,7 +13,7 @@ export class RecipeService {
   async addRecipe (dto : CreateRecipeDto ) {
     const newRecipe = await recipe.add(dto)
     return newRecipe
-
+    
   }
 
   async getRecipeById (id) {
@@ -28,7 +27,6 @@ export class RecipeService {
     return recipes
 
   }
-
   async getRecipeByName(recipeName) {
     const recipeByName = await recipe.search(recipeName)
     return recipeByName
