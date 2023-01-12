@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@fastify/static": "^6.6.1",
     "@nestjs/cli": "^9.1.8",
     "@nestjs/common": "^9.2.1",
     "@nestjs/core": "^9.2.1",
