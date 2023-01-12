@@ -6,6 +6,7 @@
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.2.1",
+    "@nestjs/platform-fastify": "^9.2.1",
     "@nestjs/schematics": "^9.0.4",
     "@prisma/client": "^4.8.1",
     "bcrypt": "^5.1.0",

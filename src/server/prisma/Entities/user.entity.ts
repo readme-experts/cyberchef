@@ -1,4 +1,4 @@
-import { FavouriteRecipeEntity } from '../../recipes/Entities/favouriteRecipe.entity';
+import { FavouriteRecipeEntity } from './favouriteRecipe.entity';
 
 export interface UserEntity {
   id: number;

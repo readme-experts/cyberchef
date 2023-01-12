@@ -3,7 +3,7 @@ import RecipeRepository from '../../database/repositories/recipe';
 import { Injectable } from '@nestjs/common';
 import { CreateRecipeDto } from './dto/recipe.dto';
 import { recipeCategories } from './recipeCategories';
-import { RecipeEntity } from './Entities/recipe.entity';
+import { RecipeEntity } from '../prisma/Entities/recipe.entity';
 
 @Injectable()
 export class RecipeService {

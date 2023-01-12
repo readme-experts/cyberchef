@@ -2,7 +2,7 @@ import { RegisterUserDto } from '../user/dto/registration.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UserEntity } from '../user/Entities/user.entity';
+import { UserEntity } from '../prisma/Entities/user.entity';
 import { UserRepository } from '../repos/user.repository';
 
 @Injectable()

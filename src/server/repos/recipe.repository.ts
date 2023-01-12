@@ -1,7 +1,7 @@
 import { PrismaService } from '../prisma.service';
 import { Injectable } from '@nestjs/common';
 import { CreateRecipeDto } from '../recipes/DTO/recipe.dto';
-import { RecipeEntity } from '../recipes/Entities/recipe.entity';
+import { RecipeEntity } from '../prisma/Entities/recipe.entity';
 
 @Injectable()
 export class RecipeRepository {
