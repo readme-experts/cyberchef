@@ -12,4 +12,4 @@ src/api/package.json
 src/database/prisma/migrations
 src/server/dist
 src/.env
-
+/.idea

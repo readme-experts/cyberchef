@@ -15,7 +15,12 @@ export class AuthController {
   @Post('/login')
   async login(@Body() userData) {
     const user = await this.userService.findUser(userData.username) 
-        await this.authService.validateUser(user.username, user.password)
+    const validateUser =  await this.authService.validateUser(userData.username, userData.password,user)
+    if(validateUser === true) {
         return this.authService.login(user)
+    }
+    else{
+        return 'incorrect username or password'
+    }
 }
 }

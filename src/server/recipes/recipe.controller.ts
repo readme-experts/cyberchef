@@ -1,14 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common";
-import { CreateRecipeDto } from "./recipe.dto";
+import { CreateRecipeDto } from "./dto/recipe.dto";
 import { RecipeService } from "./recipe.service";
 
 @Controller("/api")
 export class RecipeController {
     constructor(private recipeService : RecipeService) {}
     @Post('/recipes')
-    addRecipe(@Body() dto: CreateRecipeDto) {
-        console.log(dto);
-        
+    addRecipe(@Body() dto: CreateRecipeDto) {        
         return this.recipeService.addRecipe(dto);
     }
 
@@ -26,13 +24,6 @@ export class RecipeController {
     getRecipeById(@Query('recipeId') recipeId : number) {
         return this.recipeService.getRecipeById(recipeId)
     }
-
-    // @Post('/user/recipes')
-    // addFavRecipe(@Body()) {}
-
-    getFavRecipes() {}
-
-    deleteFavRecipe() {}
 }
 
 

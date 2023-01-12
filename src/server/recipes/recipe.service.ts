@@ -1,9 +1,8 @@
 import { RecipeModule } from './recipe.module';
 import {Injectable} from '@nestjs/common';
-import { CreateRecipeDto } from './recipe.dto';
+import { CreateRecipeDto } from './dto/recipe.dto';
 
 import { PrismaService } from '.././prisma.service';
-// import { recipes as RecipeModel, Prisma } from '@prisma/client';
 import { RecipeRepository } from '../../database/repositories/recipe';
 
 
