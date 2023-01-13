@@ -3,9 +3,10 @@ import { loginUser } from '../actions/account/loginUser';
 import { registerUser } from '../actions/account/registerUser';
 import { loadUserRecipes } from '../actions/account/loadUserRecipes';
 import { addUserRecipe } from '../actions/account/addUserRecipe';
+import { deleteUserRecipe } from '../actions/account/deleteUserRecipe';
 
 const initialState = {
-  user: localStorage.getItem('cyberChefUser'),
+  user: JSON.parse(localStorage.getItem('cyberChefUser')),
   token: localStorage.getItem('cyberChefToken'),
   userRecipes: [],
   loading: false,
@@ -35,15 +36,15 @@ const accountSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload.user;
-      state.token = action.payload.token;
-      localStorage.setItem(storageNames.user, state.user);
+      state.token = action.payload.accessToken;
+      localStorage.setItem(storageNames.user, JSON.stringify(state.user));
       localStorage.setItem(storageNames.token, state.token);
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload.user;
-      state.token = action.payload.token;
-      localStorage.setItem(storageNames.user, state.user);
+      state.token = action.payload.accessToken;
+      localStorage.setItem(storageNames.user, JSON.stringify(state.user));
       localStorage.setItem(storageNames.token, state.token);
     });
     builder.addCase(loadUserRecipes.fulfilled, (state, action) => {
@@ -51,6 +52,9 @@ const accountSlice = createSlice({
     });
     builder.addCase(addUserRecipe.fulfilled, (state, action) => {
       state.userRecipes.push(action.payload);
+    });
+    builder.addCase(deleteUserRecipe.fulfilled, (state, action) => {
+      state.userRecipes = state.userRecipes.filter(item => item.id !== action.payload.id);
     });
     builder.addMatcher(isRejectedAction, (state, action) => {
       state.loading = false;

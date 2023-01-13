@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loadUserRecipes = createAsyncThunk(
   'account/loadUserRecipes',
-  async ({ getState, rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
       const token = getState()?.account.token;
       const headers = {
         'Content-Type': 'application/json',
         'authorization': token,
       };
-      const response = await fetch('/api/user/myrecipes', {
+      const response = await fetch('api/user/', {
         method: 'GET',
         headers,
       });
