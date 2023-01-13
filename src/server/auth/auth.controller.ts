@@ -27,17 +27,20 @@ export class AuthController {
   @Post('/login')
   async login(@Body() dto: LoginUserDto, @Res() res) {
     const user = await this.userService.findUser(dto.username);
+    if (!user) {
+      res.code(400).send({ error: 'invalid user' });
+      return res;
+    }
     const validateUser = await this.authService.validateUser(
       user.username,
       dto.password,
       user
     );
     if (validateUser === true) {
-      return this.authService.login(user);
+      return await this.authService.login(user);
     } else {
-      return res
-        .status(400)
-        .json({ message: 'incorrect username or password' });
+      res.code(400).send({ error: 'incorrect username or password' });
+      return res;
     }
   }
 }

@@ -11,9 +11,11 @@ export class RecipeController {
   @Post()
   addRecipe(@Body() dto: CreateRecipeDto, @Res() res) {
     if (!dto) {
-      return res.status(400).json({ message: 'no recipeId provided' });
+      res.code(400).send({ error: 'no recipeId provided' });
+    } else {
+      res.send(this.recipeService.addRecipe(dto));
     }
-    return this.recipeService.addRecipe(dto);
+    return res;
   }
 
   @Get('/allRecipes')
@@ -24,32 +26,38 @@ export class RecipeController {
   @Get()
   getRecipeByName(@Body() recipe, @Res() res) {
     if (!recipe) {
-      return res.status(400).json({ message: `recipe was not provided` });
+      res.code(400).send({ error: `recipe was not provided` });
+    } else {
+      res.send(this.recipeService.getRecipeByName(recipe.name));
     }
-    return this.recipeService.getRecipeByName(recipe.name);
+    return res;
   }
 
   @Post('/categories')
   addCategories(recipesObject, @Res() res) {
     if (!recipesObject) {
-      return res.status(400).json({
-        message: `recipe categories object
+      res.code(400).send({
+        error: `recipe categories object
            was not provided`,
       });
+    } else {
+      recipesObject = recipeCategories;
+      res.send(this.recipeService.addRecipeCategoriesToDb(recipesObject));
     }
-    recipesObject = recipeCategories;
-    return this.recipeService.addRecipeCategoriesToDb(recipesObject);
+    return res;
   }
 
   @Post('/addRecipes')
   addRecipes(recipes, @Res() res) {
     recipes = jsonRecipes;
     if (!recipes) {
-      return res.status(400).json({
-        message: `recipes from json file
+      res.code(400).send({
+        error: `recipes from json file
             were not provided`,
       });
+      return res;
+    } else {
+      return this.recipeService.addParsedRecipesToDb(recipes);
     }
-    return this.recipeService.addParsedRecipesToDb(recipes);
   }
 }

@@ -27,10 +27,12 @@ export class UserController {
     const userId = req.user.userId;
     const recipeId = req.body.recipeId;
     if (!recipeId) {
-      return res.status(400).json({ message: 'no recipeId provided' });
+      res.code(400).send({ error: 'no recipeId provided' });
+      return res;
+    } else {
+      const recipeData = { userId, recipeId };
+      return await this.userService.addRecipe(recipeData);
     }
-    const recipeData = { userId, recipeId };
-    return await this.userService.addRecipe(recipeData);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -51,7 +53,8 @@ export class UserController {
     const userId = req.user.userId;
     const recipeId = req.body.recipeId;
     if (!recipeId) {
-      return res.status(400).json({ message: 'no recipeId provided' });
+      res.code(400).send({ error: 'no recipeId provided' });
+      return res;
     }
     const recipeData = { userId, recipeId };
     return this.userService.deleteRecipe(recipeData);
