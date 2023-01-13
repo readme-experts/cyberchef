@@ -4,7 +4,7 @@ import { RecipeService } from './recipe.service';
 import { recipeCategories } from './recipeCategories';
 import * as jsonRecipes from '../../parser/data/recipes.json';
 
-@Controller('/recipes')
+@Controller('api/recipes')
 export class RecipeController {
   constructor(private recipeService: RecipeService) {}
 

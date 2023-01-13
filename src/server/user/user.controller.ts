@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
 import { JwtAuthGuard } from 'auth/JWT/jwt-auth.guard';
 
-@Controller('/user')
+@Controller('/api/user')
 export class UserController {
   constructor(
     private userService: UserService,
