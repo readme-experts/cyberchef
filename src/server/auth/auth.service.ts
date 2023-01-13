@@ -28,6 +28,10 @@ export class AuthService {
     };
   }
   async register(dto: RegisterUserDto) {
+    const checkUser = await this.user.find(dto.username);
+    if (checkUser) {
+      throw new BadRequestException('User with this email already exists');
+    }
     dto.passwordHash = await bcrypt.hash(dto.password, 12);
     return await this.user.add(dto);
   }
