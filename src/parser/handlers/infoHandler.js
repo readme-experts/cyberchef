@@ -2,14 +2,13 @@
 
 const cheerio = require('cheerio');
 const pupp = require('../helpers/puppeteer');
-const common = require('../helpers/common');
 const SITE = 'https://www.povarenok.ru/recipes/';
 const pages = 1;
 
 async function getLinks() {
   try {
     const links = [];
-    for (const page of common.arrayFromLength(pages)) {
+    for (let page = 1; page <= pages; page++) {
       const defaultURL = `${SITE}~${page}`;
       const pageContent = await pupp.getPageContent(defaultURL);
       const $ = cheerio.load(pageContent);
@@ -38,17 +37,17 @@ async function getRecipes(links) {
         .attr('src');
 
       const ingredients = [];
-      $('span[itemprop="ingredient"]')
+      $('[itemprop="recipeIngredient"]')
         .each((i, header) => {
           const name = $(header)
-            .find('span[itemprop="name"]')
+            .find('a span')
             .html();
           const mass = $(header)
-            .find('span[itemprop="amount"]')
+            .find('span')
+            .last()
             .html();
 
-          let ingredient = name;
-          mass ? ingredient = name + ' - ' + mass : ingredient = name;
+          const ingredient = name === mass ? name : name + ' - ' + mass;
 
           ingredients.push(ingredient);
         });
@@ -79,10 +78,8 @@ async function getRecipes(links) {
       };
 
       recipes.push(recipe);
-      // console.log(
-      //   `Added ${links.indexOf(link) + 1}/${links.length} recipes`
-      // );
     }
+
     return recipes;
   } catch (err) {
     console.log(err);
@@ -93,5 +90,3 @@ module.exports = {
   getLinks,
   getRecipes,
 };
-
-
