@@ -10,10 +10,11 @@ export const loadRecipes = createAsyncThunk(
         'authorization': token,
       };
       const params = new URLSearchParams({ recipeName: queryString });
-      const response = await fetch('/api/recipes?' + params, {
+      const response = await fetch('/recipes?' + params, {
         method: 'GET',
         headers,
       });
+      console.log(await response.json());
       if (!response.ok) {
         return rejectWithValue(await response.json());
       }

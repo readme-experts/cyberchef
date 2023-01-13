@@ -8,9 +8,9 @@ export const registerUser = createAsyncThunk(
         'Content-Type': 'application/json',
       };
       const data = {
-        email, password,
+        email, password, username: email
       };
-      const response = await fetch('auth/registration', {
+      const response = await fetch('api/auth/registration', {
         method: 'POST',
         headers,
         body: JSON.stringify(data),
