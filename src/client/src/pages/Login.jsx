@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ValidationError from '../features/ValidationError';
 import { loginUser } from '../app/actions/account/loginUser';
 
 function Login() {
+  const { error } = useSelector(state => state.account);
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function Login() {
   const handleSubmit = event => {
     event.preventDefault();
     setErrors([]);
-    const validationErrors = ValidationError.Validate(formData);
+    const validationErrors = ValidationError.validate(formData);
     if (validationErrors.length) {
       setErrors(validationErrors);
       return;
@@ -34,6 +35,7 @@ function Login() {
     'outline': '1px solid red',
   };
 
+  if (error) return <div>{ error }</div>;
 
   return (
     <div className='container'>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ValidationError from '../features/ValidationError';
 import { registerUser } from '../app/actions/account/registerUser';
 
 
 function Register() {
+  const { error } = useSelector(state => state.account);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Register() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const validationErrors = ValidationError.Validate(formData);
+    const validationErrors = ValidationError.validate(formData);
     if (validationErrors.length) {
       setErrors(validationErrors);
       alert(`There are form errors: ${errors.join('\n')}`);
@@ -39,6 +40,7 @@ function Register() {
     'outline': '1px solid red',
   };
 
+  if (error) return <div>{ error }</div>;
 
   return (
     <div className='container'>
