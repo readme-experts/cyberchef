@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './features/ProtectedRoute';
 import { useSelector } from 'react-redux';
+import ErrorMessage from './components/ErrorMessage';
 
 function App() {
   const user = useSelector(state => state.account.user) || null;
@@ -24,7 +25,7 @@ function App() {
               {element}
             </ProtectedRoute>} />;
         })}
-        <Route path='*' element={<p>There&amp;s nothing here: 404!</p>} />
+        <Route path='*' element={<ErrorMessage error="404! Not found!"/>} />
       </Routes>
       <Footer />
     </div>
