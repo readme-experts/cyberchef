@@ -1,11 +1,9 @@
 # Cyberchef
 
-## It is api that does CRUD operations on food recipes. Cyberchef has built in pasrer that can parse recipes from web.
-### 
+## It is API that does CRUD operations on food recipes. Cyberchef has built in parser that can parse recipes from the web.
 
-
-#### To work with DB properly, create config.json file in src/database/config :
-```.
+#### To work with DB properly, create config.json file in src/database/config:
+```
 "db_host": "your hosting",
 "db_user": "your username",
 "db_database": "your db name",
@@ -13,7 +11,7 @@
 ```
 
 #### To properly work with server create .env file in src/api
-```.
+```
 PORT = 3000 || any other port
 JWT_ACCESS_SECRET = "your secret key"
 ```
