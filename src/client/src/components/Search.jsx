@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 Search.propTypes = {
@@ -6,14 +6,14 @@ Search.propTypes = {
 };
 
 function Search({ searchCallback }) {
-  let formData = {
+  const [formData, setFormData] = useState({
     queryString: '',
-  };
+  });
   const handleChange = e => {
-    formData = {
+    setFormData({
       ...formData,
       [e.target.name]: e.target.value.trim(),
-    };
+    });
   };
 
   return (
@@ -23,7 +23,7 @@ function Search({ searchCallback }) {
       <div>
         <input
           type='text'
-          name='search'
+          name='queryString'
           id='search'
           className='content__search'
           onChange={event => handleChange(event)}

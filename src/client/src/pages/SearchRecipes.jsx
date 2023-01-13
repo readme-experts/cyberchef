@@ -1,28 +1,33 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from '../components/Search';
 import { loadRecipes } from '../app/actions/recipes/loadRecipes';
 import { addUserRecipe } from '../app/actions/account/addUserRecipe';
 import Recipe from '../components/Recipe';
 import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
 
 function SearchRecipes() {
   const [recipes, setRecipes] = useState([]);
+  const storeRecipes = useSelector(state => state.recipes.recipes);
   const dispatch = useDispatch();
   const { error, loading } = useSelector(state => state.recipes.recipes);
   const searchCallback = useCallback((event, { queryString }) => {
     event.preventDefault();
     dispatch(loadRecipes(queryString));
-    const newRecipes = useSelector(state => state.recipes.recipes);
-    setRecipes(newRecipes);
-  }, [recipes]);
+  }, []);
   const clickCallback = useCallback(
     recipe => dispatch(addUserRecipe(recipe)),
     [],
   );
 
+  useEffect(() => {
+    setRecipes(storeRecipes);
+  }, [storeRecipes]);
+
+
   if (loading) return <Loader />;
-  if (error) return <pre>Error occurred: {error.message}</pre>;
+  if (error) return <ErrorMessage error={error}/>;
 
   return (
     <main className='container'>
