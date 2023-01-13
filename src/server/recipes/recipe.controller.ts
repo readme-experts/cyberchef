@@ -16,7 +16,7 @@ export class RecipeController {
     return this.recipeService.addRecipe(dto);
   }
 
-  @Get('/allrecipes')
+  @Get('/allRecipes')
   getAllRecipes() {
     return this.recipeService.getAllRecipes();
   }
