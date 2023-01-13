@@ -40,11 +40,11 @@ export class RecipeController {
         error: `recipe categories object
            was not provided`,
       });
+      return res;
     } else {
       recipesObject = recipeCategories;
-      res.send(this.recipeService.addRecipeCategoriesToDb(recipesObject));
+      return this.recipeService.addRecipeCategoriesToDb(recipesObject);
     }
-    return res;
   }
 
   @Post('/addRecipes')
