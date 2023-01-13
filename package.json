@@ -31,9 +31,8 @@
     "vue": "^2.6.14"
   },
   "scripts": {
-    "preinstall": "sudo npm i -g @nestjs/cli && npm run installDependecies && npx prisma generate --schema=./src/server/prisma/schema.prisma",
-    "installDependecies": "npm --prefix src/client install && npm --prefix src/server install",
-    "start": "npm run --prefix src/client build && npm run preinstall && nest start",
+    "installDependecies": "npm install && npm install --prefix src/client",
+    "start":" npm run --prefix src/client build && nest start",
     "start:dev": "nest start --watch"
   },
   "devDependencies": {

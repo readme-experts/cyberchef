@@ -25,10 +25,17 @@ export class AuthService {
     const payload = { username: user.username, id: user.id };
     return {
       accessToken: this.jwtService.sign(payload),
+      user: payload,
     };
   }
   async register(dto: RegisterUserDto) {
+    const checkUser = await this.user.find(dto.username);
+    if (checkUser) {
+      throw new BadRequestException('User with this email already exists');
+    }
     dto.passwordHash = await bcrypt.hash(dto.password, 12);
-    return await this.user.add(dto);
+    await this.user.add(dto);
+    const newUser = await this.user.find(dto.username);
+    return await this.login(newUser);
   }
 }
