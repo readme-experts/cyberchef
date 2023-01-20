@@ -10,9 +10,10 @@ Recipe.propTypes = {
     products: PropTypes.string,
   }),
   clickHandler: PropTypes.func,
+  deleteHandler: PropTypes.func,
 };
 
-function Recipe({ recipe, clickHandler }) {
+function Recipe({ recipe, clickHandler, deleteHandler }) {
   return (
     <div className='content__recipes'>
       <div className='content__recipe'>
@@ -24,9 +25,12 @@ function Recipe({ recipe, clickHandler }) {
             <Link to={`/receipts/${recipe.id}`}>{recipe.name}</Link>
           </h3>
           <pre className='content__description'>{recipe.products}</pre>
-          {clickHandler ? <button className='content__add' onClick={() => clickHandler(recipe)}>
+          {clickHandler && <button className='content__add' onClick={() => clickHandler(recipe)}>
             Add to favourites
-          </button> : <></>}
+          </button>}
+          {deleteHandler && <button className='content__add' onClick={() => deleteHandler(recipe)}>
+            Delete from favourites
+          </button>}
         </div>
       </div>
     </div>

@@ -12,8 +12,8 @@ export const addUserRecipe = createAsyncThunk(
       const body = JSON.stringify({
         recipeId: recipe.id
       });
-      const response = await fetch('/api/user/recipes', {
-        method: 'PUT',
+      const response = await fetch('api/user/', {
+        method: 'POST',
         headers,
         body,
       });

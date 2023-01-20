@@ -1,20 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const loadRecipes = createAsyncThunk(
-  'recipes/loadRecipes',
-  async ({ queryString }, { getState, rejectWithValue }) => {
+export const deleteUserRecipe = createAsyncThunk(
+  'account/deleteRecipe',
+  async ({ recipe }, { getState, rejectWithValue }) => {
     try {
       const token = getState()?.account.token;
       const headers = {
         'Content-Type': 'application/json',
         'authorization': token,
       };
-      const params = new URLSearchParams({ recipeName: queryString });
-      const response = await fetch('/recipes?' + params, {
-        method: 'GET',
-        headers,
+      const body = JSON.stringify({
+        recipeId: recipe.id
       });
-      console.log(await response.json());
+      const response = await fetch('api/user/', {
+        method: 'DELETE',
+        headers,
+        body,
+      });
       if (!response.ok) {
         return rejectWithValue(await response.json());
       }
