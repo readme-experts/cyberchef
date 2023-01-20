@@ -3,13 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const loadRecipes = createAsyncThunk(
   'recipes/loadRecipes',
   async ({ queryString }, { getState, rejectWithValue }) => {
+    const token = getState()?.account.token;
+    const headers = {
+      'Content-Type': 'application/json',
+      'authorization': token,
+    };
+    const params = new URLSearchParams({ recipeName: queryString });
     try {
-      const token = getState()?.account.token;
-      const headers = {
-        'Content-Type': 'application/json',
-        'authorization': token,
-      };
-      const params = new URLSearchParams({ recipeName: queryString });
       const response = await fetch('/recipes?' + params, {
         method: 'GET',
         headers,
@@ -22,11 +22,7 @@ export const loadRecipes = createAsyncThunk(
         ...await response.json(),
       };
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+      return rejectWithValue(error.response.data.message ?? error.message);
     }
 
   },

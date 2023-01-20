@@ -3,13 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const loginUser = createAsyncThunk(
   'account/login',
   async ({ email, password }, { rejectWithValue }) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const data = {
+      username: email, password,
+    };
     try {
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-      const data = {
-        username: email, password,
-      };
       const response = await fetch('api/auth/login', {
         method: 'POST',
         headers,
