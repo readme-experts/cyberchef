@@ -28,14 +28,28 @@ model recipes {
   products          String
   description       String
   image_link        String?
+  creator_id        Int?
   favourite_recipes favourite_recipes[]
   categories        categories          @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "category")
+  users             users?              @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "creator_id_fk")
 }
 
 model users {
-  id                Int                 @id(map: "user_id") @default(autoincrement())
-  username          String              @unique(map: "username")
-  email             String              @unique(map: "email")
-  password          String
-  favourite_recipes favourite_recipes[]
+  id                                      Int                 @id(map: "user_id") @default(autoincrement())
+  username                                String              @unique(map: "username")
+  email                                   String              @unique(map: "email")
+  password                                String
+  image_link                              String?
+  favourite_recipes                       favourite_recipes[]
+  friendships_friendships_user1_idTousers friendships[]       @relation("friendships_user1_idTousers")
+  friendships_friendships_user2_idTousers friendships[]       @relation("friendships_user2_idTousers")
+  recipes                                 recipes[]
+}
+
+model friendships {
+  id                                Int   @id(map: "friendship_id") @default(autoincrement())
+  user1_id                          Int
+  user2_id                          Int
+  users_friendships_user1_idTousers users @relation("friendships_user1_idTousers", fields: [user1_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user1_id_fk")
+  users_friendships_user2_idTousers users @relation("friendships_user2_idTousers", fields: [user2_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user2_id_fk")
 }
