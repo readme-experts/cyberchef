@@ -3,6 +3,7 @@ import accountReducer from './slices/accountSlice';
 import recipesReducer from './slices/recipesSlice';
 import AuthService from '../services/AuthService';
 import RecipeService from '../services/RecipeService';
+import { thunkErrorWrapper } from './utils/thunkErrorWrapper';
 
 const recipeService = new RecipeService(process.env.BASE_URL);
 const authService = new AuthService(process.env.BASE_URL);
@@ -18,7 +19,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: { recipeService, authService },
+        extraArgument: { recipeService, authService, thunkErrorWrapper },
       },
     }),
 });
