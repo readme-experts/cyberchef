@@ -1,4 +1,5 @@
 import BaseService from './BaseService';
+import RecipeError from './errors/RecipeError';
 
 export default class RecipeService extends BaseService {
   constructor(baseURL) {
@@ -9,8 +10,7 @@ export default class RecipeService extends BaseService {
     try {
       return await this.request(`/user/${accountId}/recipes`, 'POST', recipeData);
     } catch (error) {
-      console.error('Error creating recipe:', error);
-      throw error;
+      throw new RecipeError('Error creating recipe: ' + error.message);
     }
   }
 
@@ -18,8 +18,7 @@ export default class RecipeService extends BaseService {
     try {
       return await this.request(`/user/${accountId}/recipes/${recipeId}`, 'GET');
     } catch (error) {
-      console.error('Error getting recipe:', error);
-      throw error;
+      throw new RecipeError('Error getting recipe: ' + error.message);
     }
   }
 
@@ -27,8 +26,7 @@ export default class RecipeService extends BaseService {
     try {
       return await this.request(`/user/${accountId}/recipes/${recipeId}`, 'PUT', recipeData);
     } catch (error) {
-      console.error('Error updating recipe:', error);
-      throw error;
+      throw new RecipeError('Error updating recipe: ' + error.message);
     }
   }
 
@@ -36,8 +34,7 @@ export default class RecipeService extends BaseService {
     try {
       return await this.request(`/api/user/${accountId}/recipes/${recipeId}`, 'DELETE');
     } catch (error) {
-      console.error('Error deleting recipe:', error);
-      throw error;
+      throw new RecipeError('Error deleting recipe: ' + error.message);
     }
   }
 }
