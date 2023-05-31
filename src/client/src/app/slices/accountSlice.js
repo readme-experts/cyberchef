@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser } from '../actions/account/loginUser';
 import { registerUser } from '../actions/account/registerUser';
-import { loadUserRecipes } from '../actions/account/loadUserRecipes';
-import { addUserRecipe } from '../actions/account/addUserRecipe';
-import { deleteUserRecipe } from '../actions/account/deleteUserRecipe';
+import { loadFavoriteRecipes } from '../actions/account/loadFavoriteRecipes';
+import { addFavoriteRecipe } from '../actions/account/addFavoriteRecipe';
+import { deleteFavoriteRecipe } from '../actions/account/deleteFavoriteRecipe';
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('cyberChefUser')),
@@ -47,13 +47,13 @@ const accountSlice = createSlice({
       localStorage.setItem(storageNames.user, JSON.stringify(state.user));
       localStorage.setItem(storageNames.token, state.token);
     });
-    builder.addCase(loadUserRecipes.fulfilled, (state, action) => {
+    builder.addCase(loadFavoriteRecipes.fulfilled, (state, action) => {
       state.userRecipes = action.payload;
     });
-    builder.addCase(addUserRecipe.fulfilled, (state, action) => {
+    builder.addCase(addFavoriteRecipe.fulfilled, (state, action) => {
       state.userRecipes.push(action.payload);
     });
-    builder.addCase(deleteUserRecipe.fulfilled, (state, action) => {
+    builder.addCase(deleteFavoriteRecipe.fulfilled, (state, action) => {
       state.userRecipes = state.userRecipes.filter(item => item.id !== action.payload.id);
     });
     builder.addMatcher(isRejectedAction, (state, action) => {

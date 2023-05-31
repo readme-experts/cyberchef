@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from '../components/Search';
 import { loadRecipes } from '../app/actions/recipes/loadRecipes';
-import { addUserRecipe } from '../app/actions/account/addUserRecipe';
+import { addFavoriteRecipe } from '../app/actions/account/addFavoriteRecipe';
 import Recipe from '../components/Recipe';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
@@ -17,7 +17,7 @@ function SearchRecipes() {
     dispatch(loadRecipes(queryString));
   }, []);
   const clickCallback = useCallback(
-    recipe => dispatch(addUserRecipe(recipe)),
+    recipe => dispatch(addFavoriteRecipe(recipe)),
     [],
   );
 
