@@ -2,30 +2,18 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loginUser = createAsyncThunk(
   'account/login',
-  async ({ email, password }, { rejectWithValue }) => {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    const data = {
-      username: email, password,
-    };
+  async (credentials, thunkAPI) => {
     try {
-      const response = await fetch('api/auth/login', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        return rejectWithValue(await response.json());
+      const response = await thunkAPI.extra.authService.login(credentials);
+      if (response.error) {
+        return thunkAPI.rejectWithValue(response.error);
       }
-      return {
-        ...await response.json(),
-      };
+      return response;
     } catch (error) {
       if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
+        return thunkAPI.rejectWithValue(error.response.data.message);
       } else {
-        return rejectWithValue(error.message);
+        return thunkAPI.rejectWithValue(error.message);
       }
     }
   }
