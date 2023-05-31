@@ -1,4 +1,5 @@
 import BaseService from './BaseService';
+import AuthError from './errors/AuthError';
 
 export default class AuthService extends BaseService {
   constructor(baseURL) {
@@ -9,8 +10,7 @@ export default class AuthService extends BaseService {
     try {
       return await this.request('/register', 'POST', userData);
     } catch (error) {
-      console.error('Error registering user:', error);
-      throw error;
+      throw new AuthError('Error registering: ' + error.message);
     }
   }
 
@@ -22,8 +22,7 @@ export default class AuthService extends BaseService {
       }
       return response;
     } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
+      throw new AuthError('Error logging in: ' + error.message);
     }
   }
 
