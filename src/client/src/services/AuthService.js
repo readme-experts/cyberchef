@@ -1,6 +1,10 @@
 import BaseService from './BaseService';
 
 export default class AuthService extends BaseService {
+  constructor(baseURL) {
+    super(baseURL);
+  }
+
   async register(userData) {
     try {
       return await this.request('/register', 'POST', userData);
