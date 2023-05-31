@@ -6,35 +6,45 @@ export default class RecipeService extends BaseService {
     super(baseURL);
   }
 
-  async createRecipe(accountId, recipeData) {
+  async createRecipe(recipeData) {
     try {
-      return await this.request(`/user/${accountId}/recipes`, 'POST', recipeData);
+      return await this.request(`/recipes`, 'POST', recipeData);
     } catch (error) {
       throw new RecipeError('Error creating recipe: ' + error.message);
     }
   }
 
-  async getRecipe(accountId, recipeId) {
+  async getRecipe(recipeId) {
     try {
-      return await this.request(`/user/${accountId}/recipes/${recipeId}`, 'GET');
+      return await this.request(`/recipes/${recipeId}`, 'GET');
     } catch (error) {
       throw new RecipeError('Error getting recipe: ' + error.message);
     }
   }
 
-  async updateRecipe(accountId, recipeId, recipeData) {
+  async getRecipesByName(query) {
     try {
-      return await this.request(`/user/${accountId}/recipes/${recipeId}`, 'PUT', recipeData);
+      return await this.request(`/recipes?${query}`, 'GET');
+    } catch (error) {
+      throw new RecipeError('Error getting recipes by name: ' + error.message);
+    }
+  }
+
+  async updateRecipe(recipeId, recipeData) {
+    try {
+      return await this.request(`/recipes/${recipeId}`, 'PUT', recipeData);
     } catch (error) {
       throw new RecipeError('Error updating recipe: ' + error.message);
     }
   }
 
-  async deleteRecipe(accountId, recipeId) {
+  async deleteRecipe(recipeId) {
     try {
-      return await this.request(`/api/user/${accountId}/recipes/${recipeId}`, 'DELETE');
+      return await this.request(`/recipes/${recipeId}`, 'DELETE');
     } catch (error) {
       throw new RecipeError('Error deleting recipe: ' + error.message);
     }
   }
+
+
 }
