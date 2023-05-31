@@ -3,13 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const registerUser = createAsyncThunk(
   'account/register',
   async ({ email, password }, { rejectWithValue }) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const data = {
+      email, password, username: email
+    };
     try {
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-      const data = {
-        email, password, username: email
-      };
       const response = await fetch('api/auth/registration', {
         method: 'POST',
         headers,
@@ -22,11 +22,7 @@ export const registerUser = createAsyncThunk(
         ...await response.json(),
       };
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+      return rejectWithValue(error.response.data.message ?? error.message);
     }
 
   },

@@ -40,17 +40,17 @@ export class RecipeRepository {
   }
 
   async delete(recipeId: string): Promise<boolean> {
+    const deleteFavRecipes = this.prisma.favourite_recipes.deleteMany({
+      where: {
+        recipe_id: parseInt(recipeId),
+      },
+    });
+    const deleteRecipe = this.prisma.recipes.delete({
+      where: {
+        id: parseInt(recipeId),
+      },
+    });
     try {
-      const deleteFavRecipes = this.prisma.favourite_recipes.deleteMany({
-        where: {
-          recipe_id: parseInt(recipeId),
-        },
-      });
-      const deleteRecipe = this.prisma.recipes.delete({
-        where: {
-          id: parseInt(recipeId),
-        },
-      });
       await this.prisma.$transaction([deleteFavRecipes, deleteRecipe]);
       return true;
     } catch (error) {

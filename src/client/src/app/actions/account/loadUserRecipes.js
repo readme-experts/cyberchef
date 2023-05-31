@@ -3,12 +3,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const loadUserRecipes = createAsyncThunk(
   'account/loadUserRecipes',
   async (_, { getState, rejectWithValue }) => {
+    const token = getState()?.account.token;
+    const headers = {
+      'Content-Type': 'application/json',
+      'authorization': token,
+    };
     try {
-      const token = getState()?.account.token;
-      const headers = {
-        'Content-Type': 'application/json',
-        'authorization': token,
-      };
       const response = await fetch('api/user/', {
         method: 'GET',
         headers,
@@ -20,11 +20,7 @@ export const loadUserRecipes = createAsyncThunk(
         ...await response.json(),
       };
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+      return rejectWithValue(error.response.data.message ?? error.message);
     }
 
   },
