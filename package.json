@@ -1,13 +1,14 @@
 {
   "dependencies": {
-    "@fastify/static": "^6.6.1",
+    "@fastify/static": "^6.10.2",
     "@nestjs/cli": "^9.1.8",
     "@nestjs/common": "^9.2.1",
+    "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^9.2.1",
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.2.1",
-    "@nestjs/platform-fastify": "^9.2.1",
+    "@nestjs/platform-fastify": "^9.4.2",
     "@nestjs/schematics": "^9.0.4",
     "@nestjs/serve-static": "^3.0.0",
     "@prisma/client": "^4.8.1",
@@ -21,9 +22,12 @@
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
+    "paseto": "^3.1.4",
+    "paseto.js": "^0.1.7",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "passport-paseto": "^0.0.0-alpha.3",
     "puppeteer": "^13.0.1",
     "source-map-support": "^0.5.21",
     "tsconfig-paths": "4.1.1",
@@ -32,7 +36,7 @@
   },
   "scripts": {
     "installDependecies": "npm install && npm install --prefix src/client",
-    "start":" npm run --prefix src/client build && nest start",
+    "start": " npm run --prefix src/client build && nest start",
     "start:dev": "nest start --watch"
   },
   "devDependencies": {
@@ -44,6 +48,7 @@
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
     "prisma": "^4.8.1"
   }
 }
