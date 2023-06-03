@@ -4,7 +4,7 @@ import {
   Body,
   Controller,
   Post,
-  Res,
+  Res, Session,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -43,4 +43,5 @@ export class AuthController {
       return res;
     }
   }
+
 }

@@ -7,13 +7,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { UserRepository } from '../repositories/user.repository';
 import { PrismaService } from '../prisma/prisma.service';
+import { SessionSerializer } from './session/session.serializer';
 
 @Module({
   imports: [
-    PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET_KEY,
-      signOptions: { expiresIn: '3660s' },
+    PassportModule.register({
+      session: true,
     }),
   ],
   providers: [
@@ -22,6 +21,7 @@ import { PrismaService } from '../prisma/prisma.service';
     UserService,
     UserRepository,
     PrismaService,
+    SessionSerializer,
   ],
   controllers: [AuthController],
   exports: [AuthService],

@@ -4,16 +4,27 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../prisma/Entities/user.entity';
 import { UserRepository } from '../repositories/user.repository';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService, private user: UserRepository) {}
+  constructor(
+    private jwtService: JwtService,
+    private user: UserRepository,
+    private userService: UserService
+  ) {}
 
-  async validateUser(
-    username: string,
-    password: string,
-    user: UserEntity
-  ): Promise<boolean> {
+  // async validateUser(
+  //   username: string,
+  //   password: string,
+  //   user: UserEntity
+  // ): Promise<boolean> {
+  //   const passwordCheck = await bcrypt.compare(password, user.password);
+  //   return user.username === username && passwordCheck === true;
+  // }
+
+  async validateUser(username: string, password: string): Promise<boolean> {
+    const user = await this.userService.findUser(username);
     const passwordCheck = await bcrypt.compare(password, user.password);
     return user.username === username && passwordCheck === true;
   }
