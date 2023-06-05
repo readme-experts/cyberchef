@@ -70,5 +70,4 @@ export class AuthController {
   getHello(@Request() req): string {
     return req.user;
   }
-
 }

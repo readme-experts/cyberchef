@@ -8,12 +8,10 @@ import * as Process from 'process';
 import * as dotenv from 'dotenv';
 import * as fastifySession from '@fastify/session';
 import * as fastifyCookie from '@fastify/cookie';
-import * as passport from '@nestjs/passport'
+import * as passport from '@nestjs/passport';
 import fastifyPassport from '@fastify/passport';
 import { serializeUser } from 'passport';
 import { SessionSerializer } from './auth/session/session.serializer';
-
-
 
 dotenv.config();
 
