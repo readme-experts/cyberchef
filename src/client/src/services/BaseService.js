@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { logout as storeLogout } from '../app/slices/accountSlice';
+
 export default class BaseService {
   constructor(baseURL) {
     this.baseURL = baseURL;
@@ -26,5 +29,10 @@ export default class BaseService {
       console.error(`Error ${method} ${endpoint}:`, error);
       throw error;
     }
+  }
+  logout() {
+    const dispatch = useDispatch();
+    this.setToken(null);
+    dispatch(storeLogout());
   }
 }
