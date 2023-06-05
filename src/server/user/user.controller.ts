@@ -11,7 +11,8 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthService } from 'auth/auth.service';
-import { JwtAuthGuard } from 'auth/JWT/jwt-auth.guard';
+import { LocalAuthGuard } from 'auth/session/local-auth.guard';
+import { AuthenticatedGuard } from '../auth/session/authenticated.guard';
 
 @Controller('/api/user')
 export class UserController {
@@ -21,7 +22,7 @@ export class UserController {
     private recipeService: RecipeService
   ) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(LocalAuthGuard)
   @Post()
   async addFavRecipe(@Request() req, @Res() res) {
     const userId = req.user.userId;
@@ -35,7 +36,12 @@ export class UserController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthenticatedGuard)
+  @Post('test')
+  async printConsole(@Request() req) {
+    return { msg: 'Logged in' };
+  }
+  @UseGuards(LocalAuthGuard)
   @Get()
   async getFavRecipes(@Request() req) {
     const userId = req.user.userId;
@@ -47,7 +53,7 @@ export class UserController {
     return favRecipes;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(LocalAuthGuard)
   @Delete()
   deleteFavRecipe(@Request() req, res) {
     const userId = req.user.userId;

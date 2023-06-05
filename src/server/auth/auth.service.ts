@@ -5,38 +5,24 @@ import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../prisma/Entities/user.entity';
 import { UserRepository } from '../repositories/user.repository';
 import { UserService } from '../user/user.service';
+import { session } from 'passport';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private jwtService: JwtService,
-    private user: UserRepository,
-    private userService: UserService
-  ) {}
-
-  // async validateUser(
-  //   username: string,
-  //   password: string,
-  //   user: UserEntity
-  // ): Promise<boolean> {
-  //   const passwordCheck = await bcrypt.compare(password, user.password);
-  //   return user.username === username && passwordCheck === true;
-  // }
+  constructor(private user: UserRepository, private userService: UserService) {}
 
   async validateUser(username: string, password: string): Promise<boolean> {
     const user = await this.userService.findUser(username);
     const passwordCheck = await bcrypt.compare(password, user.password);
     return user.username === username && passwordCheck === true;
   }
-
   async login(user: UserEntity) {
     if (!user) {
       throw new BadRequestException('invalid user');
     }
     const payload = { username: user.username, id: user.id };
     return {
-      accessToken: this.jwtService.sign(payload),
-      user: payload,
+      payload,
     };
   }
   async register(dto: RegisterUserDto) {
