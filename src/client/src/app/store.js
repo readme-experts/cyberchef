@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 });
 
 
-export const store = configureStore({
+const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -23,3 +23,5 @@ export const store = configureStore({
       },
     }),
 });
+
+export { store, recipeService, authService };
