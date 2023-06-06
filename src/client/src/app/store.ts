@@ -1,13 +1,16 @@
-import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Action, combineReducers, configureStore, createAsyncThunk, ThunkAction } from '@reduxjs/toolkit';
 import accountReducer from './slices/accountSlice';
 import recipesReducer from './slices/recipesSlice';
 import AuthService from '../services/AuthService';
 import RecipeService from '../services/RecipeService';
 import { thunkErrorWrapper } from './utils/thunkErrorWrapper';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import UserService from '../services/UserService';
 
 const recipeService = new RecipeService(process.env.BASE_URL);
 const authService = new AuthService(process.env.BASE_URL);
+const userService = new UserService(process.env.BASE_URL);
+
 
 const rootReducer = combineReducers({
   account: accountReducer,
@@ -20,7 +23,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: { recipeService, authService, thunkErrorWrapper },
+        extraArgument: { recipeService, authService, userService, thunkErrorWrapper },
       },
     }),
 });
@@ -37,4 +40,13 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export const createAppAsyncThunk = createAsyncThunk.withTypes<{
+  state: RootState
+  dispatch: AppDispatch
+  rejectValue: string
+  extra: { recipeService: RecipeService, authService: AuthService, userService: UserService,  thunkErrorWrapper: any }
+}>();
 export default store;
+
+
