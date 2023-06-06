@@ -1,29 +1,21 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Recipe } from '../../../services/models/Recipe';
+import { createAppAsyncThunk } from '../../store';
+import { RecipeError } from '../../slices/types/Recipe/RecipeState';
 
-export const loadRecipes = createAsyncThunk(
-  'recipes/loadRecipes',
-  async ({ queryString }, { getState, rejectWithValue }) => {
-    const token = getState()?.account.token;
-    const headers = {
-      'Content-Type': 'application/json',
-      'authorization': token,
-    };
-    const params = new URLSearchParams({ recipeName: queryString });
-    try {
-      const response = await fetch('/recipes?' + params, {
-        method: 'GET',
-        headers,
-      });
-      console.log(await response.json());
-      if (!response.ok) {
-        return rejectWithValue(await response.json());
+export const loadRecipes = createAppAsyncThunk<Recipe[],
+  string,
+  { rejectValue: RecipeError }>(
+    'recipes/loadRecipes',
+    async (queryString: string, thunkAPI) => {
+      if (!thunkAPI.extra.recipeService.token) {
+        thunkAPI.extra.recipeService.setToken(thunkAPI.getState().account.token);
       }
-      return {
-        ...await response.json(),
-      };
-    } catch (error) {
-      return rejectWithValue(error.response.data.message ?? error.message);
-    }
-
-  },
-);
+      const thunk = thunkAPI.extra.thunkErrorWrapper(
+        thunkAPI.extra.recipeService.getRecipesByName,
+        thunkAPI.rejectWithValue,
+        thunkAPI.extra.recipeService
+      );
+      const params = new URLSearchParams({ recipeName: queryString });
+      return await thunk(params);
+    },
+  );
