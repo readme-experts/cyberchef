@@ -2,16 +2,18 @@ import { useDispatch } from 'react-redux';
 import { logout as storeLogout } from '../app/slices/accountSlice';
 
 export default class BaseService {
-  constructor(baseURL) {
+  public token: string | null;
+  private readonly baseURL: string;
+  constructor(baseURL: string) {
     this.baseURL = baseURL;
     this.token = null;
   }
 
-  setToken(token) {
+  setToken(token: string | null) {
     this.token = token;
   }
 
-  async request(endpoint, method, body = {}) {
+  async request(endpoint: string, method: string, body = {}) {
     const url = `${this.baseURL}${endpoint}`;
 
     try {
