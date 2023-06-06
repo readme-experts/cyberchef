@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadRecipes } from '../actions/recipes/loadRecipes';
+import { RecipeState } from './types/Recipe/RecipeState';
 
-const initialState = {
+const initialState: RecipeState = {
   recipes: [],
   loading: false,
   error: null,
