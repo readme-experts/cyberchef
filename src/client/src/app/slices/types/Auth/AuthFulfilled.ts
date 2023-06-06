@@ -1,4 +1,4 @@
-import { User } from '../../../services/models/User';
+import { User } from '../../../../services/models/User';
 
 export interface AuthFulfilled {
   user: User,
