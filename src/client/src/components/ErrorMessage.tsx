@@ -1,12 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { CSSProperties } from 'react';
 
-ErrorMessage.propTypes = {
-  error: PropTypes.object
-};
+interface Props {
+  error: Error
+}
 
-function ErrorMessage({ error }) {
-  const styles = {
+function ErrorMessage({ error }: Props) {
+  const styles: CSSProperties = {
     margin: '1rem',
     fontSize: '1.25rem',
     color: 'red',
