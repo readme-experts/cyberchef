@@ -4,11 +4,11 @@ import { AppRoutes, ProtectedAppRoutes } from './features/AppRoutes';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './features/ProtectedRoute';
-import { useSelector } from 'react-redux';
 import ErrorMessage from './components/ErrorMessage';
+import { useAppSelector } from './app/store';
 
 function App() {
-  const user = useSelector(state => state.account.user) || null;
+  const user = useAppSelector(state => state.account.user) || null;
 
   return (
     <div className='App'>
@@ -25,7 +25,7 @@ function App() {
               {element}
             </ProtectedRoute>} />;
         })}
-        <Route path='*' element={<ErrorMessage error="404! Not found!"/>} />
+        <Route path='*' element={<ErrorMessage error={new Error('404! This page doesn\'t exist')}/>} />
       </Routes>
       <Footer />
     </div>
