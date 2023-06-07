@@ -13,7 +13,7 @@ const storageNames = {
 };
 
 const initialState: AuthState = {
-  user: JSON.parse(localStorage.getItem(storageNames.user) ?? ''),
+  user: JSON.parse(localStorage.getItem(storageNames.user) ?? 'null'),
   token: localStorage.getItem(storageNames.token),
   userRecipes: [],
   loading: false,
