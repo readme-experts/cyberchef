@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 interface Props {
-  searchCallback: (event: React.FormEvent<HTMLFormElement>, formData: {queryString: string}) => void
+  searchCallback: (event: React.FormEvent<HTMLFormElement>, formData: { queryString: string }) => void
 }
 
 function Search({ searchCallback } : Props) {
