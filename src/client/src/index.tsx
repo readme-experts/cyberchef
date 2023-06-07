@@ -6,9 +6,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
