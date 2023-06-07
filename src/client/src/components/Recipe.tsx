@@ -1,19 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Recipe } from '../services/models/Recipe';
 import { Link } from 'react-router-dom';
+interface Props {
+  recipe: Recipe,
+  clickHandler: (recipe: Recipe) => void,
+  deleteHandler: (recipe: Recipe) => void
+}
 
-Recipe.propTypes = {
-  recipe: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    image_link: PropTypes.string,
-    products: PropTypes.string,
-  }),
-  clickHandler: PropTypes.func,
-  deleteHandler: PropTypes.func,
-};
-
-function Recipe({ recipe, clickHandler, deleteHandler }) {
+function Recipe({ recipe, clickHandler, deleteHandler }: Props) {
   return (
     <div className='content__recipes'>
       <div className='content__recipe'>
