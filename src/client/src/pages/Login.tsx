@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import ValidationError from '../features/ValidationError';
 import { loginUser } from '../app/actions/account/loginUser';
 import ErrorMessage from '../components/ErrorMessage';
+import { useAppSelector } from '../app/store';
 
 function Login() {
-  const { error, user } = useSelector(state => state.account);
+  const { error, user } = useAppSelector(state => state.account);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
