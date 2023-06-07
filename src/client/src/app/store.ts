@@ -7,9 +7,11 @@ import { thunkErrorWrapper } from './utils/thunkErrorWrapper';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import UserService from '../services/UserService';
 
-const recipeService = new RecipeService(process.env.BASE_URL);
-const authService = new AuthService(process.env.BASE_URL);
-const userService = new UserService(process.env.BASE_URL);
+const baseURL = process.env.BASE_URL || 'http://localhost:3000/';
+
+const recipeService = new RecipeService(baseURL);
+const authService = new AuthService(baseURL);
+const userService = new UserService(baseURL);
 
 
 const rootReducer = combineReducers({
