@@ -1,10 +1,10 @@
 import { createAppAsyncThunk } from '../../store';
 import { RecipeModel } from '../../../services/models/RecipeModel';
-import { AuthError } from '../../slices/types/Auth/AuthState';
+import { AuthStoreError } from '../../slices/types/Auth/AuthState';
 
 export const loadFavoriteRecipes = createAppAsyncThunk<RecipeModel[],
   null,
-  { rejectValue: AuthError }>(
+  { rejectValue: AuthStoreError }>(
     'account/loadUserFavorites',
     async (_, thunkAPI) => {
       if (!thunkAPI.extra.userService.token) {

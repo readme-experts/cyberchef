@@ -1,10 +1,10 @@
 import { RecipeModel } from '../../../services/models/RecipeModel';
 import { createAppAsyncThunk } from '../../store';
-import { RecipeError } from '../../slices/types/Recipe/RecipeState';
+import { RecipeStoreError } from '../../slices/types/Recipe/RecipeState';
 
 export const loadRecipes = createAppAsyncThunk<RecipeModel[],
   string,
-  { rejectValue: RecipeError }>(
+  { rejectValue: RecipeStoreError }>(
     'recipes/loadRecipes',
     async (queryString: string, thunkAPI) => {
       if (!thunkAPI.extra.recipeService.token) {

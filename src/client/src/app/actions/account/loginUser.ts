@@ -1,12 +1,12 @@
 
 import { createAppAsyncThunk } from '../../store';
-import { AuthError } from '../../slices/types/Auth/AuthState';
+import { AuthStoreError } from '../../slices/types/Auth/AuthState';
 import { AuthFulfilled } from '../../slices/types/Auth/AuthFulfilled';
 import { UserDTO } from '../../../services/DTO/UserDTO';
 
 export const loginUser = createAppAsyncThunk<AuthFulfilled,
   UserDTO,
-  { rejectValue: AuthError }>(
+  { rejectValue: AuthStoreError }>(
     'account/login',
     async (credentials: UserDTO, thunkAPI) => {
       const thunk = thunkAPI.extra.thunkErrorWrapper(
