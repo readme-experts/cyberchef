@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../app/store';
 
 function Header() {
-  const user = useSelector(state => state.account.user);
+  const user = useAppSelector(state => state.account.user);
   return (
     <header className='header'>
       <div className='header__left'>
