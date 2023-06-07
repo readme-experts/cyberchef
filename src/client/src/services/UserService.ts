@@ -1,13 +1,13 @@
 import BaseService from './BaseService';
 import UserError from './errors/UserError';
-import { Recipe } from './models/Recipe';
+import { RecipeModel } from './models/RecipeModel';
 
 export default class UserService extends BaseService {
   constructor(baseURL: string) {
     super(baseURL);
   }
 
-  async getUserRecipes(): Promise<Recipe[]> {
+  async getUserRecipes(): Promise<RecipeModel[]> {
     try {
       return await this.request(`/user/authored`, 'GET');
     } catch (error) {
@@ -15,7 +15,7 @@ export default class UserService extends BaseService {
     }
   }
 
-  async getFavoriteRecipes(): Promise<Recipe[]>  {
+  async getFavoriteRecipes(): Promise<RecipeModel[]>  {
     try {
       return await this.request(`/user`, 'GET');
     } catch (error) {

@@ -1,9 +1,9 @@
-import { Recipe } from '../../../services/models/Recipe';
+import { RecipeModel } from '../../../services/models/RecipeModel';
 import { AuthError } from '../../slices/types/Auth/AuthState';
 import { createAppAsyncThunk } from '../../store';
 
-export const deleteFavoriteRecipe = createAppAsyncThunk<Recipe,
-  Recipe,
+export const deleteFavoriteRecipe = createAppAsyncThunk<RecipeModel,
+  RecipeModel,
   { rejectValue: AuthError }>(
     'account/deleteFavoriteRecipe',
     async (recipe, thunkAPI) => {

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Recipe } from '../services/models/Recipe';
+import { RecipeModel } from '../services/models/RecipeModel';
 import { Link } from 'react-router-dom';
 interface Props {
-  recipe: Recipe,
-  clickHandler: (recipe: Recipe) => void,
-  deleteHandler: (recipe: Recipe) => void
+  recipe: RecipeModel,
+  clickHandler: (recipe: RecipeModel) => void,
+  deleteHandler: (recipe: RecipeModel) => void
 }
 
 function Recipe({ recipe, clickHandler, deleteHandler }: Props) {

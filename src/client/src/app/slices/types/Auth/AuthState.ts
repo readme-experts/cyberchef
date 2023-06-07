@@ -1,11 +1,11 @@
 import { User } from '../../../../services/models/User';
-import { Recipe } from '../../../../services/models/Recipe';
+import { RecipeModel } from '../../../../services/models/RecipeModel';
 
 export type AuthError =  Error | undefined | null;
 export interface AuthState {
   user: User | null,
   token: string | null,
-  userRecipes: Recipe[],
+  userRecipes: RecipeModel[],
   loading: boolean,
   error: AuthError
 }

@@ -1,6 +1,6 @@
 import BaseService from './BaseService';
 import RecipeError from './errors/RecipeError';
-import { Recipe } from './models/Recipe';
+import { RecipeModel } from './models/RecipeModel';
 import { RecipeDTO } from './DTO/RecipeDTO';
 
 export default class RecipeService extends BaseService {
@@ -16,7 +16,7 @@ export default class RecipeService extends BaseService {
     }
   }
 
-  async getRecipe(recipeId: number): Promise<Recipe> {
+  async getRecipe(recipeId: number): Promise<RecipeModel> {
     try {
       return await this.request(`/recipes/${recipeId}`, 'GET');
     } catch (error) {
@@ -24,7 +24,7 @@ export default class RecipeService extends BaseService {
     }
   }
 
-  async getRecipesByName(query: string): Promise<Recipe[]> {
+  async getRecipesByName(query: string): Promise<RecipeModel[]> {
     try {
       return await this.request(`/recipes?${query}`, 'GET');
     } catch (error) {

@@ -1,8 +1,8 @@
-import { Recipe } from '../../../services/models/Recipe';
+import { RecipeModel } from '../../../services/models/RecipeModel';
 import { createAppAsyncThunk } from '../../store';
 import { RecipeError } from '../../slices/types/Recipe/RecipeState';
 
-export const loadRecipes = createAppAsyncThunk<Recipe[],
+export const loadRecipes = createAppAsyncThunk<RecipeModel[],
   string,
   { rejectValue: RecipeError }>(
     'recipes/loadRecipes',

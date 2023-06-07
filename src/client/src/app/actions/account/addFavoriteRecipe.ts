@@ -1,12 +1,12 @@
 import { createAppAsyncThunk } from '../../store';
-import { Recipe } from '../../../services/models/Recipe';
+import { RecipeModel } from '../../../services/models/RecipeModel';
 import { AuthError } from '../../slices/types/Auth/AuthState';
 
-export const addFavoriteRecipe = createAppAsyncThunk<Recipe,
-  Recipe,
+export const addFavoriteRecipe = createAppAsyncThunk<RecipeModel,
+  RecipeModel,
   { rejectValue: AuthError }>(
     'account/addFavoriteRecipe',
-    async (recipe: Recipe, thunkAPI) => {
+    async (recipe: RecipeModel, thunkAPI) => {
       if (!thunkAPI.extra.userService.token) {
         thunkAPI.extra.userService.setToken(thunkAPI.getState().account.token);
       }

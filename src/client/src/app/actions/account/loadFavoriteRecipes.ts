@@ -1,8 +1,8 @@
 import { createAppAsyncThunk } from '../../store';
-import { Recipe } from '../../../services/models/Recipe';
+import { RecipeModel } from '../../../services/models/RecipeModel';
 import { AuthError } from '../../slices/types/Auth/AuthState';
 
-export const loadFavoriteRecipes = createAppAsyncThunk<Recipe[],
+export const loadFavoriteRecipes = createAppAsyncThunk<RecipeModel[],
   null,
   { rejectValue: AuthError }>(
     'account/loadUserFavorites',

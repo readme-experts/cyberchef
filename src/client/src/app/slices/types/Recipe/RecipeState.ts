@@ -1,8 +1,8 @@
-import { Recipe } from '../../../../services/models/Recipe';
+import { RecipeModel } from '../../../../services/models/RecipeModel';
 
 export type RecipeError = string | Error | null | undefined;
 export interface RecipeState {
-  recipes: Recipe[],
+  recipes: RecipeModel[],
   loading: boolean,
   error: RecipeError
 }
