@@ -1,23 +1,24 @@
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Recipe from '../components/Recipe';
 import ErrorMessage from '../components/ErrorMessage';
 import { loadFavoriteRecipes } from '../app/actions/account/loadFavoriteRecipes';
 import Loader from '../components/Loader';
 import { deleteFavoriteRecipe } from '../app/actions/account/deleteFavoriteRecipe';
+import { useAppDispatch, useAppSelector } from '../app/store';
+import { RecipeModel } from '../services/models/RecipeModel';
 
 function User() {
-  const userRecipes = useSelector(state => state.account.userRecipes);
-  const { error, loading } = useSelector(state => state.account);
-  const dispatch = useDispatch();
-  const deleteHandler = useCallback(recipe => {
+  const userRecipes = useAppSelector(state => state.account.userRecipes);
+  const { error, loading } = useAppSelector(state => state.account);
+  const dispatch = useAppDispatch();
+  const deleteHandler = useCallback((recipe: RecipeModel) => {
     dispatch(deleteFavoriteRecipe(recipe));
   },
   [],
   );
 
   useEffect(() => {
-    dispatch(loadFavoriteRecipes());
+    dispatch(loadFavoriteRecipes(null));
   }, []);
 
   if (loading) return <Loader />;
