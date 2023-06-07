@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { User } from '../services/models/User';
 
 interface Props {
-  user: User,
+  user: User | null,
   children: React.FunctionComponent
 }
 
