@@ -1,5 +1,5 @@
 import { RecipeModel } from '../../../services/models/RecipeModel';
-import { createAppAsyncThunk } from '../../store';
+import { createAppAsyncThunk } from '../../utils/createAppAsync';
 import { RecipeStoreError } from '../../slices/types/Recipe/RecipeState';
 
 export const loadRecipes = createAppAsyncThunk<RecipeModel[],

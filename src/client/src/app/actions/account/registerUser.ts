@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '../../store';
+import { createAppAsyncThunk } from '../../utils/createAppAsync';
 import { AuthFulfilled } from '../../slices/types/Auth/AuthFulfilled';
 import { UserDTO } from '../../../services/DTO/UserDTO';
 import { AuthStoreError } from '../../slices/types/Auth/AuthState';

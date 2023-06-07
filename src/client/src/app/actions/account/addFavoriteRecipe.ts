@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '../../store';
+import { createAppAsyncThunk } from '../../utils/createAppAsync';
 import { RecipeModel } from '../../../services/models/RecipeModel';
 import { AuthStoreError } from '../../slices/types/Auth/AuthState';
 
