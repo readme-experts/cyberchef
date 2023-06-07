@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import ValidationError from '../features/ValidationError';
 import { loginUser } from '../app/actions/account/loginUser';
 import ErrorMessage from '../components/ErrorMessage';
-import { useAppSelector } from '../app/store';
+import { useAppDispatch, useAppSelector } from '../app/store';
 
 function Login() {
   const { error, user } = useAppSelector(state => state.account);
@@ -12,17 +11,18 @@ function Login() {
     email: '',
     password: '',
   });
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<ValidationError[]>([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const handleChange = e => {
+  const dispatch = useAppDispatch();
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value.trim(),
+      [target.name]: target.value.trim(),
     });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrors([]);
     const validationErrors = ValidationError.validate(formData);
@@ -45,7 +45,7 @@ function Login() {
     <div className='container'>
       <form action='#' className='login' onSubmit={handleSubmit}>
         <h3 className='login__heading'>Login</h3>
-        { error && <ErrorMessage error={error}></ErrorMessage>}
+        { error && <ErrorMessage error={error} />}
         <div >
           <label htmlFor='name' className='login__label'>Email</label><br />
           <input
