@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-Search.propTypes = {
-  searchCallback: PropTypes.func,
-};
+interface Props {
+  searchCallback: (event: React.FormEvent<HTMLFormElement>, formData: {queryString: string}) => void
+}
 
-function Search({ searchCallback }) {
+function Search({ searchCallback } : Props) {
   const [formData, setFormData] = useState({
     queryString: '',
   });
-  const handleChange = e => {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value.trim(),
+      [target.name]: target.value.trim(),
     });
   };
 
