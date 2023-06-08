@@ -32,7 +32,8 @@
   },
   "scripts": {
     "installDependecies": "npm install && npm install --prefix src/client",
-    "start": " npm run --prefix src/client build && nest start",
+    "build": "npm run --prefix src/client build && nest build"
+    "start":" npm run --prefix src/client build && nest start",
     "start:dev": "nest start --watch"
   },
   "devDependencies": {
