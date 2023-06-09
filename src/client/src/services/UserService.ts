@@ -23,14 +23,14 @@ export default class UserService extends BaseService {
     }
   }
 
-  async addFavoriteRecipe(userId: number, recipeId: number) {
+  async addFavoriteRecipe(userId: number, recipeId: number): Promise<void> {
     try {
       return await this.request(`/user`, 'POST', { userId, recipeId });
     } catch (error) {
       throw new UserError('Error adding favorite recipe: ' + (error as Error).message);
     }
   }
-  async deleteFavoriteRecipe(recipeId: number) {
+  async deleteFavoriteRecipe(recipeId: number): Promise<void> {
     try {
       return await this.request(`/user`, 'DELETE', recipeId);
     } catch (error) {
