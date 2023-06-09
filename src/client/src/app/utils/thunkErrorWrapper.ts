@@ -1,7 +1,7 @@
 import BaseService from '../../services/BaseService';
 
 export function thunkErrorWrapper<ReturnType, Args>(method: (...args : Args[]) => ReturnType,
-  rejectWithValue: (error: string) => void,
+  rejectWithValue: (value: Error) => any,
   context: BaseService | null = null) {
   return async (...args : Args[]) => {
     try {
