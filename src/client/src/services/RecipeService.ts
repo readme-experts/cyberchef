@@ -24,7 +24,7 @@ export default class RecipeService extends BaseService {
     }
   }
 
-  async getRecipesByName(query: string): Promise<RecipeModel[]> {
+  async getRecipesByName(query: URLSearchParams): Promise<RecipeModel[]> {
     try {
       return await this.request(`/recipes?${query}`, 'GET');
     } catch (error) {
