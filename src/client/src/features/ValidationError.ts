@@ -1,10 +1,10 @@
-export const enum ValidationErrors {
+export enum ValidationErrors {
   Email = 'email',
   Password = 'password',
   Confirm = 'confirm',
 }
 
-export const enum ValidationDescriptions {
+export enum ValidationDescriptions {
   Email = 'Invalid email',
   PasswordShort = 'Password is shorter than 8 symbols',
   PasswordEmpty = 'Password is required',
@@ -36,9 +36,5 @@ export default class ValidationError {
       ValidationErrors.Confirm, ValidationDescriptions.Confirm,
     ));
     return validationErrors;
-  }
-
-  toString() {
-    return this.description;
   }
 }
