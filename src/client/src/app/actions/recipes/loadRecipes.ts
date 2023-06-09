@@ -1,6 +1,7 @@
 import { RecipeModel } from '../../../services/models/RecipeModel';
-import { createAppAsyncThunk } from '../../utils/createAppAsync';
+import { createAppAsyncThunk } from '../../utils/createAppAsyncThunk';
 import { RecipeStoreError } from '../../slices/types/Recipe/RecipeState';
+import { thunkErrorWrapper } from '../../utils/thunkErrorWrapper';
 
 export const loadRecipes = createAppAsyncThunk<RecipeModel[],
   string,
@@ -10,7 +11,7 @@ export const loadRecipes = createAppAsyncThunk<RecipeModel[],
       if (!thunkAPI.extra.recipeService.token) {
         thunkAPI.extra.recipeService.setToken(thunkAPI.getState().account.token);
       }
-      const thunk = thunkAPI.extra.thunkErrorWrapper(
+      const thunk = thunkErrorWrapper(
         thunkAPI.extra.recipeService.getRecipesByName,
         thunkAPI.rejectWithValue,
         thunkAPI.extra.recipeService
