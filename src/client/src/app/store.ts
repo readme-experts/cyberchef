@@ -1,9 +1,8 @@
-import { Action, combineReducers, configureStore, createAsyncThunk, ThunkAction } from '@reduxjs/toolkit';
+import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import accountReducer from './slices/accountSlice';
 import recipesReducer from './slices/recipesSlice';
 import AuthService from '../services/AuthService';
 import RecipeService from '../services/RecipeService';
-import { thunkErrorWrapper } from './utils/thunkErrorWrapper';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import UserService from '../services/UserService';
 
@@ -25,7 +24,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: { recipeService, authService, userService, thunkErrorWrapper },
+        extraArgument: { recipeService, authService, userService },
       },
     }),
 });
