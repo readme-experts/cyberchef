@@ -1,21 +1,22 @@
 import { createAppAsyncThunk } from '../../utils/createAppAsyncThunk';
 import { AuthStoreError } from '../../slices/types/Auth/AuthState';
 import { thunkErrorWrapper } from '../../utils/thunkErrorWrapper';
+import { RecipeModel } from '../../../services/models/RecipeModel';
 
-export const addFavoriteRecipe = createAppAsyncThunk<Promise<void>,
-  { userId: number, recipeId: number },
+export const addFavoriteRecipe = createAppAsyncThunk<RecipeModel,
+  { userId: number, recipe: RecipeModel },
   { rejectValue: AuthStoreError }>(
     'account/addFavoriteRecipe',
-    async (ids: { userId: number, recipeId: number }, thunkAPI) => {
+    async ({ userId, recipe }, thunkAPI) => {
       if (!thunkAPI.extra.userService.token) {
         thunkAPI.extra.userService.setToken(thunkAPI.getState().account.token);
       }
-      const { userId, recipeId } = ids;
       const thunk = thunkErrorWrapper(
         thunkAPI.extra.userService.addFavoriteRecipe,
         thunkAPI.rejectWithValue,
         thunkAPI.extra.userService
       );
-      return await thunk(userId, recipeId);
+      await thunk(userId, recipe.id);
+      return recipe;
     },
   );
