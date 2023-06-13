@@ -19,6 +19,7 @@
     "dotenv": "^16.1.4",
     "express": "^4.17.2",
     "express-validator": "^6.14.0",
+    "json-beautify": "^1.1.1",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
     "passport": "^0.6.0",
@@ -33,7 +34,7 @@
   "scripts": {
     "installDependecies": "npm install && npm install --prefix src/client",
     "build": "npm run --prefix src/client build && nest build",
-    "start":" npm run --prefix src/client build && nest start",
+    "start": " npm run --prefix src/client build && nest start",
     "start:dev": "nest start --watch"
   },
   "devDependencies": {
