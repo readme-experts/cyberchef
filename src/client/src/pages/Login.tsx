@@ -4,6 +4,7 @@ import ValidationError from '../features/ValidationError';
 import { loginUser } from '../app/actions/account/loginUser';
 import ErrorMessage from '../components/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../app/store';
+import { UserDTO } from '../services/DTO/UserDTO';
 
 function Login() {
   const { error, user } = useAppSelector(state => state.account);
@@ -30,7 +31,8 @@ function Login() {
       setErrors(validationErrors);
       return;
     }
-    dispatch(loginUser(formData));
+    const dto: UserDTO = { ...formData, username: formData.email };
+    dispatch(loginUser(dto));
   };
   const failedValidationStyles = {
     outline: '1px solid red',
