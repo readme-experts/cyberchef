@@ -4,19 +4,24 @@ import { thunkErrorWrapper } from '../../utils/thunkErrorWrapper';
 import { RecipeModel } from '../../../services/models/RecipeModel';
 
 export const deleteFavoriteRecipe = createAppAsyncThunk<RecipeModel,
-  { recipe : RecipeModel },
+  RecipeModel,
   { rejectValue: AuthStoreError }>(
     'account/deleteFavoriteRecipe',
-    async ({ recipe }, thunkAPI) => {
+    async (recipe, thunkAPI) => {
+      const user = thunkAPI.getState().account.user;
+      const token = thunkAPI.getState().account.token;
       if (!thunkAPI.extra.userService.token) {
-        thunkAPI.extra.userService.setToken(thunkAPI.getState().account.token);
+        thunkAPI.extra.userService.setToken(token);
+      }
+      if (!user) {
+        return thunkAPI.rejectWithValue(new Error('No user provided'));
       }
       const thunk = thunkErrorWrapper(
         thunkAPI.extra.userService.deleteFavoriteRecipe,
         thunkAPI.rejectWithValue,
         thunkAPI.extra.userService
       );
-      await thunk(recipe.id);
+      await thunk(user.id, recipe.id);
       return recipe;
     },
   );
