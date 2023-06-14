@@ -24,7 +24,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
-    "puppeteer": "^13.0.1",
+    "puppeteer": "^13.7.0",
     "source-map-support": "^0.5.21",
     "tsconfig-paths": "4.1.1",
     "typescript": "^4.9.4",
@@ -33,7 +33,7 @@
   "scripts": {
     "installDependecies": "npm install && npm install --prefix src/client",
     "build": "npm run --prefix src/client build && nest build",
-    "start":" npm run --prefix src/client build && nest start",
+    "start": " npm run --prefix src/client build && nest start",
     "start:dev": "nest start --watch"
   },
   "devDependencies": {
