@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../app/store';
+import { RecipeModel } from '../services/models/RecipeModel';
 
 function RecipePage() {
-  const [recipe, setRecipe] = useState(null);
-  const id = useParams().id;
+  const [recipe, setRecipe] = useState<RecipeModel | null>(null);
+  const params = useParams();
+  const id =  params ? params.id : 0;
 
   useEffect(() => {
-    const recipes = useSelector(state => state.recipes.recipes);
-    const foundRecipe = recipes.filter(item => item.id === id);
+    const recipes = useAppSelector(state => state.recipes.recipes);
+    const foundRecipe = recipes.find(item => item.id === id);
     if (foundRecipe) {
       setRecipe(foundRecipe);
     }
