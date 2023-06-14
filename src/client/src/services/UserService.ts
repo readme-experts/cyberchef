@@ -30,9 +30,9 @@ export default class UserService extends BaseService {
       throw new UserError('Error adding favorite recipe: ' + (error as Error).message);
     }
   }
-  async deleteFavoriteRecipe(recipeId: number): Promise<void> {
+  async deleteFavoriteRecipe(userId: number, recipeId: number): Promise<void> {
     try {
-      return await this.request(`/user`, 'DELETE', recipeId);
+      return await this.request(`/user`, 'DELETE', { userId, recipeId });
     } catch (error) {
       throw new UserError('Error deleting favorite recipe: ' + (error as Error).message);
     }
