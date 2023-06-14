@@ -1,6 +1,6 @@
 export interface UserDTO {
   email: string,
-  username?: string,
+  username: string,
   imageLink?: string,
   password: string,
 }
