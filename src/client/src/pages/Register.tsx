@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import ValidationError from '../features/ValidationError';
 import { registerUser } from '../app/actions/account/registerUser';
 import ErrorMessage from '../components/ErrorMessage';
+import { useAppDispatch, useAppSelector } from '../app/store';
+import { UserDTO } from '../services/DTO/UserDTO';
 
 
 function Register() {
-  const { error, user } = useSelector(state => state.account);
-  const [errors, setErrors] = useState([]);
-  const dispatch = useDispatch();
+  const { error, user } = useAppSelector(state => state.account);
+  const [errors, setErrors] = useState<ValidationError[]>([]);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirm: '',
   });
-  const handleChange = e => {
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value.trim(),
+      [target.name]: target.value.trim(),
     });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validationErrors = ValidationError.validate(formData);
     if (validationErrors.length) {
       setErrors(validationErrors);
       return;
     }
-    dispatch(registerUser({
+    const dto: UserDTO = {
+      username: formData.email,
       email: formData.email,
       password: formData.password,
-    }));
+    };
+    dispatch(registerUser(dto));
   };
   const failedValidationStyles = {
     'outline': '1px solid red',

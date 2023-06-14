@@ -8,12 +8,12 @@ export const loginUser = createAppAsyncThunk<AuthFulfilled,
   UserDTO,
   { rejectValue: AuthStoreError }>(
     'account/login',
-    async ({ email, password }: UserDTO, thunkAPI) => {
+    async (dto: UserDTO, thunkAPI) => {
       const thunk = thunkErrorWrapper(
         thunkAPI.extra.authService.login,
         thunkAPI.rejectWithValue,
         thunkAPI.extra.authService
       );
-      return await thunk(email, password);
+      return await thunk(dto.username, dto.password);
     }
   );

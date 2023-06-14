@@ -8,5 +8,5 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: RootState,
   dispatch: AppDispatch,
   rejectValue: string,
-  extra: { recipeService: RecipeService, authService: AuthService, userService: UserService,  thunkErrorWrapper: any }
+  extra: { recipeService: RecipeService, authService: AuthService, userService: UserService }
 }>();
