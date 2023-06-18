@@ -34,7 +34,8 @@
     "installDependecies": "npm install && npm install --prefix src/client",
     "build": "npm run --prefix src/client build && nest build",
     "start": "npm run --prefix src/client build && nest start",
-    "start:dev": "nest start --watch"
+    "start:dev": "nest start --watch",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -45,6 +46,7 @@
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "prisma": "^4.8.1"
   }
 }
