@@ -1,5 +1,5 @@
 import BaseService from '../../services/BaseService';
-
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export function thunkErrorWrapper<ReturnType, Args>(method: (...args : Args[]) => ReturnType,
   rejectWithValue: (value: Error) => any,
   context: BaseService | null = null) {
