@@ -4,7 +4,7 @@ import { AuthStoreError } from '../../slices/types/Auth/AuthState';
 import { thunkErrorWrapper } from '../../utils/thunkErrorWrapper';
 
 export const loadFavoriteRecipes = createAppAsyncThunk<RecipeModel[],
-  any,
+  never,
   { rejectValue: AuthStoreError }>(
     'account/loadUserFavorites',
     async (_, thunkAPI) => {
