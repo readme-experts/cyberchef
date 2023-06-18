@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { createProxyMiddleware } = require('http-proxy-middleware');
 import * as dotenv from 'dotenv';
