@@ -31,7 +31,7 @@ module.exports = {
     "block-spacing": ["error", "always"],
     "camelcase": [
       "error",
-      { "allow": ["user_id", "recipe_id", "category_id", "image_link", "user1_id", "user2_id"] }
+      { "allow": ["user_id", "recipe_id", "category_id", "image_link"] }
     ],
     "eqeqeq": ["error", "always"],
     "strict": ["error", "global"],
