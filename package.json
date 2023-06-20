@@ -31,7 +31,7 @@
     "vue": "^2.6.14"
   },
   "scripts": {
-    "installDependencies": "npm install && npm install --prefix src/client",
+    "installDependecies": "npm install && npm install --prefix src/client",
     "preinstall": "npx prisma generate --schema=./src/server/prisma/schema.prisma",
     "lint": "eslint ./src/server/ --fix --ext .ts  && eslint ./src/client/src --fix",
     "build": "npm run --prefix src/client build && nest build",
