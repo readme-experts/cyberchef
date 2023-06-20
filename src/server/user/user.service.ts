@@ -21,4 +21,8 @@ export class UserService {
   async deleteRecipe(recipeData) {
     return await this.user.deleteRecipe(recipeData);
   }
+
+  async addAvatar(avatarData): Promise<UserEntity> {
+    return await this.user.addAvatar(avatarData);
+  }
 }

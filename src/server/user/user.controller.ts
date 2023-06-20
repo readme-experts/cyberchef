@@ -59,4 +59,18 @@ export class UserController {
     const recipeData = { userId, recipeId };
     return this.userService.deleteRecipe(recipeData);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  async addUserAvatar(@Request() req, @Res() res) {
+    const userId = req.user.userId;
+    const imageLink = req.body.imageLink;
+    if (!imageLink) {
+      res.code(400).send({ error: 'no link for image provided' });
+      return res;
+    } else {
+      const avatarData = { userId, imageLink };
+      return await this.userService.addAvatar(avatarData);
+    }
+  }
 }

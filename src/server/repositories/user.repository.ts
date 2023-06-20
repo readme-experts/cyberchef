@@ -64,6 +64,13 @@ export class UserRepository {
     }
   }
 
+  async addAvatar(avatarData): Promise<UserEntity> {
+    return this.prisma.users.update({
+      where: { id: avatarData.userId },
+      data: { image_link: avatarData.imageLink },
+    });
+  }
+
   async addFriends(user1Id: string, user2Id: string) {
     try {
       await this.prisma.friendships.create({
