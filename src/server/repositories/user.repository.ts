@@ -63,4 +63,36 @@ export class UserRepository {
       return false;
     }
   }
+
+  async addFriends(user1Id: string, user2Id: string) {
+    try {
+      await this.prisma.friendships.create({
+        data: {
+          user1_id: parseInt(user1Id),
+          user2_id: parseInt(user2Id),
+        },
+      });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  async deleteFriendship(user1Id: string, user2Id: string): Promise<boolean> {
+    try {
+      await this.prisma.friendships.deleteMany({
+        where: {
+          OR: [
+            { user1_id: parseInt(user1Id), user2_id: parseInt(user2Id) },
+            { user1_id: parseInt(user2Id), user2_id: parseInt(user1Id) },
+          ],
+        },
+      });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
 }
