@@ -63,4 +63,11 @@ export class UserRepository {
       return false;
     }
   }
+
+  async addAvatar(avatarData): Promise<UserEntity> {
+    return this.prisma.users.update({
+      where: { id: avatarData.userId },
+      data: { image_link: avatarData.imageLink },
+    });
+  }
 }
