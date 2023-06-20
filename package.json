@@ -31,7 +31,7 @@
     "vue": "^2.6.14"
   },
   "scripts": {
-    "installDependecies": "npm install && npm install --prefix src/client",
+    "installDependencies": "npm install && npm install --prefix src/client",
     "lint": "eslint ./src/server/ --fix --ext .ts  && eslint ./src/client/src --fix",
     "build": "npm run --prefix src/client build && nest build",
     "start": "npm run --prefix src/client build && nest start",
